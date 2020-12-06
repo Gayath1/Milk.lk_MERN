@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
@@ -30,6 +31,21 @@ const CreateProduct = (props) => {
     }
 
     return (
+        <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <Link to="/" className="navbar-brand">MILK.LK Admin</Link>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <Link to="/list" className="nav-link">List Product</Link>
+              </li>
+              
+              <li className="navbar-item">
+                <Link to="/create" className="nav-link">Create Product</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
         <div style={{ marginTop: 10 }}>
             <h3><AiOutlineUserAdd /> Add Product</h3>
             <Form onSubmit={onSubmitProductData}>
@@ -79,6 +95,7 @@ const CreateProduct = (props) => {
                 </FormGroup>
                 <Button color="primary"><AiOutlineForward /> Submit</Button>
             </Form>
+        </div>
         </div>
     );
 }

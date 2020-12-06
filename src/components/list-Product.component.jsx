@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+
 import { Table, Badge } from 'reactstrap';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
@@ -32,6 +33,25 @@ const ListProduct = () => {
     }, []);
 
     return (
+        <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <Link to="/" className="navbar-brand">MILK.LK Admin</Link>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <Link to="/list" className="nav-link">List Product</Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/create" className="nav-link">Create Product</Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/" className="nav-link">LogOut</Link>
+              </li>
+            </ul>
+          </div>
+        </nav>
+        
+      
         <div>
             <h3>List Product</h3>
             <Table striped style={{ marginTop: 20 }}>
@@ -49,6 +69,8 @@ const ListProduct = () => {
                     ))}
                 </tbody>
             </Table>
+        </div>
+
         </div>
     );
 }

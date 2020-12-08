@@ -10,6 +10,8 @@ mongoose.set('useCreateIndex', true);
 const saltRounds = 10;
 
 
+
+
 const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router();
 
@@ -53,7 +55,7 @@ crudRoutes.route('/add').post((req, res) => {
     list.save().then(list => {
         res.status(200).json({'list': 'Product added successfully'});
     }).catch(err => {
-        res.status(400).send('Adding failed');
+        res.status(400).send('oktaClient');
     });
 });
 
@@ -92,32 +94,25 @@ app.listen(PORT, () => {
 
 
 
-router.post('/register', (req, res, next) => {
-	
-    var email = req.body.email;
-    var password = req.body.password;
-    console.log(email);
-
-     var existingUser =  User.findOne({ email: email });
-     if (existingUser){
-       return res
-         .status(400)
-         .json({ msg: "An account with this email already exists." });
-     }
-	else{
-            var newPerson = new User({
+router.route('/register').post((req, res) => {
+    
+    var newUser = new User({
               
-                email: email,
-                
-                password: password,});
-            }
-             newPerson.save();
-            
+        email: req.body.email,
+        
+        password: req.body.password,});
 
-			});
-		
-		
+        
+        newUser.save()
+        .then(user => {
+          res.status(201);
+          res.send(user);
+        })
+        .catch(err => {
+          res.status(400);
+          res.send(err);
+        });
 
-
+});
 
 app.use('/api', router);

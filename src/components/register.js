@@ -7,8 +7,8 @@ import axios from 'axios';
 const Createuser = (props) => {
     const [data, setData] = useState({
         
-        user_email: "",
-        user_password: "",
+        email: "",
+        password: "",
         
     });
 
@@ -21,11 +21,11 @@ const Createuser = (props) => {
 
     const onSubmituserData = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:4000/data/register', data).then(res => console.log(res.data));
+        axios.post('http://localhost:4000/api/register', data).then(res => console.log(res.data));
         setData({
             
-            user_email: "",
-            user_password: "",
+            email: "",
+            password: "",
         });
     }
 
@@ -54,9 +54,9 @@ const Createuser = (props) => {
                         <Label><AiOutlineExport /> email </Label>
                         <Input
                             type="text"
-                            name="user_email"
+                            name="email"
                             className="form-control"
-                            value={data.user_email}
+                            value={data.email}
                             onChange={onChangeuserData} />
                     </Col>
                 </FormGroup>
@@ -65,9 +65,9 @@ const Createuser = (props) => {
                         <Label><AiOutlineExport /> password</Label>
                         <Input
                             type="text"
-                            name="user_password"
+                            name="password"
                             className="form-control"
-                            value={data.user_password}
+                            value={data.password}
                             onChange={onChangeuserData} />
                     </Col>
                 </FormGroup>

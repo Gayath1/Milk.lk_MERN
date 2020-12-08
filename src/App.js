@@ -11,7 +11,7 @@ import CreateProduct from './components/create-Product.component';
 import DeleteProduct from './components/delete-Product.component';
 import Login from './components/login';
 import Register from './components/register';
-import withAuth from './components/withAuth';
+
 
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />
-        <Route path="/home" component={withAuth(Home)} />
+        
       
     </Router>
     

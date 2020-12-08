@@ -1,122 +1,62 @@
-import React,  {useState} from "react";
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
- 
-
-
-
-    
-   
-
-
-    const SignIn = () => {
-        const [email, setEmail] = useState('');
-        const [password, setPassword] = useState('');
-        const [error, setError] = useState(null);
-        const signInWithEmailAndPasswordHandler = 
-                (event,email, password) => {
-                    event.preventDefault();
-        };
-    
-          const onChangeHandler = (event) => {
-              const {name, value} = event.currentTarget;
-    
-              if(name === 'userEmail') {
-                  setEmail(value);
-              }
-              else if(name === 'userPassword'){
-                setPassword(value);
-              }
-              const { currentUser } = useContext(AuthContext);
-if (currentUser) {
-  return <Redirect to="/link" />;
-}
-          }
-          
-    
-    
-return (
-    
-      <div className="rectangle">
-        
-          <div className="col s8 offset-s2">
-            <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left"></i> Back to
-              home
-            </Link>
-            <div className="cols12">
-              <h4>
-                <b>Login</b>
-              </h4>
-              <p className="grey-text text-darken-1">
-                Don't have an account? <Link to="/register">Register</Link>
-              </p>
-            </div>
-            <form >
-              
-            <div className="form-group">
-      
-    
-         
-         
-                <input
-                  name="userEmail"
-                  value = {email}
-                  className="form-control"
-                  id="userEmail"
-                  type="email"
-                  placeholder="Your e-mail"
-                  onChange = {(event) => onChangeHandler(event)}
-                  
-                />
-                </div>
-                
-              
-              <br/>
-              <div className="form-group">
-         
-                <input
-                    name="userPassword"
-                    value = {password}
-                  className="form-control"
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  onChange = {(event) => onChangeHandler(event)}
-                  
-                />
-                </div>
-                
-               
-                
-             
-                
-                <button
-                
-          
-                  
-                  type="submit"
-                  className="btn_login"
-                >
-                  Login
-                </button>
-               
-              
-            </form>
-          </div>
-        </div>
-        
-          
-        
-          
-          
-           
-        
-
-        
-        
-    );
-    
+import React, { Component } from 'react';
+export default class Login extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email : '',
+      password: ''
+    };
   }
-  
-
-export default SignIn;
+  handleInputChange = (event) => {
+    const { value, name } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  onSubmit = (event) => {
+    event.preventDefault();
+    fetch('/authenticate', {
+      method: 'POST',
+      body: JSON.stringify(this.state),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      if (res.status === 200) {
+        this.props.history.push('/');
+      } else {
+        const error = new Error(res.error);
+        throw error;
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert('Error logging in please try again');
+    });
+  }
+  render() {
+    return (
+      <form onSubmit={this.onSubmit}>
+        <h1>Login Below!</h1>
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter email"
+          value={this.state.email}
+          onChange={this.handleInputChange}
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter password"
+          value={this.state.password}
+          onChange={this.handleInputChange}
+          required
+        />
+       <input type="submit" value="Submit"/>
+      </form>
+    );
+  }
+}

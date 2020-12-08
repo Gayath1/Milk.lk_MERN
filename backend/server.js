@@ -2,18 +2,31 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const PORT = 4000;
+const router = require("express").Router();
+mongoose.set('useCreateIndex', true);
+const saltRounds = 10;
 
+
+const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router();
+
 let Crud = require('./crud.model');
+const User = require('./user');
+
+const bcrypt = require('bcryptjs');
+
+
+
 
 
 app.use(cors());
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
-    { useNewUrlParser: true });
+    { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 
 connection.once('open', () => {
@@ -44,6 +57,8 @@ crudRoutes.route('/add').post((req, res) => {
     });
 });
 
+app.use(cookieParser());
+
 crudRoutes.route('/update/:id').post((req, res) => {
     Crud.findById(req.params.id, (err, data) => {
         if (!data) res.status(404).send("Product is not found");
@@ -68,10 +83,41 @@ crudRoutes.route('/delete/:id').delete((req, res) => {
         if (err) return res.status(500).send("There was a problem deleting the product.");
         res.status(200).send(`product ${data.product_name} was deleted`);
     })
-})
-
+});
 app.use('/all_product', crudRoutes);
 
 app.listen(PORT, () => {
     console.log("Server is running on PORT: " + PORT);
 })
+
+
+
+router.post('/register', (req, res, next) => {
+	
+    var email = req.body.email;
+    var password = req.body.password;
+    console.log(email);
+
+     var existingUser =  User.findOne({ email: email });
+     if (existingUser){
+       return res
+         .status(400)
+         .json({ msg: "An account with this email already exists." });
+     }
+	else{
+            var newPerson = new User({
+              
+                email: email,
+                
+                password: password,});
+            }
+             newPerson.save();
+            
+
+			});
+		
+		
+
+
+
+app.use('/api', router);

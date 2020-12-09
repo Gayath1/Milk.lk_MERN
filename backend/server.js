@@ -105,13 +105,18 @@ router.route('/register').post((req, res) => {
         
         var password = req.body.password;
 
+        var salt =  bcrypt.genSaltSync(saltRounds);
+    var passwordHash = bcrypt.hashSync(password, salt);
+
         User.findOne({email:user.email}, function (err, existingUser){
             if(existingUser == null){
+
+       
                 var newUser = new User({
               
                     email: email,
                     
-                    password: password,});
+                    password: passwordHash,});
             
                     
                     newUser.save()

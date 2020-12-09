@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .App-link {
@@ -37,63 +37,49 @@
   }
 }
 
-.rectangle{
-background: #FFFFFF;
-box-shadow: 0px 4px 4px rgba(165, 52, 52, 0.48);
-border-radius: 20px;
-position: absolute;
-width: 1100px;
-height: 475px;
-left : 120px;
-top: 120px;
-
+.rectangle {
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(165, 52, 52, 0.48);
+  border-radius: 20px;
+  position: absolute;
+  width: 1100px;
+  height: 475px;
+  left: 120px;
+  top: 120px;
 }
-.btn_login{
-  background: linear-gradient(180deg, #3154CF 0%, #499DEB 100%);
-  
-border-radius: 10px;
-position: absolute;
-width: 616.78px;
-height: 60.26px;
-left: 252.3px;
-top: 320px;
+.btn_login {
+  background: linear-gradient(180deg, #3154cf 0%, #499deb 100%);
 
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-font-style: normal;
-font-weight: 600;
-font-size: 20px;
-color: #FFFFFF;
+  border-radius: 10px;
+  position: absolute;
+  width: 616.78px;
+  height: 60.26px;
+  left: 252.3px;
+  top: 320px;
 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  color: #ffffff;
 }
 
-.cols12{
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-font-style: normal;
-font-weight: 600;
-font-size: 35px;
-line-height: 48px;
-margin-left: 250px;
+.cols12 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 35px;
+  line-height: 48px;
+  margin-left: 250px;
 
+  /* identical to box height */
 
-/* identical to box height */
-
-
-color: #332f2f;
-  
+  color: #332f2f;
 }
-.input-fieldcols12{
-  background: #dad5d5;
-opacity: 0.1;
-border: 1px solid #000000;
-box-sizing: border-box;
-border-radius: 10px;
-width: 616.8px;
-height: 60px;
-margin-left: 110px;
-font-style: unset;
-text-emphasis-color: black;
-
-
-
-
+.input-fieldcols12 {
+  width: 616.8px;
+  height: 60px;
+  margin-left: 100px;
 }

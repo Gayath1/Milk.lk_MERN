@@ -4,6 +4,7 @@ import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
 
+
 const Createuser = (props) => {
     const [data, setData] = useState({
         
@@ -43,27 +44,32 @@ const Createuser = (props) => {
                
                 <FormGroup row>
                     <Col>
-                        
-                        <Input 
+                        <div className="input-fieldcols12">
+                        <Input
                             
                             placeholder = "your Email"
-                            type="text"
+                            type="Email"
                             name="email"
-                            className="input-fieldcols12"
+                            required
+                            className="form-control"
                             value={data.email}
-                            onChange={onChangeuserData} />
+                            onChange={onChangeuserData} /> 
+                            </div>
                     </Col>
                 </FormGroup>
+                <br/>
                 <FormGroup row>
                     <Col>
-                        
+                    <div className="input-fieldcols12">
                         <Input
                             placeholder = "Your password"
-                            type="text"
+                            type="password"
                             name="password"
-                            className="input-fieldcols12"
+                            required
+                            className="form-control"
                             value={data.password}
                             onChange={onChangeuserData} />
+                            </div>
                     </Col>
                 </FormGroup>
                 <Button className="btn_login"> Signup</Button>

@@ -1,9 +1,9 @@
 import React from 'react';
-import fire from './firebase';
+
 
 const Home = () => {
     const handleLogout = () => {
-        fire.auth().signOut();
+        
       };
     
     return(

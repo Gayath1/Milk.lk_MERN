@@ -30,48 +30,43 @@ const Createuser = (props) => {
     }
 
     return (
-        <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <Link to="/" className="navbar-brand">MILK.LK register</Link>
-          <div className="collapse navbar-collapse">
-            <ul className="navbar-nav mr-auto">
-              <li className="navbar-item">
-                <Link to="/list" className="nav-link">List Product</Link>
-              </li>
+       <div className="rectangle">
+         
+                <Link to="/list" className="cols12">Create Account</Link>
+    
               
-              <li className="navbar-item">
-                <Link to="/create" className="nav-link">Create Product</Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        
+         
         <div style={{ marginTop: 10 }}>
-            <h3><AiOutlineUserAdd /> Add user</h3>
+            
             <Form onSubmit={onSubmituserData}>
                
                 <FormGroup row>
                     <Col>
-                        <Label><AiOutlineExport /> email </Label>
-                        <Input
+                        
+                        <Input 
+                            
+                            placeholder = "your Email"
                             type="text"
                             name="email"
-                            className="form-control"
+                            className="input-fieldcols12"
                             value={data.email}
                             onChange={onChangeuserData} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
                     <Col>
-                        <Label><AiOutlineExport /> password</Label>
+                        
                         <Input
+                            placeholder = "Your password"
                             type="text"
                             name="password"
-                            className="form-control"
+                            className="input-fieldcols12"
                             value={data.password}
                             onChange={onChangeuserData} />
                     </Col>
                 </FormGroup>
-                <Button color="primary"><AiOutlineForward /> Submit</Button>
+                <Button className="btn_login"> Signup</Button>
             </Form>
         </div>
         </div>

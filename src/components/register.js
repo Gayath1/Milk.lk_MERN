@@ -33,7 +33,7 @@ const Createuser = (props) => {
     return (
        <div className="rectangle">
          
-                <Link to="/list" className="cols12">Create Account</Link>
+                <Link to="/list" className="cols12 text-center">Create Account</Link>
     
               
         

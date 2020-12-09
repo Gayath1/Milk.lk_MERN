@@ -24,6 +24,9 @@ const bcrypt = require('bcryptjs');
 
 
 
+
+
+
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -95,23 +98,38 @@ app.listen(PORT, () => {
 
 
 router.route('/register').post((req, res) => {
-    
-    var newUser = new User({
-              
-        email: req.body.email,
-        
-        password: req.body.password,});
 
+    
+    var user = req.body;
+        var email = req.body.email;
         
-        newUser.save()
-        .then(user => {
-          res.status(201);
-          res.send(user);
-        })
-        .catch(err => {
-          res.status(400);
-          res.send(err);
-        });
+        var password = req.body.password;
+
+        User.findOne({email:user.email}, function (err, existingUser){
+            if(existingUser == null){
+                var newUser = new User({
+              
+                    email: email,
+                    
+                    password: password,});
+            
+                    
+                    newUser.save()
+                    .then(user => {
+                      res.status(201);
+                      res.send(user);
+                    });
+            }else{
+                {res.status(404).send("An account with this email already exists.");}
+        
+            }
+        
+           
+                
+
+   
+        
+        }); 
 
 });
 

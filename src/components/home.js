@@ -10,7 +10,13 @@ const Home = () => {
         <section className = "Home">
             <nav>
                 <h2>welcome</h2>
+
+
+
+
+
                 <button >Logout</button>
+                
             </nav>
         </section>
     );

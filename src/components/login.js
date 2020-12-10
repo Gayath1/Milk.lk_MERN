@@ -1,12 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Redirect,useHistory } from 'react-router-dom';
+import React, { useState, useEffect , Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
+import { login } from './userfunction'
 
 
-const Createuser = (props) => {
-    const [data, setData] = useState({
+class Login extends Component {
+    constructor() {
+        super()
+        this.state = {
+          email: '',
+          password: '',
+          errors: {}
+        }
+    
+        this.onChange = this.onChange.bind(this)
+        this.onSubmit = this.onSubmit.bind(this)
+      }
+    
+      onChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
+      }
+      onSubmit(e) {
+        e.preventDefault()
+    
+        const user = {
+          email: '',
+          password: ''
+        }
+    
+        login(user).then(res => {
+          if (res) {
+            this.props.history.push('/home')
+          }
+        })
+      }
+    
+   /* const [data, setData] = useState({
         
         email: "",
         password: "",
@@ -19,32 +50,29 @@ const Createuser = (props) => {
             [e.target.name]: e.target.value
         })
     }
-    let history = useHistory();
 
     const onSubmituserData = (e) => {
         e.preventDefault();
-        history.push("/login");
-        axios.post('http://localhost:4000/api/register', data).then(res => this.props.history.push('/login'));
+        axios.post('http://localhost:4000/api/login', data).then(res => console.log(res.data));
         setData({
             
             email: "",
             password: "",
-        });
-       
-    }
+        });*/
+        
     
-
+render(){
     return (
        <div className="rectangle">
          
-                <Link to="/list" className="cols12 text-center">Create Account</Link>
+                <Link to="/list" className="cols12 text-center">Login</Link>
     
               
         
          
         <div style={{ marginTop: 10 }}>
             
-            <Form onSubmit={onSubmituserData}>
+            <Form onSubmit={this.onSubmit}>
                
                 <FormGroup row>
                     <Col>
@@ -56,8 +84,8 @@ const Createuser = (props) => {
                             name="email"
                             required
                             className="form-control"
-                            value={data.email}
-                            onChange={onChangeuserData} /> 
+                            value={this.email}
+                            onChange={this.onChange} /> 
                             </div>
                     </Col>
                 </FormGroup>
@@ -71,16 +99,17 @@ const Createuser = (props) => {
                             name="password"
                             required
                             className="form-control"
-                            value={data.password}
-                            onChange={onChangeuserData} />
+                            value={this.password}
+                            onChange={this.onChange} />
                             </div>
                     </Col>
                 </FormGroup>
-                <Button className="btn_login"> Signup</Button>
+                <Button className="btn_login"> Login</Button>
             </Form>
         </div>
         </div>
     );
+    }
 }
 
-export default Createuser;
+export default Login;

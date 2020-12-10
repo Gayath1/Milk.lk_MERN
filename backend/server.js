@@ -8,8 +8,8 @@ const PORT = 4000;
 const router = require("express").Router();
 mongoose.set('useCreateIndex', true);
 const saltRounds = 10;
-
-
+const validation = require("./validation");
+var verifytoken = require("./validate-token");
 
 
 const jwt = require('jsonwebtoken');
@@ -20,8 +20,9 @@ const User = require('./user');
 
 const bcrypt = require('bcryptjs');
 
-
-
+require("dotenv").config();
+const { loginValidation } = require("./validation");
+var {verifytoken} = require("./validate-token");
 
 
 
@@ -124,18 +125,99 @@ router.route('/register').post((req, res) => {
                       res.status(201);
                       res.send(user);
                     });
+                    res.redirect('/login')
+                    
             }else{
                 {res.status(404).send("An account with this email already exists.");}
+                
         
             }
-        
-           
-                
-
-   
-        
         }); 
 
 });
 
-app.use('/api', router);
+
+
+// login route
+/*router.post("/login", async (req, res) => {
+    // validate the user
+    const { error } = loginValidation(req.body);
+    // throw validation errors
+    if (error) return res.status(401).json({ error:   error.details[0].message });
+    const user = await User.findOne({ email: req.body.email });
+    // throw error when email is wrong
+    if (!user) return res.status(401).json({ error: "Email is wrong" });
+    // check for password correctness
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!validPassword)
+    return res.status(401).json({ error: "Password is wrong" });
+     // create token
+  const token = jwt.sign(
+    // payload data
+    {
+      email: user.email,
+      id: user._id,
+    },
+    process.env.JWT_SECRET
+    
+  );
+  res.send(token)
+  res.header("auth-token", token).json({
+    error: null,
+    data: {
+      token,
+    },
+        
+    
+    
+  });
+});*/
+
+router.post('/login', (req, res) => {
+    const user =  User.findOne({ email: req.body.email });
+      
+        if (user) {
+          if (bcrypt.compare(req.body.password, user.password)) {
+            const token = jwt.sign(  {
+                email: req.body.email,
+                id: user._id,
+              
+            },
+            process.env.JWT_SECRET
+            );
+            res.send(token)
+          }
+        } else {
+          res.status(400).json({ error: 'User does not exist' })
+        }
+    
+      
+  })
+  
+
+router.get('/home', (req, res) => {
+    var decoded = jwt.verify(req.headers['authorization'], process.env.JWT_SECRET)
+  
+    User.findOne({
+      where: {
+        id: decoded._id
+      }
+    })
+      .then(user => {
+        if (user) {
+          res.json(user)
+        } else {
+          res.send('User does not exist')
+        }
+      })
+      .catch(err => {
+        res.send('error: ' + err)
+      })
+  })
+
+
+  app.use('/api', router);
+  
+
+
+ 

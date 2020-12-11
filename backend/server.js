@@ -10,6 +10,7 @@ mongoose.set('useCreateIndex', true);
 const saltRounds = 10;
 const validation = require("./validation");
 var verifytoken = require("./validate-token");
+const passport = require("passport");
 
 
 const jwt = require('jsonwebtoken');
@@ -22,7 +23,7 @@ const bcrypt = require('bcryptjs');
 
 require("dotenv").config();
 const { loginValidation } = require("./validation");
-var {verifytoken} = require("./validate-token");
+
 
 
 
@@ -128,6 +129,8 @@ router.route('/register').post((req, res) => {
                     res.redirect('/login')
                     
             }else{
+             // console.log("There is a user already") //Prints out in the node console
+           // throw new Error("This email is already registered") //Does not sent this message to the broswer
                 {res.status(404).send("An account with this email already exists.");}
                 
         
@@ -173,7 +176,7 @@ router.route('/register').post((req, res) => {
   });
 });*/
 
-router.post('/login', (req, res) => {
+/*router.post('/login', (req, res) => {
     const user =  User.findOne({ email: req.body.email });
       
         if (user) {
@@ -213,11 +216,64 @@ router.get('/home', (req, res) => {
       .catch(err => {
         res.send('error: ' + err)
       })
-  })
+  })*/
+
+  router.post("/login",(req,res) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+   
+    //Find user by Email
+    User.findOne({email}).then(user=>{
+        if(!user){
+            return res.status(404).json({ emailnotfound: "Email not found" });
+        }
+
+    // Check password
+    bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+            // Create JWT Payload
+            const payload = {
+                id: user.id,
+                email: user.email
+            };
+
+            // Sign token
+            jwt.sign(
+                payload,
+                process.env.JWT_SECRET,
+                {
+                 expiresIn: 31556926 
+                },
+                
+        
+                (err, token) => {
+                res.json({
+                    success: true,
+                    token: "Bearer " + token
+                });
+                res.cookie('token', token, { httpOnly: true })
+            .sendStatus(200)
+                }
+            );
+        } else {
+          return res
+            .status(400)
+            .json({ passwordincorrect: "Password incorrect" });
+        }
+      });
+    });
+});
+
+router.get('/Dashboard', verifytoken, function(req, res) {
+  res.send('Welcome');
+});
+router.get('/checkToken', verifytoken, function(req, res) {
+  res.sendStatus(200);
+});
 
 
   app.use('/api', router);
   
 
 
- 

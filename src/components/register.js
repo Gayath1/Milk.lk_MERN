@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Redirect,useHistory } from 'react-router-dom';
+import { Link,useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
+
 
 
 const Createuser = (props) => {
@@ -10,6 +11,7 @@ const Createuser = (props) => {
         
         email: "",
         password: "",
+        
         
     });
 
@@ -24,14 +26,23 @@ const Createuser = (props) => {
     const onSubmituserData = (e) => {
         e.preventDefault();
         history.push("/login");
-        axios.post('http://localhost:4000/api/register', data).then(res => this.props.history.push('/login'));
+        axios.post('http://localhost:4000/api/register', data).then(res => res.json());
         setData({
             
             email: "",
             password: "",
-        });
+            
+        })
+
+        fetch('/api/register')
+          .then(res => res.text())
+          .then(res => this.state({message: res}))
+  
        
     }
+
+    
+    
     
 
     return (
@@ -78,6 +89,7 @@ const Createuser = (props) => {
                 </FormGroup>
                 <Button className="btn_login"> Signup</Button>
             </Form>
+            <p>{this.state.message}</p>
         </div>
         </div>
     );

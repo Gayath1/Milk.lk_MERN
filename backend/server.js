@@ -102,42 +102,46 @@ app.listen(PORT, () => {
 router.route('/register').post((req, res) => {
 
     
-    var user = req.body;
-        var email = req.body.email;
-        
-        var password = req.body.password;
+  var user = req.body;
+      var email = req.body.email;
+      
+      var password = req.body.password;
 
-        var salt =  bcrypt.genSaltSync(saltRounds);
-    var passwordHash = bcrypt.hashSync(password, salt);
+      var salt =  bcrypt.genSaltSync(saltRounds);
+  var passwordHash = bcrypt.hashSync(password, salt);
 
-        User.findOne({email:user.email}, function (err, existingUser){
-            if(existingUser == null){
+      User.findOne({email:user.email}, function (err, existingUser){
+          if(existingUser == null){
 
-       
-                var newUser = new User({
-              
-                    email: email,
-                    
-                    password: passwordHash,});
+     
+              var newUser = new User({
             
-                    
-                    newUser.save()
-                    .then(user => {
-                      res.status(201);
-                      res.send(user);
-                    });
-                    res.redirect('/login')
-                    
-            }else{
-             // console.log("There is a user already") //Prints out in the node console
-           // throw new Error("This email is already registered") //Does not sent this message to the broswer
-                {res.status(404).send("An account with this email already exists.");}
-                
-        
-            }
-        }); 
+                  email: email,
+                  
+                  password: passwordHash,});
+          
+                  
+                  newUser.save()
+                  .then(user => {
+                    res.status(201);
+                    res.send(user);
+                  });
+                  
+                  
+          }else{
+           // console.log("There is a user already") //Prints out in the node console
+         // throw new Error("This email is already registered") //Does not sent this message to the broswer
+              res.status(404).send("An account with this email already exists.");
+              
+      
+          }
+      }); 
 
 });
+
+       
+
+
 
 
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import { Link,useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
@@ -6,93 +6,154 @@ import axios from 'axios';
 
 
 
-const Createuser = (props) => {
-    const [data, setData] = useState({
-        
-        email: "",
-        password: "",
-        
-        
-    });
-
-    const onChangeuserData = (e) => {
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
-        })
+class register extends Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        email : '',
+        password: ''
+      };
     }
-    let history = useHistory();
-
-    const onSubmituserData = (e) => {
-        e.preventDefault();
-        history.push("/login");
-        axios.post('http://localhost:4000/api/register', data).then(res => res.json());
-        setData({
-            
-            email: "",
-            password: "",
-            
-        })
-
-        fetch('/api/register')
-          .then(res => res.text())
-          .then(res => this.state({message: res}))
+    handleInputChange = (event) => {
+      const { value, name } = event.target;
+      this.setState({
+        [name]: value
+      });
+    }
+    onSubmit = (event) => {
+      event.preventDefault();
+      fetch('http://localhost:4000/api/register', {
+        method: 'POST',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        if (res.status === 201) {
+          this.props.history.push('/login');
+        } if (res.status === 404) {
+          alert('An account with this email already exists');
+        }
+        
+      })
+      .catch(err => {
+        console.error(err);
+        alert('Error please try again');
+      });
+    }
+  /*componentDidMount() {
+      if (this.props.auth.isAuthenticated) {
+        this.props.history.push("/dashboard");
+      }
+    }
   
-       
+  componentWillReceiveProps(nextProps) {
+      if (nextProps.auth.isAuthenticated) {
+        this.props.history.push("/dashboard"); 
+      }
+      
+  if (nextProps.errors) {
+        this.setState({
+          errors: nextProps.errors
+        });
+      }
     }
-
-    
-    
-    
-
-    return (
-       <div className="rectangle">
-         
-                <Link to="/list" className="cols12 text-center">Create Account</Link>
-    
+  */
+    onChangeuserData = e => {
+      this.setState({[e.target.id]:e.target.value})
+  }
+  
+  onSubmituserData = e => {
+      e.preventDefault();
+  
+      const userData = {
+          email:this.email,
+          password:this.password,
+      }
+      this.props.loginUser(userData);
+  }
+      
+     /* const [data, setData] = useState({
+          
+          email: "",
+          password: "",
+          
+      });
+  
+      const onChangeuserData = (e) => {
+          setData({
+              ...data,
+              [e.target.name]: e.target.value
+          })
+      }
+  
+      const onSubmituserData = (e) => {
+          e.preventDefault();
+          axios.post('http://localhost:4000/api/login', data).then(res => console.log(res.data));
+          setData({
               
-        
-         
-        <div style={{ marginTop: 10 }}>
-            
-            <Form onSubmit={onSubmituserData}>
-               
-                <FormGroup row>
-                    <Col>
-                        <div className="input-fieldcols12">
-                        <Input
-                            
-                            placeholder = "your Email"
-                            type="Email"
-                            name="email"
-                            required
-                            className="form-control"
-                            value={data.email}
-                            onChange={onChangeuserData} /> 
-                            </div>
-                    </Col>
-                </FormGroup>
-                <br/>
-                <FormGroup row>
-                    <Col>
-                    <div className="input-fieldcols12">
-                        <Input
-                            placeholder = "Your password"
-                            type="password"
-                            name="password"
-                            required
-                            className="form-control"
-                            value={data.password}
-                            onChange={onChangeuserData} />
-                            </div>
-                    </Col>
-                </FormGroup>
-                <Button className="btn_login"> Signup</Button>
-            </Form>
-            <p>{this.state.message}</p>
-        </div>
-        </div>
-    );
-}
-
-export default Createuser;
+              email: "",
+              password: "",
+          });*/
+          
+      
+  render(){
+    
+      return (
+         <div className="rectangle">
+           
+                  <Link className="cols12 text-center">Create account</Link>
+      
+                
+          
+           
+          <div style={{ marginTop: 10 }}>
+              
+              <Form onSubmit={this.onSubmit}>
+                 
+                  <FormGroup row>
+                      <Col>
+                          <div className="input-fieldcols12">
+                          <Input
+                              
+                              placeholder = "your Email"
+                              type="Email"
+                              name="email"
+                              required
+                              className="form-control"
+                              value={this.state.email}
+                              onChange={this.handleInputChange}
+                              /> 
+                              </div>
+                      </Col>
+                  </FormGroup>
+                  <br/>
+                  <FormGroup row>
+                      <Col>
+                      <div className="input-fieldcols12">
+                          <Input
+                              placeholder = "Your password"
+                              type="password"
+                              name="password"
+                              required
+                              
+                              className="form-control"
+                              value={this.password}
+                              onChange={this.handleInputChange} 
+                                />
+                          
+                              </div>
+                      </Col>
+                  </FormGroup>
+                  <Button className="btn_login" type="submit" value="Submit"> Sign up</Button>
+              </Form>
+          </div>
+          </div>
+      );
+      }
+  }
+  
+  
+  export default register;
+  

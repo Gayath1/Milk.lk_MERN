@@ -33,10 +33,12 @@ class Login extends Component {
     .then(res => {
       if (res.status === 200) {
         this.props.history.push('/Dashboard');
-      } else {
-        const error = new Error(res.error);
-        throw error;
+      } if (res.status === 404) {
+        alert('Email not found');
+      }if (res.status === 400) {
+        alert('Password incorrect');
       }
+      
     })
     .catch(err => {
       console.error(err);

@@ -252,10 +252,12 @@ router.get('/home', (req, res) => {
                 
         
                 (err, token) => {
+                  //window.localStorage.setItem(token, payload);
                 res.json({
                     success: true,
                     token: "Bearer " + token
                 });
+                localStorage.setItem('jwt', jwt)
                 res.cookie('token', token, { httpOnly: true })
             .sendStatus(200)
                 }

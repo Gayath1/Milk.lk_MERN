@@ -12,6 +12,7 @@ export default class Secret extends Component {
     fetch('/api/Dashboard')
       .then(res => res.text())
       .then(res => this.setState({message: "Welcome"}));
+    
   
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect , Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 
@@ -21,17 +22,39 @@ class Login extends Component {
       [name]: value
     });
   }
+   loginUser = userData => dispatch => {
+    axios
+      .post("/api/login", userData)
+      .then(res => {
+        // Save to localStorage
+  // Set token to localStorage
+        const { token } = res.data;
+        localStorage.setItem("jwtToken", token);
+      
+      })
+      .catch(err =>
+        dispatch({
+          payload: err.response.data
+        })
+      );
+  };
   onSubmit = (event) => {
     event.preventDefault();
     fetch('http://localhost:4000/api/login', {
       method: 'POST',
       body: JSON.stringify(this.state),
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        
       }
+      
     })
+    
     .then(res => {
-      if (res.status === 200) {
+      if (res.status === 200) { 
+        var token = res.json()
+        console.log(token)
+         localStorage.setItem('token', token)
         this.props.history.push('/Dashboard');
       } if (res.status === 404) {
         alert('Email not found');
@@ -45,6 +68,9 @@ class Login extends Component {
       alert('Error logging in please try again');
     });
   }
+
+  
+  
 /*componentDidMount() {
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -149,7 +175,7 @@ render(){
                             </div>
                     </Col>
                 </FormGroup>
-                <Button className="btn_login" type="submit" value="Submit"> Login</Button>
+                <Button className="btn_login" type="submit" value="Submit" > Login</Button>
             </Form>
         </div>
         </div>

@@ -11,8 +11,8 @@ const saltRounds = 10;
 const validation = require("./validation");
 var verifytoken = require("./validate-token");
 const passport = require("passport");
-
-
+const session = require("express-session");
+const MongoDBStore = require("connect-mongodb-session")(session);
 const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router();
 
@@ -25,7 +25,10 @@ require("dotenv").config();
 const { loginValidation } = require("./validation");
 
 
-
+const mongoDBstore = new MongoDBStore({
+  uri: 'mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
+  collection: "mySessions"
+});
 
 
 
@@ -243,25 +246,32 @@ router.get('/home', (req, res) => {
             };
 
             // Sign token
-            jwt.sign(
+            var token =jwt.sign(
                 payload,
                 process.env.JWT_SECRET,
                 {
                  expiresIn: 31556926 
                 },
                 
-        
-                (err, token) => {
-                  //window.localStorage.setItem(token, payload);
+                /*(err, token) => {
+                  
                 res.json({
                     success: true,
                     token: "Bearer " + token
                 });
-                localStorage.setItem('jwt', jwt)
+                
                 res.cookie('token', token, { httpOnly: true })
-            .sendStatus(200)
-                }
+            
+            return res
+            .status(200)
+            .JSON.stringify(token)
+           
+            
+                }*/
             );
+            res.status(200)
+            res.json(token)
+            console.log((token));
         } else {
           return res
             .status(400)
@@ -269,6 +279,16 @@ router.get('/home', (req, res) => {
         }
       });
     });
+});
+router.delete("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    //delete session data from store, using sessionID in cookie
+    if (err) throw err;
+    res.clearCookie("session-id"); // clears cookie containing expired sessionID
+    res.send("Logged out successfully");
+    jwt.destroy();
+    res.status(200);
+  });
 });
 
 router.get('/Dashboard', verifytoken, function(req, res) {
@@ -282,4 +302,4 @@ router.get('/checkToken', verifytoken, function(req, res) {
   app.use('/api', router);
   
 
-
+  

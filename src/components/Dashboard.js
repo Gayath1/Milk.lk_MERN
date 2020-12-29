@@ -14,6 +14,7 @@ export default class Secret extends Component {
     fetch("/api/logout")
     .then(res => {
       if (res.status === 200) {
+        localStorage.removeItem("token");
         this.props.history.push('/login');
         
       } 

@@ -280,13 +280,12 @@ router.get('/home', (req, res) => {
       });
     });
 });
-router.delete("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    //delete session data from store, using sessionID in cookie
+router.post("/logout", (req, res) => {
+  req.token((err) => {
     if (err) throw err;
-    res.clearCookie("session-id"); // clears cookie containing expired sessionID
     res.send("Logged out successfully");
     jwt.destroy();
+    localStorage.removeItem("token");
     res.status(200);
   });
 });

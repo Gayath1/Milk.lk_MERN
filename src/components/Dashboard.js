@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import {  Button } from 'reactstrap';
 
@@ -16,6 +17,7 @@ export default class Secret extends Component {
       if (res.status === 200) {
         localStorage.removeItem("token");
         this.props.history.push('/login');
+        res.json();
         
       } 
       
@@ -29,19 +31,24 @@ export default class Secret extends Component {
  
 
   componentDidMount() {
-    fetch('/api/Dashboard')
-      .then(res => res.text())
-      .then(res => this.setState({message: "Welcome"}));
+    fetch('http://localhost:4000/api/Dashboard')
+    .then(res => {
+
+      
+      
     
-  
+    })
+    
 }
 
 
 
   render() {
+   
     return (
       <div>
-        <p>{this.state.message}</p>
+        <h1>Welcome</h1>
+      
        
         <Button className="btn_login" type="submit" value="Submit" onClick={this.logout}> Log Out</Button>
       </div>

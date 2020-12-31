@@ -53,10 +53,12 @@ class Login extends Component {
     .then(res => {
       if (res.status === 200) { 
         var token = res.json()
-        console.log(token)
+       // console.log(token)
          localStorage.setItem('token', token)
-        this.props.history.push('/Dashboard');
-      } if (res.status === 404) {
+        this.props.history.push('/profile');
+      } if(res.status === 300){
+        this.props.history.push('/list');
+      }if (res.status === 404) {
         alert('Email not found');
       }if (res.status === 400) {
         alert('Password incorrect');

@@ -229,7 +229,11 @@ router.get('/home', (req, res) => {
 
     const email = req.body.email;
     const password = req.body.password;
-   
+
+    if(req.body.email === 'admin@admin.lk' && req.body.password === 'admin'){
+      return res.status(300).json('nice!')
+    }
+   else{
     //Find user by Email
     User.findOne({email}).then(user=>{
         if(!user){
@@ -271,27 +275,26 @@ router.get('/home', (req, res) => {
             );
             res.status(200)
             res.json(token)
-            console.log((token));
+            res.cookie('token', token, { httpOnly: true })
+           // console.log((token));
         } else {
           return res
             .status(400)
             .json({ passwordincorrect: "Password incorrect" });
         }
       });
-    });
+    });}
 });
 router.post("/logout", (req, res) => {
-  req.token((err) => {
-    if (err) throw err;
     res.send("Logged out successfully");
     jwt.destroy();
     localStorage.removeItem("token");
     res.status(200);
-  });
+  
 });
 
-router.get('/Dashboard', verifytoken, function(req, res) {
-  res.send('Welcome');
+router.get('/Dashboard',  function(req, res) {
+  res.send({message: 'Welcome'});
 });
 router.get('/checkToken', verifytoken, function(req, res) {
   res.sendStatus(200);
@@ -301,4 +304,23 @@ router.get('/checkToken', verifytoken, function(req, res) {
   app.use('/api', router);
   
 
+
+ router.route('/updateprofile').post((req, res) => {
+
   
+  User.findOne(req.email, (err, data) => {
+      if (!data) res.status(404).send("User is not found");
+      else {
+          data.user_email = req.body.user_email;
+          data.user_password = req.body.user_password;
+          
+        
+
+          data.save().then(data => {
+              res.json('User password is updated!');
+          }).catch(err => {
+              res.status(400).send("Update isn't possible");
+          });
+      }
+  });
+});

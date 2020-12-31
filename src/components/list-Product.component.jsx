@@ -45,7 +45,7 @@ const ListProduct = () => {
                 <Link to="/create" className="nav-link">Create Product</Link>
               </li>
               <li className="navbar-item">
-                <Link to="/" className="nav-link">LogOut</Link>
+                <Link to="/login" className="nav-link">LogOut</Link>
               </li>
             </ul>
           </div>

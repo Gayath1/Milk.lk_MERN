@@ -5,16 +5,19 @@ import axios from 'axios';
 
 export default class Dashboard extends React.Component {
      state = {
-        user: []
+        email:''
       };
    
-      constructor(props) {
-        super(props)
-        this.state = {
-          email : '',
-          password: ''
-        };
-      }
+
+      
+      
+     // constructor(props) {
+     //   super(props)
+     //   this.state = {
+     //     email : '',
+     //     password: ''
+      //  };
+     // }
     
 
      onSubmitProductData = (e) => {
@@ -43,13 +46,22 @@ export default class Dashboard extends React.Component {
   
   }
 
-     componentDidMount(){
-        axios.post('https://localhost:4000/api/Dashboard').then(res => {
-            console.log(res);
-            this.setState({user:res.data});
+     userdata=()=>{
+        axios.post('http://localhost:4000/api/profile').then(res => {
+            
+            
+        const data = JSON.stringify(res)
+        this.setState({ email: data})
+
+        console.log('welcome!'+ data);
+       
+          //  this.setState({user:res.data});
         })
     }
        
+    componentDidMount = () =>{
+      this.userdata();
+    }
     
 render() {
     return (

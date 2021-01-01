@@ -306,15 +306,16 @@ router.post("/logout",auth,function(req,res){
   req.User.deleteToken(req.token,(err,user)=>{
     if(err) return res.status(400).send(err);
     res.sendStatus(200);
-    res.json({message:"welcome"})
+    res.json("welcome")
 });
+
+
 
 });
 
-router.post('/Dashboard', auth, function(req, res) {
-  res.json({
-    isAuth: true,
-    id: req.User._id,
+router.post('/profile', auth, function(req, res) {
+  res.send({
+    
     email: req.User.email,
     
     
@@ -336,7 +337,9 @@ router.post('/login', function(req,res){
       if(user) return res.status(402).json({
           error :true,
           message:"You are already logged in"
-      });
+      });else if(req.body.email === 'admin@admin.lk' && req.body.password === 'admin'){
+        return res.status(300).json('nice!')
+      }
   
       else{
           User.findOne({'email':req.body.email},function(err,user){

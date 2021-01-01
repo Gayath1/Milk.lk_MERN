@@ -31,7 +31,7 @@ const App = () => {
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />
-        <Route path="/profile" component={withAuth(profile)} />
+        <Route path="/profile" component={profile} />
         
         
         

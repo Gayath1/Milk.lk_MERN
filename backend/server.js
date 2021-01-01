@@ -8,32 +8,24 @@ const PORT = 4000;
 const router = require("express").Router();
 mongoose.set('useCreateIndex', true);
 const saltRounds = 10;
-const validation = require("./validation");
 var verifytoken = require("./validate-token");
-const passport = require("passport");
+
 const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
 const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router();
 
 let Crud = require('./crud.model');
 const User = require('./user');
-
+const {auth} = require('./auth');
 const bcrypt = require('bcryptjs');
 
 require("dotenv").config();
-const { loginValidation } = require("./validation");
-
-
-const mongoDBstore = new MongoDBStore({
-  uri: 'mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
-  collection: "mySessions"
-});
 
 
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 mongoose.connect('mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true });
@@ -225,12 +217,23 @@ router.get('/home', (req, res) => {
       })
   })*/
 
-  router.post("/login",(req,res) => {
 
+  /*router.post("/login",(req,res) => {
+  
     const email = req.body.email;
     const password = req.body.password;
 
-    if(req.body.email === 'admin@admin.lk' && req.body.password === 'admin'){
+    
+  let token=req.cookies.auth;
+  User.findByToken(token,(err,user)=>{
+      if(err) return  res(err);
+      if(user) return res.status(400).json({
+          error :true,
+          message:"You are already logged in"
+      });
+  
+
+    else if(req.body.email === 'admin@admin.lk' && req.body.password === 'admin'){
       return res.status(300).json('nice!')
     }
    else{
@@ -272,10 +275,22 @@ router.get('/home', (req, res) => {
            
             
                 }*/
-            );
+        /*    );
+            
+            user.token = token;
+            user.save();
             res.status(200)
             res.json(token)
-            res.cookie('token', token, { httpOnly: true })
+            res.cookie('auth', user.token,).json(
+              {
+                isAuth : true,
+                id : user.id,
+                email : user.email
+              }
+            );
+  
+              
+            
            // console.log((token));
         } else {
           return res
@@ -285,42 +300,60 @@ router.get('/home', (req, res) => {
       });
     });}
 });
-router.post("/logout", (req, res) => {
-    res.send("Logged out successfully");
-    jwt.destroy();
-    localStorage.removeItem("token");
-    res.status(200);
-  
+  });
+*/
+router.get("/logout",auth,function(req,res){
+  req.User.deleteToken(req.token,(err,user)=>{
+    if(err) return res.status(400).send(err);
+    res.sendStatus(200);
 });
 
-router.get('/Dashboard',  function(req, res) {
+});
+
+router.get('/Dashboard', auth, function(req, res) {
+  res.json({
+    isAuth: true,
+    id: req.User._id,
+    email: req.User.email,
+    
+    
+});
   res.send({message: 'Welcome'});
 });
-router.get('/checkToken', verifytoken, function(req, res) {
-  res.sendStatus(200);
-});
 
 
-  app.use('/api', router);
+
+app.use('/api', router);
+
+
+
+
+router.post('/login', function(req,res){
+  let token=req.cookies.auth;
+  User.findByToken(token,(err,user)=>{
+      if(err) return  res(err);
+      if(user) return res.status(400).json({
+          error :true,
+          message:"You are already logged in"
+      });
   
-
-
- router.route('/updateprofile').post((req, res) => {
-
-  
-  User.findOne(req.email, (err, data) => {
-      if (!data) res.status(404).send("User is not found");
-      else {
-          data.user_email = req.body.user_email;
-          data.user_password = req.body.user_password;
-          
-        
-
-          data.save().then(data => {
-              res.json('User password is updated!');
-          }).catch(err => {
-              res.status(400).send("Update isn't possible");
+      else{
+          User.findOne({'email':req.body.email},function(err,user){
+              if(!user) return res.json({isAuth : false, message : ' Auth failed ,email not found'});
+      
+              user.comparepassword(req.body.password,(err,isMatch)=>{
+                  if(!isMatch) return res.json({ isAuth : false,message : "password doesn't match"});
+      
+              user.generateToken((err,user)=>{
+                  if(err) return res.status(400).send(err);
+                  res.cookie('auth',user.token).json({
+                      isAuth : true,
+                      id : user._id
+                      ,email : user.email
+                  });
+              });    
           });
+        });
       }
   });
 });

@@ -11,7 +11,6 @@ import CreateProduct from './components/create-Product.component';
 import DeleteProduct from './components/delete-Product.component';
 import Login from './components/login';
 import Register from './components/register';
-import Dashboard from './components/Dashboard';
 import withAuth from './withAuth';
 import profile from './components/profile';
 
@@ -27,13 +26,12 @@ const App = () => {
     <Router>
       
         <Route path="/login"   component={Login} />
-        <Route path="/profile" component={profile} />
         <Route path="/register"  component={Register}  />
         <Route path="/list"  component={ListProduct} />
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />
-        <Route path="/Dashboard" component={withAuth(Dashboard)} />
+        <Route path="/profile" component={withAuth(profile)} />
         
         
         

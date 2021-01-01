@@ -302,15 +302,16 @@ router.get('/home', (req, res) => {
 });
   });
 */
-router.get("/logout",auth,function(req,res){
+router.post("/logout",auth,function(req,res){
   req.User.deleteToken(req.token,(err,user)=>{
     if(err) return res.status(400).send(err);
     res.sendStatus(200);
+    res.json({message:"welcome"})
 });
 
 });
 
-router.get('/Dashboard', auth, function(req, res) {
+router.post('/Dashboard', auth, function(req, res) {
   res.json({
     isAuth: true,
     id: req.User._id,
@@ -318,7 +319,7 @@ router.get('/Dashboard', auth, function(req, res) {
     
     
 });
-  res.send({message: 'Welcome'});
+  
 });
 
 
@@ -332,21 +333,27 @@ router.post('/login', function(req,res){
   let token=req.cookies.auth;
   User.findByToken(token,(err,user)=>{
       if(err) return  res(err);
-      if(user) return res.status(400).json({
+      if(user) return res.status(402).json({
           error :true,
           message:"You are already logged in"
       });
   
       else{
           User.findOne({'email':req.body.email},function(err,user){
-              if(!user) return res.json({isAuth : false, message : ' Auth failed ,email not found'});
+              if(!user) return res
+              .status(405)
+              .json({isAuth : false, message : ' Auth failed ,email not found'});
       
               user.comparepassword(req.body.password,(err,isMatch)=>{
-                  if(!isMatch) return res.json({ isAuth : false,message : "password doesn't match"});
+                  if(!isMatch) return res
+                  .status(400)
+                  .json({ isAuth : false,message : "password doesn't match"});
       
               user.generateToken((err,user)=>{
-                  if(err) return res.status(400).send(err);
-                  res.cookie('auth',user.token).json({
+                  if(err) return res.status(404).send(err);
+                  res
+                  .status(203)
+                  .cookie('auth',user.token).json({
                       isAuth : true,
                       id : user._id
                       ,email : user.email

@@ -26,10 +26,7 @@ class Login extends Component {
     axios
       .post("/api/login", userData)
       .then(res => {
-        // Save to localStorage
-  // Set token to localStorage
-        const { token } = res.data;
-        localStorage.setItem("jwtToken", token);
+        
       
       })
       .catch(err =>
@@ -51,14 +48,14 @@ class Login extends Component {
     })
     
     .then(res => {
-      if (res.status === 200) { 
-        var token = res.json()
-       // console.log(token)
-         localStorage.setItem('token', token)
+      if (res.status === 402) { 
+        this.redirect.history('/profile')
+      } if (res.status === 203) { 
         this.props.history.push('/profile');
-      } if(res.status === 300){
+      } 
+      if(res.status === 300){
         this.props.history.push('/list');
-      }if (res.status === 404) {
+      }if (res.status === 405) {
         alert('Email not found');
       }if (res.status === 400) {
         alert('Password incorrect');

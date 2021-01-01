@@ -3,41 +3,59 @@ import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
 
-const EditProduct = (props) => {
-    const [data, setData] = useState({
-        user_email: "",
-        user_password: "",
-        
-    });
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await axios(
-                `http://localhost:4000/api/updateprofile/${props.match.params.email}`
-            );
-            setData({ ...result.data });
+export default class Dashboard extends React.Component {
+     state = {
+        user: []
+      };
+   
+      constructor(props) {
+        super(props)
+        this.state = {
+          email : '',
+          password: ''
         };
-        fetchData();
-    }, []);
+      }
+    
 
-    const onChangeProductData = (e) => {
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
+     onSubmitProductData = (e) => {
+     //   e.preventDefault();
+    //    axios.post(`http://localhost:4000/api/updateprofile/${props.match.params.email}`, data).then(res => console.log(res.data));
+    //    props.history.push('/');
+
+
+    
+    }
+
+      logout = (e) => (dispatch) => {
+      axios
+      .post("/api/logout")
+      .then(res => {
+        if(res.status === 200){
+          this.props.history.push('/login');
+        }
+        
+    })
+
+      
+      .catch((err) => {
+        console.log(err);
+      });
+  
+  }
+
+     componentDidMount(){
+        axios.post('https://localhost:4000/api/Dashboard').then(res => {
+            console.log(res);
+            this.setState({user:res.data});
         })
-        console.log(data);
     }
-
-    const onSubmitProductData = (e) => {
-        e.preventDefault();
-        axios.post(`http://localhost:4000/api/updateprofile/${props.match.params.email}`, data).then(res => console.log(res.data));
-        props.history.push('/');
-    }
-
+       
+    
+render() {
     return (
         <div style={{ marginTop: 10 }}>
             <h3><AiOutlineUserAdd /> Edit Product</h3>
-            <Form onSubmit={onSubmitProductData}>
+            <Form onSubmit={this.onSubmitProductData}>
                 <FormGroup row>
                     <Col>
                         <Label><AiOutlineUser /> user email </Label>
@@ -45,8 +63,8 @@ const EditProduct = (props) => {
                             type="text"
                             name="product_name"
                             className="form-control"
-                            value={data.user_email}
-                            onChange={onChangeProductData} />
+                            //value={this.state.email}
+                            onChange={this.onChangeProductData} />
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -56,15 +74,16 @@ const EditProduct = (props) => {
                             type="text"
                             name="product_brand"
                             className="form-control"
-                            value={data.user_password}
-                            onChange={onChangeProductData} />
+                            //value={this.state.password}
+                            onChange={this.onChangeProductData} />
                     </Col>
                 </FormGroup>
               
+              
                 <Button color="primary"><AiOutlineForward /> Update Data</Button>
+                <Button className="btn_login" type="submit" value="Submit" onClick={this.logout}> Logout</Button>
             </Form>
         </div>
     );
 }
-
-export default EditProduct;
+}

@@ -9,20 +9,46 @@ const router = require("express").Router();
 mongoose.set('useCreateIndex', true);
 const saltRounds = 10;
 var verifytoken = require("./validate-token");
-
+const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
 const session = require("express-session");
 const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router();
+const morgan = require("morgan");
+const MongoDBStore = require("connect-mongodb-session")(session);
+
+
+const mongoDBstore = new MongoDBStore({
+  uri: 'mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
+  collection: "mySessions"
+});
+app.use(morgan("dev"));
+require("dotenv").config();
+app.use(
+  session({
+    name: process.env.COOKIE_NAME, //name to be put in "key" field in postman etc
+    secret: process.env.JWT_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: mongoDBstore,
+    unset: 'destroy',   
+    cookie: {
+      maxAge: MAX_AGE,
+      sameSite: false,
+      secure: process.env.NODE_ENV === 'production'
+    }
+  })
+);
+
 
 let Crud = require('./crud.model');
 const User = require('./user');
-const {auth} = require('./auth');
+
 const bcrypt = require('bcryptjs');
 
-require("dotenv").config();
 
-
-
+// Express Bodyparser
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -302,7 +328,7 @@ router.get('/home', (req, res) => {
 });
   });
 */
-router.post("/logout",auth,function(req,res){
+/*router.post("/logout",auth,function(req,res){
   req.User.deleteToken(req.token,(err,user)=>{
     if(err) return res.status(400).send(err);
     res.sendStatus(200);
@@ -311,26 +337,23 @@ router.post("/logout",auth,function(req,res){
 
 
 
-});
+});*/
 
-router.post('/profile', auth, function(req, res) {
-  res.send({
+/*router.post('/profile', auth, function(req, res) {
+  var data = JSON.parse({
     
     email: req.User.email,
     
     
 });
+res.send(data);
   
-});
-
-
-
-app.use('/api', router);
+});*/
 
 
 
 
-router.post('/login', function(req,res){
+/*router.post('/login', function(req,res){
   let token=req.cookies.auth;
   User.findByToken(token,(err,user)=>{
       if(err) return  res(err);
@@ -367,3 +390,28 @@ router.post('/login', function(req,res){
       }
   });
 });
+*/
+
+
+
+
+
+
+const {  loginUser, logoutUser, authChecker } = require("./controller");
+// Logs In a User, creates session in mongo store
+// and returns a cookie containing sessionID, also called "session-id"
+router.post("/login", loginUser );
+
+// Log out user by deleting session from store
+// and deleting cookie on client side
+// Needs cookie containing sessionID to be attached to request
+router.delete("/logout", logoutUser );
+
+
+// Check if user is Authenticated by reading session data
+// Needs cookie containing sessionID
+router.get("/authchecker", authChecker );
+
+
+
+app.use('/api', router);

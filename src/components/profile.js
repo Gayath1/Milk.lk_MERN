@@ -1,101 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
-import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
-import axios from 'axios';
+import React, { Component } from 'react';
+import { connect } from "react-redux";
+import axios from "axios"
+import {
+  Button,
+  Card,
+ CardTitle,
+  CardSubtitle,
+  CardBody
+} from "reactstrap";
+import PropTypes from "prop-types";
+import { Redirect } from 'react-router-dom'
+import { logout } from '../actions/authAction';
 
-export default class Dashboard extends React.Component {
-     state = {
-        email:''
-      };
-   
 
-      
-      
-     // constructor(props) {
-     //   super(props)
-     //   this.state = {
-     //     email : '',
-     //     password: ''
-      //  };
-     // }
+
+export class Profile extends Component {
+
+  state = {
+    email: "",
+    id: ""
     
-
-     onSubmitProductData = (e) => {
-     //   e.preventDefault();
-    //    axios.post(`http://localhost:4000/api/updateprofile/${props.match.params.email}`, data).then(res => console.log(res.data));
-    //    props.history.push('/');
-
-
-    
-    }
-
-      logout = (e) => (dispatch) => {
-      axios
-      .post("/api/logout")
-      .then(res => {
-        if(res.status === 200){
-          this.props.history.push('/login');
-        }
-        
-    })
-
-      
-      .catch((err) => {
-        console.log(err);
-      });
-  
   }
 
-     userdata=()=>{
-        axios.post('http://localhost:4000/api/profile').then(res => {
-            
-            
-        const data = JSON.stringify(res)
-        this.setState({ email: data})
-
-        console.log('welcome!'+ data);
-       
-          //  this.setState({user:res.data});
-        })
-    }
-       
-    componentDidMount = () =>{
-      this.userdata();
-    }
+  static propTypes = {
     
-render() {
+    authState: PropTypes.object.isRequired,
+    
+    logout: PropTypes.func.isRequired,
+  };
+
+
+  onLogout = (e) => {
+    e.preventDefault();
+
+    
+
+    
+    this.props.logout();
+  };
+
+
+  render() {
+    if(!this.props.authState.isAuthenticated) {
+    return <Redirect to="/login" />
+    }
+
+    const {user} = this.props.authState;
     return (
-        <div style={{ marginTop: 10 }}>
-            <h3><AiOutlineUserAdd /> Edit Product</h3>
-            <Form onSubmit={this.onSubmitProductData}>
-                <FormGroup row>
-                    <Col>
-                        <Label><AiOutlineUser /> user email </Label>
-                        <Input
-                            type="text"
-                            name="product_name"
-                            className="form-control"
-                            //value={this.state.email}
-                            onChange={this.onChangeProductData} />
-                    </Col>
-                </FormGroup>
-                <FormGroup row>
-                    <Col>
-                        <Label><AiOutlineExport /> password </Label>
-                        <Input
-                            type="text"
-                            name="product_brand"
-                            className="form-control"
-                            //value={this.state.password}
-                            onChange={this.onChangeProductData} />
-                    </Col>
-                </FormGroup>
-              
-              
-                <Button color="primary"><AiOutlineForward /> Update Data</Button>
-                <Button className="btn_login" type="submit" value="Submit" onClick={this.logout}> Logout</Button>
-            </Form>
+       <div className="container">
+        <div className="main">
+          <Card>
+            <CardBody>
+          <CardTitle><h1>{ user ? `Welcome, ${user.sessUser.email}`: ''} <span role="img" aria-label="party-popper">🎉 </span> </h1></CardTitle>
+          <br/>
+           <CardSubtitle><h5> You are now Logged In <span role="img" aria-label="clap">👏 </span></h5></CardSubtitle>
+          <br/>
+        <Button size="lg" onClick={this.onLogout} color="primary">Logout</Button>
+            </CardBody>
+          </Card>
         </div>
-    );
+    </div>
+    )
+  }
 }
-}
+
+const mapStateToProps = (state) => ({ //Maps state to redux store as props
+ 
+  authState: state.auth
+});
+
+export default connect(mapStateToProps, {logout})(Profile);

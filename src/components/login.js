@@ -3,130 +3,73 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
-
-
+import { connect } from "react-redux"; // API to connect component state to redux store
+import { login } from "../actions/authAction";
+import { isAuth } from '../actions/authAction'
+import store from '../store';
+import {Redirect} from 'react-router-dom'
+import PropTypes from "prop-types";
+import { returnStatus } from "../actions/statusActions";
 
 
 
 class Login extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      email : '',
-      password: ''
-    };
+
+  componentDidMount() {
+    // Check if session cookie is present
+    store.dispatch(isAuth());
   }
-  handleInputChange = (event) => {
-    const { value, name } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-   loginUser = userData => dispatch => {
-    axios
-      .post("/api/login", userData)
-      .then(res => {
-        
-      
-      })
-      .catch(err =>
-        dispatch({
-          payload: err.response.data
-        })
-      );
+
+  static propTypes = {
+    button: PropTypes.bool,
+    isAuthenticated: PropTypes.bool,
   };
-  onSubmit = (event) => {
-    event.preventDefault();
-    fetch('http://localhost:4000/api/login', {
-      method: 'POST',
-      body: JSON.stringify(this.state),
-      headers: {
-        'Content-Type': 'application/json',
-        
+  state = {
+    email: "",
+    password: "",
+    msg: ""
+  }
+
+  static propTypes = {
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+    status: PropTypes.object.isRequired,
+    loading: PropTypes.bool
+  };
+
+ 
+
+componentDidUpdate(prevProps) {
+      const status = this.props.status;
+
+     if (status !== prevProps.status) {
+
+      if (status.id === "LOGIN_FAIL") {
+        this.setState({ msg: status.statusMsg });
       }
-      
-    })
-    
-    .then(res => {
-      if (res.status === 402) { 
-        this.redirect.history('/profile')
-      } if (res.status === 203) { 
-        this.props.history.push('/profile');
-      } 
-      if(res.status === 300){
-        this.props.history.push('/list');
-      }if (res.status === 405) {
-        alert('Email not found');
-      }if (res.status === 400) {
-        alert('Password incorrect');
-      }
-      
-    })
-    .catch(err => {
-      console.error(err);
-      alert('Error logging in please try again');
-    });
-  }
-
-  
-  
-/*componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/dashboard");
     }
-  }
+};
 
-componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/dashboard"); 
-    }
-    
-if (nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
-    }
-  }
-*/
-  onChangeuserData = e => {
-    this.setState({[e.target.id]:e.target.value})
-}
 
-onSubmituserData = e => {
+onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+onSubmit = (e) => {
     e.preventDefault();
 
-    const userData = {
-        email:this.email,
-        password:this.password,
-    }
-    this.props.loginUser(userData);
-}
-    
-   /* const [data, setData] = useState({
-        
-        email: "",
-        password: "",
-        
-    });
+    const { email, password} = this.state;
 
-    const onChangeuserData = (e) => {
-        setData({
-            ...data,
-            [e.target.name]: e.target.value
-        })
-    }
+    const user = { email, password};
+    this.props.login(user);
+  };
 
-    const onSubmituserData = (e) => {
-        e.preventDefault();
-        axios.post('http://localhost:4000/api/login', data).then(res => console.log(res.data));
-        setData({
-            
-            email: "",
-            password: "",
-        });*/
-        
-    
+  
+   
 render(){
+  if(this.props.isAuthenticated) {
+    return <Redirect to="/profile" />
+  }
   
     return (
        <div className="rectangle">
@@ -151,7 +94,7 @@ render(){
                             required
                             className="form-control"
                             value={this.state.email}
-                            onChange={this.handleInputChange}
+                            onChange={this.onChange}
                             /> 
                             </div>
                     </Col>
@@ -168,7 +111,7 @@ render(){
                             
                             className="form-control"
                             value={this.password}
-                            onChange={this.handleInputChange} 
+                            onChange={this.onChange} 
                               />
                         
                             </div>
@@ -183,4 +126,14 @@ render(){
 }
 
 
-export default Login;
+
+
+
+const mapStateToProps = (state) => ({ 
+ 
+  isAuthenticated: state.auth.isAuthenticated,
+  status: state.status,
+  
+});
+
+export default connect(mapStateToProps,{ login })(Login);

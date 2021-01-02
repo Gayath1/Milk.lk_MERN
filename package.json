@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "is-empty": "^1.2.0",
     "mongoose": "^5.10.11",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",

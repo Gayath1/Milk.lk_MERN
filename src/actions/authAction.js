@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import jwt_decode from "jwt-decode";
 import { returnStatus } from "./statusActions";
 
 import {
@@ -18,14 +18,19 @@ import {
 //axios.defaults.baseURL = "https://demos.shawndsilva.com/sessions-auth-app"
 
 //Check if user is already logged in
-export const isAuth = () => (dispatch) => {
 
+
+
+export const isAuth = () => (dispatch) => {
+  const token=localStorage.getItem('session')
+
+  
     axios
     .get("/api/authchecker",{withCredentials:true})
     .then((res) =>
       dispatch({
         type: AUTH_SUCCESS,
-        payload: res.data
+        payload: token
         
       })
     )
@@ -57,6 +62,8 @@ export const login = ({ email, password }) => (dispatch) => {
   
       
       localStorage.setItem('session',JSON.stringify(res.data.sessUser));
+      localStorage.setItem('Token',JSON.stringify(res.data.token));
+      localStorage.setItem('session-id',JSON.stringify(res.data.session));
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data
@@ -78,13 +85,14 @@ export const login = ({ email, password }) => (dispatch) => {
 export const logout = () => (dispatch) => {
 
   
-  localStorage.getItem('session');
-  
     axios
     .delete("/api/logout",{withCredentials: true})
     .then((res) =>{
+      
  
     localStorage.removeItem("session");
+    localStorage.removeItem('Token');
+    localStorage.removeItem('session-id');
       dispatch({
         type: LOGOUT_SUCCESS,
       })

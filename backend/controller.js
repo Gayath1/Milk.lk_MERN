@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const User = require("./user"); // User model
-
+const jwt = require('jsonwebtoken')
 
 const isAuth = (req,res,next) => {
   const sessUser = req.session.user;
@@ -8,7 +8,7 @@ const isAuth = (req,res,next) => {
       next();
   }
   else {
-      err = res.status(401).json("You Need to Be Logged in to do this. Access Denied ")
+      const err = res.status(401).json("You Need to Be Logged in to do this. Access Denied ")
       return err;
   }
 };
@@ -29,12 +29,29 @@ const loginUser = ("/login", (req, res) => {
 
     // Validate password
     bcrypt.compare(password, user.password).then((isMatch) => {
+      if (isMatch) {
+        // Create JWT Payload
+        const payload = {
+            id: user.id,
+            email: user.email
+        };
+
+        // Sign token
+        var token =jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            {
+             expiresIn: 31556926 
+            })}
       if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
 
+     
+
       const sessUser = { id: user.id, name: user.name, email: user.email };
+      const session = req.sessionID;
       req.session.user = sessUser; // Auto saves session data in mongo store
 
-      res.json({ msg: " Logged In Successfully", sessUser }); // sends cookie with sessionID automatically in response
+      res.json({ msg: " Logged In Successfully", sessUser,token ,session }); // sends cookie with sessionID automatically in response
     });
   });
 });
@@ -42,10 +59,11 @@ const loginUser = ("/login", (req, res) => {
 
 
 const logoutUser = ("/logout", (req, res) => {
+  
   req.session.destroy((err) => {
     //delete session data from store, using sessionID in cookie
     if (err) throw err;
-    res.clearCookie("session-id"); // clears cookie containing expired sessionID
+    res.clearCookie('session-id'); // clears cookie containing expired sessionID
     res.send("Logged out successfully");
   });
 });

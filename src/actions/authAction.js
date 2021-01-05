@@ -22,7 +22,8 @@ import {
 
 
 export const isAuth = () => (dispatch) => {
-  const token=localStorage.getItem('session')
+  
+  
 
   
     axios
@@ -30,7 +31,7 @@ export const isAuth = () => (dispatch) => {
     .then((res) =>
       dispatch({
         type: AUTH_SUCCESS,
-        payload: token
+        
         
       })
     )
@@ -64,6 +65,7 @@ export const login = ({ email, password }) => (dispatch) => {
       localStorage.setItem('session',JSON.stringify(res.data.sessUser));
       localStorage.setItem('Token',JSON.stringify(res.data.token));
       localStorage.setItem('session-id',JSON.stringify(res.data.session));
+      document.cookie ='session-id='+JSON.stringify(res.data.session);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data

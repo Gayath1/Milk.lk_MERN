@@ -413,6 +413,28 @@ router.delete("/logout", logoutUser );
 router.get("/authchecker", authChecker );
 
 
+router.route('/user/update').post((req, res) => {
 
+  var token = req.body.token;
+  var decoded = jwt.verify(token, process.env.JWT_SECRET);
+ 
+  User.findById(decoded.id, (err, data) => {
+    var salt =  bcrypt.genSaltSync(saltRounds);
+    const passwordHash = bcrypt.hashSync(req.body.password, salt);
+       
+           data.password = passwordHash
+
+         
+
+           
+
+          data.save().then(data => {
+              res.json('password updated!');
+          }).catch(err => {
+              res.status(400).send("Update isn't possible");
+          });
+      
+  });
+});
 
 app.use('/api', router);

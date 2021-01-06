@@ -61,6 +61,7 @@ onSubmit = (e) => {
     const { email, password} = this.state;
 
     const user = { email, password};
+    
     this.props.login(user);
   };
 
@@ -136,4 +137,4 @@ const mapStateToProps = (state) => ({
   
 });
 
-export default connect(mapStateToProps,{ login })(Login);
+export default connect(mapStateToProps,{ login})(Login);

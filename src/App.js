@@ -14,7 +14,7 @@ import Register from './components/register';
 import profile from './components/profile';
 import { Provider } from 'react-redux';
 import store from './store';
-
+import updateuser from './components/userupdate'
 
 
 const App = () => {
@@ -32,9 +32,10 @@ const App = () => {
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />
-        
+        <Route path="/updateuser"   component={updateuser} />
         <Switch>
               <Route exact path ="/profile" component={profile}/>
+              
             </Switch>
       
         </Router>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import axios from "axios"
+import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import {
   Button,
   Card,
@@ -10,7 +11,7 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom'
-import { logout } from '../actions/authAction';
+import { logout} from '../actions/authAction';
 
 
 
@@ -18,15 +19,18 @@ export class Profile extends Component {
 
   state = {
     email: "",
-    id: ""
+    id: "",
     
   }
-
+  
   static propTypes = {
     
     authState: PropTypes.object.isRequired,
     
     logout: PropTypes.func.isRequired,
+
+    
+    
   };
 
 
@@ -38,6 +42,7 @@ export class Profile extends Component {
     
     this.props.logout();
   };
+  
 
 
   render() {
@@ -56,6 +61,10 @@ export class Profile extends Component {
            <CardSubtitle><h5> You are now Logged In <span role="img" aria-label="clap">👏 </span></h5></CardSubtitle>
           <br/>
         <Button size="lg" onClick={this.onLogout} color="primary">Logout</Button>
+        <br/>
+        <Button size="lg" href='/updateuser' color="primary">Logout</Button>
+        
+        
             </CardBody>
           </Card>
         </div>

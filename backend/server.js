@@ -414,9 +414,12 @@ router.get("/authchecker", authChecker );
 
 
 router.route('/user/update').post((req, res) => {
-
-  var token = req.body.token;
+  const { token, password } = req.body;
+  console.log(token);
+  console.log(password);
+  //var token = req.body.token;
   var decoded = jwt.verify(token, process.env.JWT_SECRET);
+  
  
   User.findById(decoded.id, (err, data) => {
     var salt =  bcrypt.genSaltSync(saltRounds);

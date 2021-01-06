@@ -1,5 +1,4 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 import { returnStatus } from "./statusActions";
 
 import {
@@ -56,6 +55,7 @@ export const login = ({ email, password }) => (dispatch) => {
 
   // Request body
   const body = JSON.stringify({ email, password });
+  
 
   axios
     .post("/api/login", body, headers)
@@ -107,3 +107,31 @@ export const logout = () => (dispatch) => {
 }
 
 
+export const user_update = () => (dispatch) => {
+  
+  const token = JSON.stringify(localStorage.getItem("Token"));
+
+  const password= JSON.stringify(this.state.password);
+  const body = (token,password);
+  axios
+  .post("/api/user/update",body)
+  .then((res) => {
+  
+      
+   
+    dispatch({
+      type: LOGIN_SUCCESS,
+      
+    });
+    
+    dispatch({ type: IS_LOADING });
+  }
+  )
+  .catch((err) => {
+    dispatch(returnStatus(err.response.data, err.response.status, 'LOGIN_FAIL'))
+    dispatch({
+      type: LOGIN_FAIL
+    });
+    dispatch({ type: IS_LOADING })
+  });
+}

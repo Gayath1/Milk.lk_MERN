@@ -82,4 +82,5 @@ const authChecker =("/authchecker", (req, res) => {
 });
 
 
+
 module.exports = {loginUser, logoutUser, authChecker, isAuth}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { returnStatus } from "./statusActions";
-
+import  { useState } from 'react';
 import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -22,11 +22,15 @@ import {
 
 export const isAuth = () => (dispatch) => {
   
-  
-
+  const token = JSON.parse(localStorage.getItem('Token'));
+  const body = ({token});
   
     axios
-    .get("/api/authchecker",{withCredentials:true})
+    .get("/api/authchecker",body,{withCredentials:true},{
+      headers: {
+        "Content-Type":'application/json'
+      }
+    })
     .then((res) =>
       dispatch({
         type: AUTH_SUCCESS,
@@ -75,6 +79,10 @@ export const login = ({ email, password }) => (dispatch) => {
     }
     )
     .catch((err) => {
+    
+    
+      
+     
       dispatch(returnStatus(err.response.data, err.response.status, 'LOGIN_FAIL'))
       dispatch({
         type: LOGIN_FAIL

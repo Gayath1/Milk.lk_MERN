@@ -24,7 +24,7 @@ export class Profile extends Component {
   }
   
   static propTypes = {
-    
+    isAuthenticated: PropTypes.bool,
     authState: PropTypes.object.isRequired,
     
     logout: PropTypes.func.isRequired,
@@ -46,10 +46,10 @@ export class Profile extends Component {
 
 
   render() {
-    if(!this.props.authState.isAuthenticated) {
+    if(!this.props.isAuthenticated) {
     return <Redirect to="/login" />
     }
-
+    
     const {user} = this.props.authState;
     return (
        <div className="container">
@@ -62,7 +62,7 @@ export class Profile extends Component {
           <br/>
         <Button size="lg" onClick={this.onLogout} color="primary">Logout</Button>
         <br/>
-        <Button size="lg" href='/updateuser' color="primary">Logout</Button>
+        <Button size="lg" href='/updateuser' color="primary">Change Password</Button>
         
         
             </CardBody>
@@ -74,7 +74,7 @@ export class Profile extends Component {
 }
 
 const mapStateToProps = (state) => ({ //Maps state to redux store as props
- 
+  isAuthenticated: state.auth.isAuthenticated,
   authState: state.auth
 });
 

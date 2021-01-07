@@ -1,7 +1,7 @@
 import React, { useState, useEffect , Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Col, Button,  Alert } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import { connect } from "react-redux"; // API to connect component state to redux store
 import { login } from "../actions/authAction";
@@ -15,11 +15,7 @@ import { returnStatus } from "../actions/statusActions";
 
 class Login extends Component {
 
-  componentDidMount() {
-    // Check if session cookie is present
-    store.dispatch(isAuth());
-  }
-
+  
   static propTypes = {
     button: PropTypes.bool,
     isAuthenticated: PropTypes.bool,
@@ -27,8 +23,11 @@ class Login extends Component {
   state = {
     email: "",
     password: "",
-    msg: ""
+    msg: "",
+    err: ""
   }
+
+  
 
   static propTypes = {
     login: PropTypes.func.isRequired,
@@ -63,25 +62,29 @@ onSubmit = (e) => {
     const user = { email, password};
     
     this.props.login(user);
+    
   };
 
   
    
 render(){
+  
+  
   if(this.props.isAuthenticated) {
     return <Redirect to="/profile" />
   }
+  
   
     return (
        <div className="rectangle">
          
                 <Link to="/list" className="cols12 text-center">Login</Link>
-    
-              
-        
-         
         <div style={{ marginTop: 10 }}>
-            
+       
+        <br/>
+                {this.state.msg ? (
+              <Alert color="danger">{this.state.msg}</Alert>
+            ) : null}
             <Form onSubmit={this.onSubmit}>
                
                 <FormGroup row>
@@ -123,6 +126,7 @@ render(){
         </div>
         </div>
     );
+    
     }
 }
 

@@ -397,7 +397,7 @@ res.send(data);
 
 
 
-const {  loginUser, logoutUser, authChecker } = require("./controller");
+const {  loginUser, logoutUser, authChecker, isAuth } = require("./controller");
 // Logs In a User, creates session in mongo store
 // and returns a cookie containing sessionID, also called "session-id"
 router.post("/login", loginUser );
@@ -410,7 +410,7 @@ router.delete("/logout", logoutUser );
 
 // Check if user is Authenticated by reading session data
 // Needs cookie containing sessionID
-router.get("/authchecker", authChecker );
+router.get("/authchecker", isAuth );
 
 
 router.route('/user/update').post((req, res) => {

@@ -48,8 +48,7 @@ export class userupdate extends Component {
 
       const password= JSON.parse(JSON.stringify(this.state.password));
       const body = ({token, password});
-      console.log(token);
-      console.log(password);
+      
       axios
       .post("/api/user/update",body,{
           headers: {
@@ -62,7 +61,7 @@ export class userupdate extends Component {
           
       })
       .then((res) => {
-       
+        
       }
       )
       .catch((err) => {
@@ -72,36 +71,7 @@ export class userupdate extends Component {
     
     
   }
-  onSubmit = (event) => {
-    const token = JSON.stringify(localStorage.getItem("Token"));
-    const password = JSON.stringify(this.password)
-
-    const reactData = [{ password: password}, {token:token}];
-    
-    //const body = JSON.stringify({token, password})
-    
-    event.preventDefault();
-    
-    fetch('http://localhost:4000/api/user/update',reactData, {
-        method: 'POST',
-        headers: {
-            "Content-Type": "application/json",
-            
-            
-          },
-          
-        
-        
-        
-        
-      })
-      .then((response) => response.json())
-    
-    .catch(err => {
-      console.error(err);
-      alert('Error please try again');
-    });
-  }
+  
 
   render() {
    
@@ -125,6 +95,7 @@ export class userupdate extends Component {
                             type="password"
                             name="password"
                             className="form-control"
+                            required
                             value={this.state.password}
                             onChange={this.handleInputChange}
                              />

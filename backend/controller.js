@@ -3,8 +3,9 @@ const User = require("./user"); // User model
 const jwt = require('jsonwebtoken')
 
 const isAuth = (req,res,next) => {
-  const sessUser = req.session.user;
-  if(sessUser) {
+  const { token } = req.body;
+  var decoded = jwt.verify(token, process.env.JWT_SECRET);
+  if(decoded) {
       next();
   }
   else {
@@ -21,11 +22,11 @@ const loginUser = ("/login", (req, res) => {
 
   // basic validation
   if (!email || !password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
+    return res.status(400).json("Please enter all fields" );
   }
   //check for existing user
   User.findOne({ email }).then((user) => {
-    if (!user) return res.status(400).json({ msg: "User does not exist" });
+    if (!user) return res.status(400).json("User does not exist" );
 
     // Validate password
     bcrypt.compare(password, user.password).then((isMatch) => {
@@ -43,7 +44,7 @@ const loginUser = ("/login", (req, res) => {
             {
              expiresIn: 31556926 
             })}
-      if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
+      if (!isMatch) return res.status(400).json("Invalid credentials" );
 
      
 
@@ -77,7 +78,7 @@ const authChecker =("/authchecker", (req, res) => {
   if (sessUser) {
     return res.status(200).json({ msg: " Authenticated Successfully", sessUser });
   } else {
-    return res.status(401).json({ msg: "Unauthorized" });
+    return res.status(401).json( "Unauthorized" );
   }
 });
 

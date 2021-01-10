@@ -11,6 +11,10 @@ let crudProduct = new Schema({
     product_category: {
         type: String
     },
+    image: { 
+        type: String
+    },
+    
     product_price: {
         type: String
     },

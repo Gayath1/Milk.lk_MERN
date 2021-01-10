@@ -22,27 +22,27 @@ import {
 
 export const isAuth = () => (dispatch) => {
   
-  const token = JSON.parse(localStorage.getItem('Token'));
-  const body = ({token});
   
     axios
-    .get("/api/authchecker",body,{withCredentials:true},{
+    .get("/api/authchecker",{
       headers: {
         "Content-Type":'application/json'
       }
     })
     .then((res) =>
+    
       dispatch({
         type: AUTH_SUCCESS,
         
         
       })
     )
-    .catch((err) => {
+    .catch((err) => 
+      
       dispatch({
         type: AUTH_FAIL
-      });
-    });
+      })
+    );
 
 }
 

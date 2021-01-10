@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 const cors = require('cors');
+var fileupload = require('express-fileupload'); 
+app.use(fileupload());
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 const PORT = 4000;
 const router = require("express").Router();
 mongoose.set('useCreateIndex', true);
@@ -15,6 +17,11 @@ const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router();
 const morgan = require("morgan");
 const MongoDBStore = require("connect-mongodb-session")(session);
+const multer = require('multer');
+var path = require('path');
+
+
+
 
 
 const mongoDBstore = new MongoDBStore({
@@ -23,6 +30,7 @@ const mongoDBstore = new MongoDBStore({
 });
 app.use(morgan("dev"));
 require("dotenv").config();
+
 app.use(
   session({
     name: process.env.COOKIE_NAME, //name to be put in "key" field in postman etc
@@ -40,17 +48,31 @@ app.use(
 );
 
 
+
 let Crud = require('./crud.model');
 const User = require('./user');
 
 const bcrypt = require('bcryptjs');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '.uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+ 
+// var upload = multer({ storage: storage })
+
+var upload = multer({
+  storage: storage
+  
+});
 
 
-// Express Bodyparser
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+
+//app.use(bodyParser.json());
 app.use(cors());
-app.use(bodyParser.json());
 app.use(cookieParser());
 
 mongoose.connect('mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
@@ -58,8 +80,15 @@ mongoose.connect('mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products
 const connection = mongoose.connection;
 
 connection.once('open', () => {
+  
     console.log("MongoDB database connection established successfully");
 })
+
+
+
+
+
+
 
 crudRoutes.route('/').get((req, res) => {
     Crud.find((err, results) => {
@@ -76,8 +105,32 @@ crudRoutes.route('/:id').get((req, res) => {
     });
 });
 
-crudRoutes.route('/add').post((req, res) => {
-    let list = new Crud(req.body);
+
+
+
+
+
+crudRoutes.route('/add').post((req, res,next) => {
+  
+  
+  console.log(req.files);
+  const file = req.files.img;
+  file.mv(__dirname +"/uploads/"+file.name,function(err,result){
+    if(err) throw err;
+    res.send({ msg:"file uploaded!"});
+  })
+  
+   //let list = new Crud(req.body);
+    let list = new Crud({
+      product_name:req.body.product_name,
+      product_brand:req.body.product_brand,
+      product_category:req.body.product_category,
+      product_price:req.body.product_price,
+      image:req.files.img.name,
+
+
+    })
+  
     list.save().then(list => {
         res.status(200).json({'list': 'Product added successfully'});
     }).catch(err => {
@@ -410,7 +463,7 @@ router.delete("/logout", logoutUser );
 
 // Check if user is Authenticated by reading session data
 // Needs cookie containing sessionID
-router.get("/authchecker", isAuth );
+router.get("/authchecker", authChecker );
 
 
 router.route('/user/update').post((req, res) => {
@@ -432,7 +485,7 @@ router.route('/user/update').post((req, res) => {
            
 
           data.save().then(data => {
-              res.json('password updated!');
+              res.status(200).json('password updated!');
           }).catch(err => {
               res.status(400).send("Update isn't possible");
           });

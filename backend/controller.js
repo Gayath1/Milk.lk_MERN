@@ -1,11 +1,13 @@
 const bcrypt = require("bcryptjs");
 const User = require("./user"); // User model
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { JSONCookie } = require("cookie-parser");
 
 const isAuth = (req,res,next) => {
   const { token } = req.body;
+  const sessUser = req.session.user;
   var decoded = jwt.verify(token, process.env.JWT_SECRET);
-  if(decoded) {
+  if(sessUser) {
       next();
   }
   else {
@@ -73,9 +75,11 @@ const logoutUser = ("/logout", (req, res) => {
 const authChecker =("/authchecker", (req, res) => {
  
   const sessUser = req.session.user;
+  const session = req.sessionID;
   
   
-  if (sessUser) {
+  
+  if (sessUser ) {
     return res.status(200).json({ msg: " Authenticated Successfully", sessUser });
   } else {
     return res.status(401).json( "Unauthorized" );

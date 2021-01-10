@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import axios from "axios";
+import {Redirect} from 'react-router-dom'
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
 import {
   Button,
@@ -61,10 +62,13 @@ export class userupdate extends Component {
           
       })
       .then((res) => {
-        
+        // if(res.status === 200){
+         // this.props.history.push('/profile');
+       //  }
       }
       )
       .catch((err) => {
+        alert('Error please try again');
        
       });
 

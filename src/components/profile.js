@@ -12,8 +12,8 @@ import {
 import PropTypes from "prop-types";
 import { Redirect } from 'react-router-dom'
 import { logout} from '../actions/authAction';
-
-
+import store from '../store';
+import { isAuth } from '../actions/authAction'
 
 export class Profile extends Component {
 
@@ -22,7 +22,7 @@ export class Profile extends Component {
     id: "",
     
   }
-  
+ 
   static propTypes = {
     isAuthenticated: PropTypes.bool,
     authState: PropTypes.object.isRequired,
@@ -43,7 +43,7 @@ export class Profile extends Component {
     this.props.logout();
   };
   
-
+  
 
   render() {
     if(!this.props.isAuthenticated) {

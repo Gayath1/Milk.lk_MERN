@@ -53,24 +53,11 @@ let Crud = require('./crud.model');
 const User = require('./user');
 
 const bcrypt = require('bcryptjs');
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '.uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname)
-  }
-})
- 
-// var upload = multer({ storage: storage })
-
-var upload = multer({
-  storage: storage
-  
-});
 
 
 
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 //app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
@@ -112,21 +99,21 @@ crudRoutes.route('/:id').get((req, res) => {
 
 crudRoutes.route('/add').post((req, res,next) => {
   
-  
-  console.log(req.files);
-  const file = req.files.img;
+  const file = req.files.image;
   file.mv(__dirname +"/uploads/"+file.name,function(err,result){
-    if(err) throw err;
+     if(err) throw err;
     res.send({ msg:"file uploaded!"});
-  })
+   })
   
+    
+
    //let list = new Crud(req.body);
     let list = new Crud({
       product_name:req.body.product_name,
       product_brand:req.body.product_brand,
       product_category:req.body.product_category,
       product_price:req.body.product_price,
-      image:req.files.img.name,
+      image:req.files.image.name,
 
 
     })

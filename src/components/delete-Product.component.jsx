@@ -24,7 +24,7 @@ const DeleteProduct = (props) => {
     const onDeleteProductData = (e) => {
         e.preventDefault();
         axios.delete(`http://localhost:4000/all_product/delete/${props.match.params.id}`, data).then(res => console.log(res.data));
-        props.history.push('/');
+        props.history.push('/list');
     }
 
     return (

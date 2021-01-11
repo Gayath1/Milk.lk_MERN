@@ -14,12 +14,12 @@ var verifytoken = require("./validate-token");
 const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
 const session = require("express-session");
 const jwt = require('jsonwebtoken');
-const crudRoutes = express.Router();
+const crudRoutes = express.Router({mergeParams: true});
 const morgan = require("morgan");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const multer = require('multer');
 var path = require('path');
-
+const fs = require('fs')
 
 
 
@@ -88,9 +88,12 @@ crudRoutes.route('/:id').get((req, res) => {
     let id = req.params.id;
     Crud.findById(id, (err, result) => {
         if (err) console.log(err);
-        else res.json(result);
+        else
+        
+        res.json(result);
     });
 });
+
 
 
 
@@ -147,7 +150,20 @@ crudRoutes.route('/update/:id').post((req, res) => {
 });
 
 crudRoutes.route('/delete/:id').delete((req, res) => {
-    Crud.findByIdAndRemove(req.params.id, (err, data) => {
+  let id = req.params.id;
+  
+  Crud.findById(id, (err, result) => {
+    if (err) console.log(err);
+    else
+    fs.unlink(__dirname +`/uploads/${result.image}`, (err) => {
+      if (err) throw err;
+      console.log('file was deleted');
+    });
+    
+    return;
+});
+    Crud.findByIdAndRemove(req.params.id,  (err, data) => {
+
         if (err) return res.status(500).send("There was a problem deleting the product.");
         res.status(200).send(`product ${data.product_name} was deleted`);
     })

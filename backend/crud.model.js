@@ -15,6 +15,7 @@ let crudProduct = new Schema({
         type: String
     },
     
+    
     product_price: {
         type: String
     },

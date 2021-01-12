@@ -15,6 +15,7 @@ const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
 const session = require("express-session");
 const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router({mergeParams: true});
+const store = express.Router({mergeParams: true});
 const morgan = require("morgan");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const multer = require('multer');
@@ -54,7 +55,7 @@ const User = require('./user');
 
 const bcrypt = require('bcryptjs');
 
-
+app.use('/uploads', express.static(path.join(__dirname, '/uploads/')));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -117,7 +118,7 @@ crudRoutes.route('/add').post((req, res,next) => {
       product_category:req.body.product_category,
       product_price:req.body.product_price,
       image:req.files.image.name,
-
+      
 
     })
   
@@ -168,8 +169,8 @@ crudRoutes.route('/delete/:id').delete((req, res) => {
         res.status(200).send(`product ${data.product_name} was deleted`);
     })
 });
-app.use('/all_product', crudRoutes);
 
+app.use('/all_product', crudRoutes);
 app.listen(PORT, () => {
     console.log("Server is running on PORT: " + PORT);
 })
@@ -216,7 +217,15 @@ router.route('/register').post((req, res) => {
 
 });
 
-       
+store.route('/').get((req, res) => {
+  Crud.find((err, results) => {
+      if (err) console.log(err);
+      else res.json(results);
+  });
+});       
+
+app.use('/store', store);
+
 
 
 

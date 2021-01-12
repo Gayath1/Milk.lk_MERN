@@ -15,7 +15,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import updateuser from './components/userupdate';
 import home from './components/home';
-
+import mainstore from './components/store';
 const App = () => {
   
   
@@ -27,6 +27,7 @@ const App = () => {
     <Router>
     <Route path="/home"  component={home} />
         <Route path="/list"  component={ListProduct} />
+        <Route path="/store"  component={mainstore} />
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />

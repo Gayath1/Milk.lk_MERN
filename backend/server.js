@@ -223,12 +223,19 @@ store.route('/').get((req, res) => {
       else res.json(results);
   });
 });
-store.route('/milk').get((req, res) => {
+store.route('/freshmilk').get((req, res) => {
   Crud.find({product_category:"fresh milk"},(err, results) => {
       if (err) console.log(err);
       else res.json(results);
   });
 });        
+
+store.route('/milk').get((req, res) => {
+  Crud.find({product_category:"milk"},(err, results) => {
+      if (err) console.log(err);
+      else res.json(results);
+  });
+});
 
 app.use('/store', store);
 

@@ -16,6 +16,7 @@ import store from './store';
 import updateuser from './components/userupdate';
 import home from './components/home';
 import mainstore from './components/store';
+import freshmilk from './components/freshmilk';
 const App = () => {
   
   
@@ -28,6 +29,7 @@ const App = () => {
     <Route path="/home"  component={home} />
         <Route path="/list"  component={ListProduct} />
         <Route path="/store"  component={mainstore} />
+        <Route path="/freshmilk"  component={freshmilk} />
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />

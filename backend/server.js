@@ -222,7 +222,13 @@ store.route('/').get((req, res) => {
       if (err) console.log(err);
       else res.json(results);
   });
-});       
+});
+store.route('/milk').get((req, res) => {
+  Crud.find({product_category:"fresh milk"},(err, results) => {
+      if (err) console.log(err);
+      else res.json(results);
+  });
+});        
 
 app.use('/store', store);
 

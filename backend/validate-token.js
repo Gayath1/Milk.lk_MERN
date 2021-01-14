@@ -1,20 +1,30 @@
-// middleware.js
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
-const withAuth = function(req, res, next) {
-  const token = req.token;
+
+
+
+const verifyToken = (req, res, next) => {
+  let token = req.headers["x-access-token"];
+
   if (!token) {
-    res.status(401).send('Unauthorized: No token provided');
-  } else {
-    jwt.verify(token, process.env.JWT_SECRET, function(err, decoded) {
-      if (err) {
-        res.status(401).send('Unauthorized: Invalid token');
-      } else {
-        req.email = decoded.email;
-        next();
-      }
-    });
+    return res.status(403).send({ message: "No token provided!" });
   }
-}
 
-module.exports = withAuth;
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "Unauthorized!" });
+    }
+    req.userId = decoded.id;
+    next();
+    return;
+  });
+};
+
+
+
+
+const authJwt = {
+  verifyToken,
+  
+};
+module.exports = authJwt;

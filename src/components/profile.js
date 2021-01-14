@@ -33,6 +33,7 @@ export class Profile extends Component {
     
   };
 
+ 
 
   onLogout = (e) => {
     e.preventDefault();

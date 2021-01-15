@@ -14,7 +14,7 @@ import { Redirect } from 'react-router-dom'
 import { logout} from '../actions/authAction';
 import store from '../store';
 import { isAuth } from '../actions/authAction'
-
+import AuthService from '../auth';
 export class Profile extends Component {
 
   state = {
@@ -33,8 +33,7 @@ export class Profile extends Component {
     
   };
 
- 
-
+componentDidMount() {axios.get("/api/authchecker",AuthService)}
   onLogout = (e) => {
     e.preventDefault();
 

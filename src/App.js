@@ -17,6 +17,7 @@ import updateuser from './components/userupdate';
 import home from './components/home';
 import mainstore from './components/store';
 import freshmilk from './components/freshmilk';
+import auth from './auth';
 const App = () => {
   
   

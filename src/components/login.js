@@ -78,7 +78,7 @@ render(){
     return (
        <div className="rectangle">
          
-                <Link to="/list" className="cols12 text-center">Login</Link>
+                <Link to="/login" className="cols12 text-center">Login</Link>
         <div style={{ marginTop: 10 }}>
        
         <br/>

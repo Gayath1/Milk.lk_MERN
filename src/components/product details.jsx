@@ -1,40 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
+import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
-import { Table, Badge } from 'reactstrap';
-import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
-const ListBar = (props) => {
-    return (
-        
-        
-        <div className='product-card container'>
-        <img className='product-card-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' />
-        <div>
-      <Link to={"/view/" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
-      <p className='product-card label'>{props.product.product_brand}</p>
-      <p className='product-card label'>{props.product.product_price}</p>
-      </div>
-        
-        </div>
-        
-        
-    );
-}
-
-const Store = () => {
-    const [listData, setListData] = useState({ lists: [] });
+const DeleteProduct = (props) => {
+    const [data, setData] = useState({
+        product_name: "",
+        product_brand: "",
+        product_category: "",
+        product_price: "",
+        image: "",
+    });
 
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                'http://localhost:4000/store/'
+                `http://localhost:4000/store/${props.match.params.id}`
             );
-            setListData({ lists: result.data });
+            setData({ ...result.data });
         };
         fetchData();
     }, []);
+
     
+
     return (
         <div className="store">
         <div class="header">
@@ -59,15 +48,22 @@ const Store = () => {
         <div class="cards">
                
                 
-                    {listData.lists.map((current, i) => (
-                        <ListBar product={current} key={i} />
-                    ))}
+        <div className='product-card container'>
+        <img className='product-card-img' src={`http://localhost:4000/uploads/${data.image}`} alt='' />
+        <div>
+      <p className='product-card label'>{data.product_name}</p>
+      <p className='product-card label'>{data.product_brand}</p>
+      <p className='product-card label'>{data.product_price}</p>
+      </div>
+        
+        </div>
                 
             </div>
         </div>
         </div>
         
+               
     );
 }
 
-export default Store;
+export default DeleteProduct;

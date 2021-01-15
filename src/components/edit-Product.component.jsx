@@ -65,7 +65,7 @@ const EditProduct = (props) => {
                     <Col>
                         <Label><AiOutlineExport /> Category </Label>
                         <Input
-                            type="number"
+                            type="text"
                             name="product_category"
                             className="form-control"
                             value={data.product_category}

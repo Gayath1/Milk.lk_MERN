@@ -58,7 +58,7 @@ const DeleteProduct = (props) => {
                         <Label><AiOutlineExport /> Category </Label>
                         <Input
                             readOnly
-                            type="number"
+                            type="text"
                             name="product_category"
                             className="form-control"
                             value={data.product_category}/>

@@ -223,6 +223,8 @@ store.route('/').get((req, res) => {
       else res.json(results);
   });
 });
+
+
 store.route('/freshmilk').get((req, res) => {
   Crud.find({product_category:"fresh milk"},(err, results) => {
       if (err) console.log(err);
@@ -234,6 +236,16 @@ store.route('/milk').get((req, res) => {
   Crud.find({product_category:"milk"},(err, results) => {
       if (err) console.log(err);
       else res.json(results);
+  });
+});
+
+store.route('/:id').get((req, res) => {
+  let id = req.params.id;
+  Crud.findById(id, (err, result) => {
+      if (err) console.log(err);
+      else
+      
+      res.json(result);
   });
 });
 

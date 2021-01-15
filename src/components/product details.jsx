@@ -45,7 +45,7 @@ const DeleteProduct = (props) => {
           </div>
         </div>
         <div class="container">    
-        <div class="cards">
+        <div class="datacard">
                
                 
         <div className='product-card container'>
@@ -54,6 +54,7 @@ const DeleteProduct = (props) => {
       <p className='product-card label'>{data.product_name}</p>
       <p className='product-card label'>{data.product_brand}</p>
       <p className='product-card label'>{data.product_price}</p>
+      <Button color="primary" className="cartadd"> Add to Cart</Button>
       </div>
         
         </div>

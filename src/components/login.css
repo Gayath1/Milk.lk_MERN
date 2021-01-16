@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fdfefe;
+  font-family: "Arial";
+}
+.login {
+  margin-left: 40%;
+  margin: auto;
+  width: 400px;
+  overflow: hidden;
+  box-shadow: 0px 4px 4px rgba(165, 52, 52, 0.48);
+  border-radius: 20px;
+  align-items: center;
+  padding: 80px;
+  background: #ffffff;
+}
+h2 {
+  margin: 5%;
+  text-align: center;
+  color: #5327e4;
+  font-size: 40vm;
+  font-family: nexa;
+  padding: 20px;
+}
+label {
+  color: #08ffd1;
+  font-size: 17px;
+}
+.Uname {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 8px;
+}
+.Pass {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 3px;
+  padding-left: 8px;
+}
+.log {
+  width: 245px;
+  height: 40px;
+  border: none;
+  border-radius: 17px;
+  padding-left: 7px;
+  color: white;
+}
+span {
+  color: white;
+  font-size: 17px;
+}
+
+a {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}

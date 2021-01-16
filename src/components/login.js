@@ -10,7 +10,7 @@ import store from '../store';
 import {Redirect} from 'react-router-dom'
 import PropTypes from "prop-types";
 import { returnStatus } from "../actions/statusActions";
-
+import './login.css';
 
 
 class Login extends Component {
@@ -76,10 +76,10 @@ render(){
   
   
     return (
-       <div className="rectangle">
+       <div className="body">
          
-                <Link to="/login" className="cols12 text-center">Login</Link>
-        <div style={{ marginTop: 10 }}>
+         <h2>Login</h2><br/> 
+         <div class="login"> 
        
         <br/>
                 {this.state.msg ? (
@@ -89,7 +89,7 @@ render(){
                
                 <FormGroup row>
                     <Col>
-                        <div className="input-fieldcols12">
+                        <div className="uname">
                         <Input
                             
                             placeholder = "your Email"
@@ -106,7 +106,7 @@ render(){
                 <br/>
                 <FormGroup row>
                     <Col>
-                    <div className="input-fieldcols12">
+                    <div className="pass">
                         <Input
                             placeholder = "Your password"
                             type="password"
@@ -121,9 +121,13 @@ render(){
                             </div>
                     </Col>
                 </FormGroup>
-                <Button className="btn_login" type="submit" value="Submit" > Login</Button>
+                <Button className="log" type="submit" value="Submit" > Login</Button>
+                
             </Form>
+            <br/>
+            <a>Don't have an account?<Link to="/register">Register</Link></a>
         </div>
+        
         </div>
     );
     

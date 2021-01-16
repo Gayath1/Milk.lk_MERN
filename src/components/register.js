@@ -3,6 +3,7 @@ import { Link,useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
+import './login.css';
 
 
 
@@ -101,20 +102,20 @@ class register extends Component {
   render(){
     
       return (
-         <div className="rectangle">
+         <div className="body">
            
-                  <Link className="cols12 text-center">Create account</Link>
+                  <h2>Create account</h2>
       
                 
           
            
-          <div style={{ marginTop: 10 }}>
+          <div class="login">
               
               <Form onSubmit={this.onSubmit}>
                  
                   <FormGroup row>
                       <Col>
-                          <div className="input-fieldcols12">
+                          <div className="uname">
                           <Input
                               
                               placeholder = "your Email"
@@ -131,7 +132,7 @@ class register extends Component {
                   <br/>
                   <FormGroup row>
                       <Col>
-                      <div className="input-fieldcols12">
+                      <div className="pass">
                           <Input
                               placeholder = "Your password"
                               type="password"
@@ -146,8 +147,10 @@ class register extends Component {
                               </div>
                       </Col>
                   </FormGroup>
-                  <Button className="btn_login" type="submit" value="Submit"> Sign up</Button>
+                  <Button className="log" type="submit" value="Submit"> Sign up</Button>
               </Form>
+              <br/>
+            <a>Have an account?<Link to="/login">Login</Link></a>
           </div>
           </div>
       );

@@ -11,3 +11,8 @@ export const BUTTON_RESET = 'BUTTON_RESET';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const IS_LOADING = 'IS_LOADING';
+
+// cart
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const REMOVE_WHOLE_ITEM = 'REMOVE_WHOLE_ITEM';

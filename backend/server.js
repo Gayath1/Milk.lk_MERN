@@ -51,6 +51,7 @@ app.use(
 
 
 let Crud = require('./crud.model');
+let cart = require('./cart')
 const User = require('./user');
 
 const bcrypt = require('bcryptjs');
@@ -125,7 +126,7 @@ crudRoutes.route('/add').post((req, res,next) => {
     list.save().then(list => {
         res.status(200).json({'list': 'Product added successfully'});
     }).catch(err => {
-        res.status(400).send('oktaClient');
+        res.status(400).send('fail');
     });
 });
 
@@ -247,6 +248,26 @@ store.route('/:id').get((req, res) => {
       
       res.json(result);
   });
+});
+
+store.route('/addtocart').post((req, res,next) => {
+  
+  //let list = new Crud(req.body);
+    let list = new cart({
+      product_name:req.body.data.product_name,
+      product_brand:req.body.data.product_brand,
+      product_category:req.body.data.product_category,
+      product_price:req.body.data.product_price,
+      image:req.body.data.image,
+      
+
+    })
+  
+    list.save().then(list => {
+        res.status(200).json({'list': 'Product added successfully'});
+    }).catch(err => {
+        res.status(400).send('fail');
+    });
 });
 
 app.use('/store', store);

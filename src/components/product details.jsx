@@ -22,7 +22,19 @@ const DeleteProduct = (props) => {
         fetchData();
     }, []);
 
-    
+    const addtocart = (e) => {
+      const body ={data}
+      e.preventDefault();
+      axios.post("/store/addtocart", body)
+      .then((res) => {
+          if (res.status === 200) {
+              alert('Product added success');
+          } 
+      }).catch((err) => {
+          console.error(err);
+          alert('Error please try again');
+      });
+      };
 
     return (
         <div className="store">
@@ -54,7 +66,7 @@ const DeleteProduct = (props) => {
       <p className='product-card label'>{data.product_name}</p>
       <p className='product-card label'>{data.product_brand}</p>
       <p className='product-card label'>{data.product_price}</p>
-      <Button color="primary" className="cartadd"> Add to Cart</Button>
+      <Button onClick={addtocart} color="primary" className="cartadd"> Add to Cart</Button>
       </div>
         
         </div>

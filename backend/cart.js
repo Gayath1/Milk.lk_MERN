@@ -14,7 +14,9 @@ let crudProduct = new Schema({
     image: { 
         type: String
     },
-    
+    token: { 
+        type: String
+    },
     
     product_price: {
         type: String

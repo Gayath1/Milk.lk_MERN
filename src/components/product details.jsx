@@ -23,7 +23,8 @@ const DeleteProduct = (props) => {
     }, []);
 
     const addtocart = (e) => {
-      const body ={data}
+      const token = localStorage.getItem('Token');
+      const body ={data,token}
       e.preventDefault();
       axios.post("/store/addtocart", body)
       .then((res) => {
@@ -60,7 +61,7 @@ const DeleteProduct = (props) => {
         <div class="datacard">
                
                 
-        <div className='product-card container'>
+        <div className='product-card containerdetails'>
         <img className='product-card-img' src={`http://localhost:4000/uploads/${data.image}`} alt='' />
         <div>
       <p className='product-card label'>{data.product_name}</p>

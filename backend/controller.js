@@ -75,11 +75,8 @@ const logoutUser = ("/logout", (req, res) => {
 const authChecker =("/authchecker", (req, res) => {
  
   const sessUser = req.session.user;
-  const session = req.sessionID;
-  
-  
-  
   if (sessUser ) {
+    
     return res.status(200).json({ msg: " Authenticated Successfully", sessUser });
   } else {
     return res.status(401).json( "Unauthorized" );

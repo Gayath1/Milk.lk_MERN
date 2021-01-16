@@ -33,7 +33,7 @@ export class Profile extends Component {
     
   };
 
-componentDidMount() {axios.get("/api/authchecker",AuthService)}
+
   onLogout = (e) => {
     e.preventDefault();
 

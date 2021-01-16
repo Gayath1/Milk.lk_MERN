@@ -259,6 +259,8 @@ store.route('/addtocart').post((req, res,next) => {
       product_category:req.body.data.product_category,
       product_price:req.body.data.product_price,
       image:req.body.data.image,
+      token: req.body.token,
+
       
 
     })
@@ -268,6 +270,7 @@ store.route('/addtocart').post((req, res,next) => {
     }).catch(err => {
         res.status(400).send('fail');
     });
+  
 });
 
 app.use('/store', store);
@@ -286,7 +289,7 @@ router.delete("/logout", logoutUser );
 
 // Check if user is Authenticated by reading session data
 // Needs cookie containing sessionID
-router.get("/authchecker", [authJwt.verifyToken] );
+router.get("/authchecker", authChecker );
 
 router.route('/user/update').post((req, res) => {
   const { token, password } = req.body;
@@ -315,19 +318,7 @@ router.route('/user/update').post((req, res) => {
   });
 });
 
-router.post("/tokenIsValid", async (req, res) => {
-  try {
-  const token = req.header("x-auth-token");
-  if (!token) return res.json(false);
-  const verified = jwt.verify(token, process.env.JWT_SECRET);
-  if (!verified) return res.json(false);
-  const user = await User.findById(verified.id);
-  if (!user) return res.json(false);
-  return res.json(true);
-  } catch (err) {
-  res.status(500).json({ error: err.message });
-  }
-  });
+
 
 
 

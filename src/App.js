@@ -19,6 +19,7 @@ import mainstore from './components/store';
 import freshmilk from './components/freshmilk';
 import product from './components/product details';
 import cart from './components/cart';
+import auth from './auth';
 
 const App = () => {
   

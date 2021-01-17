@@ -21,6 +21,9 @@ let crudProduct = new Schema({
     product_price: {
         type: String
     },
+    quantity: {
+        type: String
+    },
    
 });
 

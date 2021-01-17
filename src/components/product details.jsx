@@ -10,7 +10,12 @@ const DeleteProduct = (props) => {
         product_category: "",
         product_price: "",
         image: "",
+        
     });
+    const [quantity, setquantity] = useState({
+      quantity: "",
+
+    })
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,9 +27,16 @@ const DeleteProduct = (props) => {
         fetchData();
     }, []);
 
+   const  handleSelectChange = (event) => {
+      setquantity({
+        quantity: event.target.value
+      })
+    }
+
+
     const addtocart = (e) => {
-      const token = localStorage.getItem('Token');
-      const body ={data,token}
+      const token = JSON.parse(localStorage.getItem('Token'));
+      const body ={data,token,quantity}
       e.preventDefault();
       axios.post("/store/addtocart", body)
       .then((res) => {
@@ -67,7 +79,17 @@ const DeleteProduct = (props) => {
       <p className='product-card label'>{data.product_name}</p>
       <p className='product-card label'>{data.product_brand}</p>
       <p className='product-card label'>{data.product_price}</p>
-      <Button onClick={addtocart} color="primary" className="cartadd"> Add to Cart</Button>
+      <div class="form-group mx-sm-3 mb-2">
+    
+    <select class="form-control " name="quantity"  onChange={handleSelectChange}>
+      <option value='1'>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div>
+      <Button onClick={addtocart} color="primary" className="cartadd" type="submit"> Add to Cart</Button>
       </div>
         
         </div>

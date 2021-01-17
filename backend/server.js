@@ -261,8 +261,6 @@ store.route('/addtocart').post((req, res,next) => {
       image:req.body.data.image,
       token: req.body.token,
 
-      
-
     })
   
     list.save().then(list => {
@@ -271,6 +269,14 @@ store.route('/addtocart').post((req, res,next) => {
         res.status(400).send('fail');
     });
   
+});
+
+store.route('/cart').get((req, res) => {
+  const token = req.body.token;
+  cart.find({token:token},(err, results) => {
+      if (err) console.log(err);
+      else res.json(results);
+  });
 });
 
 app.use('/store', store);

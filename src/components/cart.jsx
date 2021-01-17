@@ -28,7 +28,7 @@ import axios from 'axios';
             const fetchData = async () => {
                 const token = JSON.parse(localStorage.getItem('Token'));
                 const body ={token}
-                const result = await axios(
+                const result = await axios.post(
                     'http://localhost:4000/store/cart',body);
                 setListData({ lists: result.data });
             };

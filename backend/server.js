@@ -271,7 +271,7 @@ store.route('/addtocart').post((req, res,next) => {
   
 });
 
-store.route('/cart').get((req, res) => {
+store.route('/cart').post((req, res) => {
   const token = req.body.token;
   cart.find({token:token},(err, results) => {
       if (err) console.log(err);

@@ -7,14 +7,26 @@ import axios from 'axios';
         return (
             
             
-            <div className='product-card container'>
-            <img className='product-card-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' />
-            <div>
-          <p className='product-card label'>{props.product.product_name}</p>
-          <p className='product-card label'>{props.product.product_brand}</p>
-          <p className='product-card label'>{props.product.product_price}</p>
-          </div>
+            <div className='product-cart container'>
+            <div class="row">
             
+            <div class="col-3" style = {{padding:'10px'}}><img className='product-cart-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' /></div>
+            
+            <div class="col-3" style = {{padding:'30px'}}><p className='product-cart label'>{props.product.product_name}</p></div>
+            <div class="col-3" style = {{padding:'30px'}}><div class="form-group mx-sm-3 mb-2">
+    
+    <select class="form-control " name="quantity" value={props.product.quantity} >
+      <option value='1'>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div></div>
+            <div class="col-3" style = {{padding:'30px'}}><p className='product-cart label'>{props.product.product_price}</p></div>
+          
+          
+          </div>
             </div>
             
             
@@ -56,7 +68,7 @@ import axios from 'axios';
               </div>
             </div>
             <div className="container">    
-            <div className="cards">
+            <div className="cart">
                    
                     
                         {listData.lists.map((current, i) => (

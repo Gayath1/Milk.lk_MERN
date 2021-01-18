@@ -260,7 +260,7 @@ store.route('/addtocart').post((req, res,next) => {
       product_price:req.body.data.product_price,
       image:req.body.data.image,
       token: req.body.token,
-      quantity:req.body.quantity.Quantity,
+      quantity:req.body.quantity.quantity,
 
     })
   

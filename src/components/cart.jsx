@@ -7,6 +7,7 @@ import axios from 'axios';
     const ListBar = (props) => {
 
       const onDeleteProductData = (_id,e) => {
+        
         const body = {_id}
         axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res => console.log(res.data));
   
@@ -58,6 +59,7 @@ import axios from 'axios';
         }, []);
 
        
+        
         const calculateTotal = (products) => {
           let total = 0;
     
@@ -68,7 +70,10 @@ import axios from 'axios';
           setTotal(total)
           setShowTotal(true)
       }
-        
+     console.log(listData.lists)
+      const itemsPrice =  listData.lists.reduce((a, c) => a + c.quantity * c.product_price, 0);;
+      const totalPrice = itemsPrice;
+      
         return (
             <div className="store">
             <div className="header">
@@ -92,17 +97,26 @@ import axios from 'axios';
             <div className="container">    
             <div className="cart">
                    
-                    
+            {listData.lists.length === 0 && <div>Cart is empty</div>}
                         {listData.lists.map((current, i) => (
                             <ListBar product={current} key={i} />
                         ))}
                     
                 </div>
-                
+                <div className="row">
+              <div className="col-2">
+                <strong>Total Price</strong>
+              </div>
+              
+              <div className="col-1 text-right">
+                <strong>${totalPrice}</strong>
+              </div>
+            </div>
             </div>
             </div>
             
         );
+                          
     }
     
     export default Store;

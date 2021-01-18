@@ -7,7 +7,8 @@ import {
     REGISTER_SUCCESS,
     REGISTER_FAIL,
     AUTH_SUCCESS,
-    AUTH_FAIL
+    AUTH_FAIL,
+    REMOVE_CART_ITEM_USER
   } from "../actions/types";
   
   
@@ -43,7 +44,16 @@ import {
           user: null,
           isAuthenticated: false,
         }
-  
+        case REMOVE_CART_ITEM_USER:
+          return {
+              ...state,
+              cartDetail: action.payload.cartDetail,
+              userData: {
+                  ...state.userData,
+                  cart: action.payload.cart
+              }
+            }
+
       default:
           return state;
     }

@@ -14,5 +14,7 @@ export const IS_LOADING = 'IS_LOADING';
 
 // cart
 export const ADD_TO_CART = 'ADD_TO_CART';
-export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const REMOVE_CART_ITEM_USER = 'remove_cart_item_user';
 export const REMOVE_WHOLE_ITEM = 'REMOVE_WHOLE_ITEM';
+
+export const GET_CART_ITEMS_USER = 'get_cart_items_user';

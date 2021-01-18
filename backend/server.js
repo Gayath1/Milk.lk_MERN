@@ -280,6 +280,16 @@ store.route('/cart').post((req, res) => {
   });
 });
 
+store.route('/cart/delete').delete((req, res) => {
+  
+  let id = req.body._id;
+    cart.findOneAndDelete(id,  (err, data) => {
+
+        if (err) return res.status(500).send("There was a problem deleting the product.");
+        res.status(200).send(`cart was deleted`);
+    })
+});
+
 app.use('/store', store);
 
 

@@ -10,6 +10,7 @@ import ListProduct from './components/list-Product.component';
 import EditProduct from './components/edit-Product.component';
 import CreateProduct from './components/create-Product.component';
 import DeleteProduct from './components/delete-Product.component';
+
 import profile from './components/profile';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -39,6 +40,7 @@ const App = () => {
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />
+        
         <Route path="/updateuser"   component={updateuser} />
         <Route  path ="/login" component={Login}/>
         <Route  path ="/register" component={Register}/>

@@ -3,17 +3,26 @@ import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
  
+
     const ListBar = (props) => {
+
+      const onDeleteProductData = (_id,e) => {
+        const body = {_id}
+        axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res => console.log(res.data));
+  
+    }
+  
+
         return (
             
             
             <div className='product-cart container'>
             <div class="row">
             
-            <div class="col-3" style = {{padding:'10px'}}><img className='product-cart-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' /></div>
+            <div class="col-3" style = {{paddingTop:'10px'}}><img className='product-cart-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' /></div>
             
-            <div class="col-3" style = {{padding:'30px'}}><p className='product-cart label'>{props.product.product_name}</p></div>
-            <div class="col-3" style = {{padding:'30px'}}><div class="form-group mx-sm-3 mb-2">
+            <div class="col-3" style = {{paddingTop:'30px'}}><p className='product-cart label'>{props.product.product_name}</p></div>
+            <div class="col-3" style = {{paddingTop:'30px'}}><div class="form-group mx-sm-5 mb-2">
     
     <select class="form-control " name="quantity" value={props.product.quantity} >
       <option value='1'>1</option>
@@ -23,9 +32,8 @@ import axios from 'axios';
       <option value="5">5</option>
     </select>
   </div></div>
-            <div class="col-3" style = {{padding:'30px'}}><p className='product-cart label'>{props.product.product_price}</p></div>
-          
-          
+            <div class="col-3" ><p className='product-cart label'>{props.product.product_price}</p></div>
+          <div class="col-3" ><Button onClick={onDeleteProductData}>Remove </Button></div>
           </div>
             </div>
             
@@ -35,6 +43,8 @@ import axios from 'axios';
     
     const Store = () => {
         const [listData, setListData] = useState({ lists: [] });
+        const [Total, setTotal] = useState(0)
+        const [ShowTotal, setShowTotal] = useState(false)
     
         useEffect(() => {
             const fetchData = async () => {
@@ -46,6 +56,18 @@ import axios from 'axios';
             };
             fetchData();
         }, []);
+
+       
+        const calculateTotal = (products) => {
+          let total = 0;
+    
+          listData.lists.map(current => {
+              total += parseInt(current.product_price, 10) * current.quantity
+          });
+    
+          setTotal(total)
+          setShowTotal(true)
+      }
         
         return (
             <div className="store">
@@ -76,6 +98,7 @@ import axios from 'axios';
                         ))}
                     
                 </div>
+                
             </div>
             </div>
             

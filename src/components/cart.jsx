@@ -141,16 +141,16 @@ import axios from 'axios';
             <form onSubmit={placeorder}>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>
-              <input type="text" class="form-control" name="name" value={user.name} aria-describedby="emailHelp" placeholder="Name" onChange={handleInputChange}/>
+              <input type="text" class="form-control" name="name" value={user.name} aria-describedby="emailHelp" placeholder="Name" required onChange={handleInputChange}/>
               
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Address</label>
-              <input type="text" class="form-control" name="address"  value={user.address} placeholder="Address" onChange={handleInputChange}/>
+              <input type="text" class="form-control" name="address"  value={user.address} placeholder="Address" required onChange={handleInputChange}/>
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Mobile number</label>
-              <input type="tel" class="form-control" name="mobile" value={user.mobile} placeholder="Mobile number" onChange={handleInputChange}/>
+              <input type="tel" class="form-control" name="mobile" value={user.mobile} placeholder="Mobile number" required onChange={handleInputChange}/>
             </div>
             <button type="submit" class="btn btn-primary">place order</button>
           </form>

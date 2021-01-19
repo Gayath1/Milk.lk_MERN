@@ -53,6 +53,7 @@ app.use(
 let Crud = require('./crud.model');
 let cart = require('./cart')
 const User = require('./user');
+const orders = require('./orders')
 
 const bcrypt = require('bcryptjs');
 
@@ -288,6 +289,24 @@ store.route('/cart/delete').delete((req, res) => {
         if (err) return res.status(500).send("There was a problem deleting the product.");
         res.status(200).send(`cart was deleted`);
     })
+});
+store.route('/orders').post((req, res,next) => {
+
+  //let list = new Crud(req.body);
+    let list = new orders({
+      orders:req.body.listData.lists,
+      name: req.body.user.name,
+      address:req.body.user.address,
+      mobile:req.body.user.mobile,
+
+    })
+  
+    list.save().then(list => {
+        res.status(200).json({'list': 'Product added successfully'});
+    }).catch(err => {
+        res.status(400).send('fail');
+    });
+  
 });
 
 app.use('/store', store);

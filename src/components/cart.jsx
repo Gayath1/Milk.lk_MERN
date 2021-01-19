@@ -25,7 +25,7 @@ import axios from 'axios';
             <div className="colm2" ><a >{props.product.product_name}</a></div>
             <div className="colm3"><div class="form-group mx-sm-4 mb-2">
     
-    <select class="form-control " name="quantity" value={props.product.quantity} >
+    <select class="form-control " name="quantity" value={props.product.quantity}>
       <option value='1'>1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -44,6 +44,16 @@ import axios from 'axios';
     
     const Store = () => {
         const [listData, setListData] = useState({ lists: [] });
+        const [order, setorder] = useState({
+          product_name: "",
+          product_brand: "",
+          product_category: "",
+          product_price: "",
+          quantity: "",
+          token: "",
+    
+        })
+        
       const [user,setuser] = useState({ 
         name:"",
         address:"",
@@ -68,6 +78,7 @@ import axios from 'axios';
           ...user,
           [e.target.name]: e.target.value });
       };
+    
 
         const placeorder = (event) => {
           const body = {listData, user}

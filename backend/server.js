@@ -301,7 +301,13 @@ store.route('/orders').post((req, res,next) => {
 
     })
   
-    list.save().then(list => {
+    list.save()
+    
+    let token = req.body.token;
+    cart.deleteMany({token:token},  (err, data) => {
+
+  })
+    .then(list => {
         res.status(200).json({'list': 'Product added successfully'});
     }).catch(err => {
         res.status(400).send('fail');

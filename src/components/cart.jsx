@@ -82,29 +82,14 @@ import { Redirect } from 'react-router-dom';
     
 
         const placeorder = (event) => {
-          const body = {listData, user}
+          const token = JSON.parse(localStorage.getItem('Token'));
+          const body = {listData, user, token}
           event.preventDefault();
           axios.post('http://localhost:4000/store/orders',body, {
           })
           .then(res => {
             if (res.status === 200) {
               alert('Order success');
-          }   
-          })
-          .catch(err => {
-            console.error(err);
-            alert('Error please try again');
-          });
-        }
-        const deletecart = (event) => {
-          const token = JSON.parse(localStorage.getItem('Token'));
-          const body ={token}
-          
-          event.preventDefault();
-          axios.post('http://localhost:4000/store/clearcart',body, {
-          })
-          .then(res => {
-            if (res.status === 200) {
               <Redirect to="/store"/>
           }   
           })
@@ -113,6 +98,7 @@ import { Redirect } from 'react-router-dom';
             alert('Error please try again');
           });
         }
+        
        
      
       const itemsPrice =  listData.lists.reduce((a, c) => a + c.quantity * c.product_price, 0);;
@@ -156,7 +142,7 @@ import { Redirect } from 'react-router-dom';
                 <strong>${totalPrice}</strong>
               </div>
             </div>
-            <form onSubmit={placeorder && deletecart}>
+            <form onSubmit={placeorder}>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>
               <input type="text" class="form-control" name="name" value={user.name} aria-describedby="emailHelp" placeholder="Name" required onChange={handleInputChange}/>

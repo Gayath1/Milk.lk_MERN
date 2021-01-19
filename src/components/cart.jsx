@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
  
 
     const ListBar = (props) => {
@@ -95,6 +96,23 @@ import axios from 'axios';
             alert('Error please try again');
           });
         }
+        const deletecart = (event) => {
+          const token = JSON.parse(localStorage.getItem('Token'));
+          const body ={token}
+          
+          event.preventDefault();
+          axios.post('http://localhost:4000/store/clearcart',body, {
+          })
+          .then(res => {
+            if (res.status === 200) {
+              <Redirect to="/store"/>
+          }   
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Error please try again');
+          });
+        }
        
      
       const itemsPrice =  listData.lists.reduce((a, c) => a + c.quantity * c.product_price, 0);;
@@ -138,7 +156,7 @@ import axios from 'axios';
                 <strong>${totalPrice}</strong>
               </div>
             </div>
-            <form onSubmit={placeorder}>
+            <form onSubmit={placeorder && deletecart}>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>
               <input type="text" class="form-control" name="name" value={user.name} aria-describedby="emailHelp" placeholder="Name" required onChange={handleInputChange}/>

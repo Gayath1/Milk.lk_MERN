@@ -18,12 +18,12 @@ import axios from 'axios';
             
             
             <div className='product-cart container'>
-            <div class="row">
             
-            <div class="col-3" style = {{paddingTop:'10px'}}><img className='product-cart-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' /></div>
             
-            <div class="col-3" style = {{paddingTop:'30px'}}><p className='product-cart label'>{props.product.product_name}</p></div>
-            <div class="col-3" style = {{paddingTop:'30px'}}><div class="form-group mx-sm-5 mb-2">
+            <div className="colm1" ><img className='product-cart-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' /></div>
+            
+            <div className="colm2" ><a >{props.product.product_name}</a></div>
+            <div className="colm3"><div class="form-group mx-sm-4 mb-2">
     
     <select class="form-control " name="quantity" value={props.product.quantity} >
       <option value='1'>1</option>
@@ -33,10 +33,10 @@ import axios from 'axios';
       <option value="5">5</option>
     </select>
   </div></div>
-            <div class="col-3" ><p className='product-cart label'>{props.product.product_price}</p></div>
-          <div class="col-3" ><Button onClick={onDeleteProductData}>Remove </Button></div>
+            <div className="colm4" style = {{paddingTop:'30px'}} ><p className='product-cart label'>{props.product.product_price}</p></div>
+          <div className="colm5" style = {{paddingTop:'30px'}} ><Button onClick={onDeleteProductData}>Remove </Button></div>
           </div>
-            </div>
+            
             
             
         );
@@ -44,8 +44,12 @@ import axios from 'axios';
     
     const Store = () => {
         const [listData, setListData] = useState({ lists: [] });
-        const [Total, setTotal] = useState(0)
-        const [ShowTotal, setShowTotal] = useState(false)
+      const [user,setuser] = useState({ 
+        name:"",
+        address:"",
+        mobile:"",
+
+       });
     
         useEffect(() => {
             const fetchData = async () => {
@@ -59,18 +63,29 @@ import axios from 'axios';
         }, []);
 
        
-        
-        const calculateTotal = (products) => {
-          let total = 0;
-    
-          listData.lists.map(current => {
-              total += parseInt(current.product_price, 10) * current.quantity
+       const handleInputChange = (e) => {
+        setuser({ 
+          ...user,
+          [e.target.name]: e.target.value });
+      };
+
+        const placeorder = (event) => {
+          const body = {listData, user}
+          event.preventDefault();
+          axios.post('http://localhost:4000/store/orders',body, {
+          })
+          .then(res => {
+            if (res.status === 200) {
+              alert('Order success');
+          }   
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Error please try again');
           });
-    
-          setTotal(total)
-          setShowTotal(true)
-      }
-     console.log(listData.lists)
+        }
+       
+     
       const itemsPrice =  listData.lists.reduce((a, c) => a + c.quantity * c.product_price, 0);;
       const totalPrice = itemsPrice;
       
@@ -112,6 +127,23 @@ import axios from 'axios';
                 <strong>${totalPrice}</strong>
               </div>
             </div>
+            <form onSubmit={placeorder}>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input type="text" class="form-control" name="name" value={user.name} aria-describedby="emailHelp" placeholder="Name" onChange={handleInputChange}/>
+              
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Address</label>
+              <input type="text" class="form-control" name="address"  value={user.address} placeholder="Address" onChange={handleInputChange}/>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mobile number</label>
+              <input type="tel" class="form-control" name="mobile" value={user.mobile} placeholder="Mobile number" onChange={handleInputChange}/>
+            </div>
+            <button type="submit" class="btn btn-primary">place order</button>
+          </form>
+
             </div>
             </div>
             

@@ -330,7 +330,7 @@ store.route('/admin/orders').get((req, res) => {
 app.use('/store', store);
 
 
-const {  loginUser, logoutUser, authChecker, isAuth } = require("./controller");
+const {  loginUser, logoutUser, authChecker } = require("./controller");
 // Logs In a User, creates session in mongo store
 // and returns a cookie containing sessionID, also called "session-id"
 router.post("/login", loginUser );

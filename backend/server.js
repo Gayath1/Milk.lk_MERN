@@ -172,6 +172,8 @@ crudRoutes.route('/delete/:id').delete((req, res) => {
     })
 });
 
+
+
 app.use('/all_product', crudRoutes);
 app.listen(PORT, () => {
     console.log("Server is running on PORT: " + PORT);
@@ -313,6 +315,16 @@ store.route('/orders').post((req, res,next) => {
         res.status(400).send('fail');
     });
   
+});
+store.route('/admin/orders').get((req, res) => {
+  
+  orders.find((err, results) => {
+    if (err) console.log(err);
+    else res.json(results);
+});
+  
+ 
+ 
 });
 
 app.use('/store', store);

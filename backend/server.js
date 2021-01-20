@@ -18,7 +18,6 @@ const crudRoutes = express.Router({mergeParams: true});
 const store = express.Router({mergeParams: true});
 const morgan = require("morgan");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const multer = require('multer');
 var path = require('path');
 const fs = require('fs')
 

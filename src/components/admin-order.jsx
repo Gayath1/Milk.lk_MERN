@@ -10,11 +10,16 @@ const ListBar = (props) => {
         
         <div className='product-card container'>
         
-        <div>
+      <div>
       <p className='product-card label'>{props.product.name}</p>
       <p className='product-card label'>{props.product.address}</p>
       <p className='product-card label'>{props.product.mobile}</p>
+      <ul>
       
+      <ul>{props.product.orders.map((order, i) => {
+        return <li key={i}>{order.product_name}{order.quantity}</li>
+        })}</ul>
+      </ul>
       </div>
         
         </div>
@@ -24,7 +29,7 @@ const ListBar = (props) => {
 }
 
 const Store = () => {
-    const [listData, setListData] = useState({ lists: [] });
+    const [listData, setListData] = useState({ lists: []});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,15 +40,15 @@ const Store = () => {
         };
         fetchData();
     }, []);
-    
+   
     return (
         <div className="store">
-        <div class="header">
-          <a href="/store" class="logo">Milk.Lk</a>
+        <div className="header">
+          <a href="/store" className="logo">Milk.Lk</a>
           <div className="menu">
-            <div class="dropdown">
-              <button class="dropbtn">Category</button>
-              <div class="dropdown-content">
+            <div className="dropdown">
+              <button className="dropbtn">Category</button>
+              <div className="dropdown-content">
                 <a href="/freshmilk">FreshMilk</a>
                 <a href="#">Link 2</a>
                 <a href="#">Link 3</a>
@@ -51,20 +56,20 @@ const Store = () => {
             </div>
             <a href="/login">Contact us</a>
           </div>
-          <div class="header-right">
+          <div className="header-right">
             <a href="/register">SingUp</a>
             <a href="/login">Login</a>
           </div>
         </div>
-        <div class="container">    
-        <div class="cards">
+        <div className="container">    
+        <div className="cards">
                
-                
-                    {listData.lists.map((current, i) => (
+        {listData.lists.map((current, i) => (
                         <ListBar product={current} key={i} />
                     ))}
-                
-            </div>
+                    
+                    
+        </div>
         </div>
         </div>
         

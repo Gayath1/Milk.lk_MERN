@@ -10,7 +10,7 @@ import ListProduct from './components/list-Product.component';
 import EditProduct from './components/edit-Product.component';
 import CreateProduct from './components/create-Product.component';
 import DeleteProduct from './components/delete-Product.component';
-
+import order from './components/admin-order';
 import profile from './components/profile';
 import { Provider } from 'react-redux';
 import store from './store';
@@ -37,6 +37,7 @@ const App = () => {
         <Route path="/freshmilk"  component={freshmilk} />
         <Route path="/view/:id"  component={product} />
         <Route path="/cart"  component={cart} />
+        <Route path="/orders"  component={order} />
         <Route path="/edit/:id" component={EditProduct} />
         <Route path="/create" component={CreateProduct} />
         <Route path="/delete/:id" component={DeleteProduct} />

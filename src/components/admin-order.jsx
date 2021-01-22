@@ -5,10 +5,17 @@ import { Table, Badge } from 'reactstrap';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
 const ListBar = (props) => {
+
+  const onDeleteProductData = (_id,e) => {
+        
+    const body = {_id}
+    axios.delete(`http://localhost:4000/store/admin/orders/delete`,body).then(res => console.log(res.data));
+
+}
     return (
         
         
-        <div className='product-card container'>
+        <div className='product-cardadmin container'>
         
       <div>
       <p className='product-card label'>{props.product.name}</p>
@@ -17,9 +24,10 @@ const ListBar = (props) => {
       <ul>
       
       <ul>{props.product.orders.map((order, i) => {
-        return <li key={i}>{order.product_name}{order.quantity}</li>
+        return <li key={i}>{order.product_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{order.quantity}</li>
         })}</ul>
       </ul>
+      <button onClick={onDeleteProductData}><AiOutlineDelete /></button>
       </div>
         
         </div>

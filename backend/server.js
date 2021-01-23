@@ -285,6 +285,7 @@ store.route('/cart').post((req, res) => {
 store.route('/cart/delete').delete((req, res) => {
   
   let id = req.body._id;
+  
     cart.findOneAndDelete(id,  (err, data) => {
 
         if (err) return res.status(500).send("There was a problem deleting the product.");
@@ -326,9 +327,10 @@ store.route('/admin/orders').get((req, res) => {
  
 });
 
-store.route('/admin/orders/delete').delete((req, res) => {
+store.route('/admin/orders/delete/:id').delete((req, res) => {
   
-  let id = req.body._id;
+  let id = req.params.id;
+  
     orders.findOneAndDelete(id,  (err, data) => {
 
         if (err) return res.status(500).send("There was a problem deleting the product.");

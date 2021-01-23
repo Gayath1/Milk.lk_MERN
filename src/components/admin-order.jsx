@@ -6,10 +6,10 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
 const ListBar = (props) => {
 
-  const onDeleteProductData = (_id,e) => {
-        
-    const body = {_id}
-    axios.delete(`http://localhost:4000/store/admin/orders/delete`,body).then(res => console.log(res.data));
+  const onDeleteProductData = (i) => {
+    const body = {i}
+    console.log(body);
+    axios.delete(`http://localhost:4000/store/admin/orders/delete/`,body).then(res => console.log(res.data));
 
 }
     return (
@@ -27,7 +27,7 @@ const ListBar = (props) => {
         return <li key={i}>{order.product_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{order.quantity}</li>
         })}</ul>
       </ul>
-      <button onClick={onDeleteProductData}><AiOutlineDelete /></button>
+      <button onClick={(i)=>onDeleteProductData(props.product._id,i)}><AiOutlineDelete /></button>
       </div>
         
         </div>

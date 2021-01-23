@@ -13,7 +13,7 @@ const DeleteProduct = (props) => {
         
     });
     const [quantity, setquantity] = useState({
-      quantity: "",
+      quantity: "1",
 
     })
 

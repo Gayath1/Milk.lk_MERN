@@ -5,55 +5,11 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
  
 
-    const ListBar = (props) => {
-
-      const onDeleteProductData = (_id,e) => {
-        
-        const body = {_id}
-        axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res => console.log(res.data));
-  
-    }
-  
-
-        return (
-            
-            
-            <div className='product-cart container'>
-            
-            
-            <div className="colm1" ><img className='product-cart-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' /></div>
-            
-            <div className="colm2" ><a >{props.product.product_name}</a></div>
-            <div className="colm3"><div class="form-group mx-sm-4 mb-2">
     
-    <select class="form-control " name="quantity" value={props.product.quantity}>
-      <option value='1'>1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-  </div></div>
-            <div className="colm4" style = {{paddingTop:'30px'}} ><p className='product-cart label'>{props.product.product_price}</p></div>
-          <div className="colm5" style = {{paddingTop:'30px'}} ><Button onClick={onDeleteProductData}>Remove </Button></div>
-          </div>
-            
-            
-            
-        );
-    }
     
     const Store = () => {
         const [listData, setListData] = useState({ lists: [] });
-        const [order, setorder] = useState({
-          product_name: "",
-          product_brand: "",
-          product_category: "",
-          product_price: "",
-          quantity: "",
-          token: "",
-    
-        })
+       
         
       const [user,setuser] = useState({ 
         name:"",
@@ -61,6 +17,8 @@ import { Redirect } from 'react-router-dom';
         mobile:"",
 
        });
+
+       
     
         useEffect(() => {
             const fetchData = async () => {
@@ -73,12 +31,30 @@ import { Redirect } from 'react-router-dom';
             fetchData();
         }, []);
 
+        const onDeleteProductData = (_id,e) => {
+        
+          const body = {_id}
+          axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res => console.log(res.data));
+    
+      }
        
        const handleInputChange = (e) => {
         setuser({ 
           ...user,
           [e.target.name]: e.target.value });
       };
+      
+      const onChangeProductData = (e, i) => {
+        const lists = [...listData.lists];
+        lists[i] = {
+            ...lists[i],
+            [e.target.name]: e.target.value
+        }
+        setListData({
+            ...listData,
+            lists
+        })    
+    }
     
 
         const placeorder = (event) => {
@@ -129,7 +105,26 @@ import { Redirect } from 'react-router-dom';
                    
             {listData.lists.length === 0 && <div>Cart is empty</div>}
                         {listData.lists.map((current, i) => (
-                            <ListBar product={current} key={i} />
+                          
+                           <div className='product-cart container'>
+            
+            
+                             <div className="colm1" ><img key={i} className='product-cart-img' src={`http://localhost:4000/uploads/${current.image}`} alt='' /></div>
+            
+            <div className="colm2" ><a >{current.product_name}</a></div>
+            <div className="colm3"><div class="form-group mx-sm-4 mb-2">
+    
+    <select class="form-control " name="quantity" onChange={(ev) => onChangeProductData(ev, i)} value={current.quantity} >
+      <option value='1'>1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+  </div></div>
+            <div className="colm4" style = {{paddingTop:'30px'}} ><p className='product-cart label'>{current.product_price}</p></div>
+          <div className="colm5" style = {{paddingTop:'30px'}} ><Button onClick={onDeleteProductData}>Remove </Button></div>
+          </div>
                         ))}
                     
                 </div>

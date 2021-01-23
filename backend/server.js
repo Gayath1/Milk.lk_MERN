@@ -327,11 +327,11 @@ store.route('/admin/orders').get((req, res) => {
  
 });
 
-store.route('/admin/orders/delete/:id').delete((req, res) => {
+store.route('/admin/orders/delete').post((req, res) => {
+  let id = req.body.i;
   
-  let id = req.params.id;
   
-    orders.findOneAndDelete(id,  (err, data) => {
+    orders.deleteOne({_id:id} ,  (err, data) => {
 
         if (err) return res.status(500).send("There was a problem deleting the product.");
         res.status(200).send(`order was deleted`);

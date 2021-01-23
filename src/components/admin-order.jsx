@@ -7,9 +7,11 @@ import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 const ListBar = (props) => {
 
   const onDeleteProductData = (i) => {
-    const body = {i}
-    console.log(body);
-    axios.delete(`http://localhost:4000/store/admin/orders/delete/`,body).then(res => console.log(res.data));
+    
+    const body = {i};
+    
+    
+    axios.post(`http://localhost:4000/store/admin/orders/delete/`,body,{}).then(res => console.log(res.data));
 
 }
     return (

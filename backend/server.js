@@ -341,11 +341,31 @@ store.route('/admin/orders/delete').post((req, res) => {
 app.use('/store', store);
 
 
-const {  loginUser, logoutUser, authChecker } = require("./controller");
+const {  loginUser, logoutUser, authChecker, auth } = require("./controller");
 // Logs In a User, creates session in mongo store
 // and returns a cookie containing sessionID, also called "session-id"
-router.post("/login", loginUser );
+//router.post("/login", loginUser );
+router.post("/tokenIsValid", async (req, res) => {
+  try {
+  const token = req.header("x-auth-token");
+  if (!token) return res.json(false);
+  const verified = jwt.verify(token, process.env.JWT_SECRET);
+  if (!verified) return res.json(false);
+  const user = await User.findById(verified.id);
+  if (!user) return res.json(false);
+  return res.json(true);
+  } catch (err) {
+  res.status(500).json({ error: err.message });
+  }
+  });
 
+  router.get("/profile", auth, async (req, res) => {
+    const user = await User.findById(req.user);
+    res.json({
+    email : user.email,
+    id: user._id,
+    });
+    });
 // Log out user by deleting session from store
 // and deleting cookie on client side
 // Needs cookie containing sessionID to be attached to request
@@ -385,7 +405,37 @@ router.route('/user/update').post((req, res) => {
 
 
 
+router.post("/login", async (req, res) => {
+  try {
+    const  email = req.body.email.email;
+    const password = req.body.password.password;
 
+    // validate
+    if (!email || !password)
+      return res.status(400).json({ msg: "Not all fields have been entered." });
+
+    const user = await User.findOne({ email: email });
+    if (!user)
+      return res
+        .status(400)
+        .json({ msg: "No account with this email has been registered." });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+    
+    res.json({
+      token,
+      user: {
+        id: user._id,
+        email: user.email,
+      },
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 
 

@@ -3,18 +3,24 @@ const User = require("./user"); // User model
 const jwt = require('jsonwebtoken');
 const { JSONCookie } = require("cookie-parser");
 
-const isAuth = (req,res,next) => {
-  const { token } = req.body;
-  const sessUser = req.session.user;
-  var decoded = jwt.verify(token, process.env.JWT_SECRET);
-  if(sessUser) {
+const auth = (req, res, next) => {
+  try{
+      const token = req.header("x-auth-token");
+      if(!token)
+          return res.status(401).json({msg: "No authentication token, access denied"});
+      
+      const verified = jwt.verify(token, process.env.JWT_SECRET);
+      if(!verified)
+      return res.status(401).json({msg: "Token verification failed, authorization denied"});
+      
+      req.user = verified.id;
       next();
+  } catch (err) {
+      res.status(500).json({ error: err.message });
   }
-  else {
-      const err = res.status(401).json("You Need to Be Logged in to do this. Access Denied ")
-      return err;
-  }
-};
+ 
+}
+
 
 
 
@@ -27,7 +33,7 @@ const loginUser = ("/login", (req, res) => {
     return res.status(400).json("Please enter all fields" );
   }
   //check for existing user
-  User.findOne({ email }).then((user) => {
+  User.findOne({ email:email }).then((user) => {
     if (!user) return res.status(400).json("User does not exist" );
 
     // Validate password
@@ -50,7 +56,7 @@ const loginUser = ("/login", (req, res) => {
 
      
 
-      const sessUser = { id: user.id, name: user.name, email: user.email };
+      const sessUser = { id: user.id, email: user.email };
       const session = req.sessionID;
       req.session.user = sessUser; // Auto saves session data in mongo store
 
@@ -85,4 +91,4 @@ const authChecker =("/authchecker", (req, res) => {
 
 
 
-module.exports = {loginUser, logoutUser, authChecker, isAuth}
+module.exports = {loginUser, logoutUser, authChecker, auth}

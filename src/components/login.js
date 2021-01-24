@@ -1,5 +1,5 @@
-import React, { useState, useEffect , Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect , useContext , Component } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Form, FormGroup, Label, Input, Col, Button,  Alert } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
@@ -11,50 +11,27 @@ import {Redirect} from 'react-router-dom'
 import PropTypes from "prop-types";
 import { returnStatus } from "../actions/statusActions";
 import './login.css';
+import UserContext from '../userContext';
 
-
-class Login extends Component {
-
+function Login() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [err, setErr] = useState();
+  const { setUserData } = useContext(UserContext);
+  const history = useHistory();
   
-  static propTypes = {
-    button: PropTypes.bool,
-    isAuthenticated: PropTypes.bool,
-  };
-  state = {
-    email: "",
-    password: "",
-    msg: "",
-    err: ""
-  }
-
   
 
-  static propTypes = {
-    login: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
-    status: PropTypes.object.isRequired,
-    loading: PropTypes.bool
+
+const onChangeEmail = (e) => {
+  setEmail({ [e.target.name]: e.target.value });
   };
+  const onChangePassword = (e) => {
+    setPassword({ [e.target.name]: e.target.value });
+    };
+  
 
- 
-
-componentDidUpdate(prevProps) {
-      const status = this.props.status;
-
-     if (status !== prevProps.status) {
-
-      if (status.id === "LOGIN_FAIL") {
-        this.setState({ msg: status.statusMsg });
-      }
-    }
-};
-
-
-onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-onSubmit = (e) => {
+const onSubmit = (e) => {
     e.preventDefault();
 
     const { email, password} = this.state;
@@ -64,17 +41,26 @@ onSubmit = (e) => {
     this.props.login(user);
     
   };
+  const submit = async (e) => {
+    e.preventDefault();
+    try{
+      const body = {email, password};
+        const loginResponse = await axios.post("http://localhost:4000/api/login", body);
+        setUserData({
+            token: loginResponse.data.token,
+            user: loginResponse.data.user
+        });
+        localStorage.setItem("Token", loginResponse.data.token);
+        history.push("/profile");
+    } catch(err) {
+        err.response.data.msg && setErr(err.response.data.msg)
+    }
+    
+};
 
   
    
-render(){
-  
-  
-  if(this.props.isAuthenticated) {
-    return <Redirect to="/profile" />
-  }
-  
-  
+
     return (
        <div className="body">
          
@@ -82,10 +68,10 @@ render(){
          <div class="login"> 
        
         <br/>
-                {this.state.msg ? (
-              <Alert color="danger">{this.state.msg}</Alert>
+                {err ? (
+              <Alert color="danger">{err}</Alert>
             ) : null}
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={submit}>
                
                 <FormGroup row>
                     <Col>
@@ -97,8 +83,8 @@ render(){
                             name="email"
                             required
                             className="form-control"
-                            value={this.state.email}
-                            onChange={this.onChange}
+                            
+                            onChange={onChangeEmail}
                             /> 
                             </div>
                     </Col>
@@ -114,8 +100,8 @@ render(){
                             required
                             
                             className="form-control"
-                            value={this.password}
-                            onChange={this.onChange} 
+                           
+                            onChange={onChangePassword}
                               />
                         
                             </div>
@@ -132,17 +118,11 @@ render(){
     );
     
     }
-}
 
 
 
 
 
-const mapStateToProps = (state) => ({ 
- 
-  isAuthenticated: state.auth.isAuthenticated,
-  status: state.status,
-  
-});
 
-export default connect(mapStateToProps,{ login})(Login);
+
+export default Login;

@@ -6,10 +6,24 @@ class Header extends Component {
    
     render() { 
         return ( 
-            <header className="header">
-                <Link to="/"><h1 className="title">MILK.LK</h1></Link>
-                <AuthOptions />
-            </header>
+        
+        <div class="header">
+          <a href="/store" class="logo">Milk.Lk</a>
+          <div className="menu">
+            <div class="dropdown">
+              <button class="dropbtn">Category</button>
+              <div class="dropdown-content">
+                <a href="/freshmilk">FreshMilk</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </div>
+            <a href="/login">Contact us</a>
+          </div>
+          <div class="header-right"> 
+            <AuthOptions />
+            </div>
+            </div>
          );
     }
 }

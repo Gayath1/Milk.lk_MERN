@@ -22,7 +22,7 @@ import { Redirect } from 'react-router-dom';
     
         useEffect(() => {
             const fetchData = async () => {
-                const token = JSON.parse(localStorage.getItem('Token'));
+                const token = (localStorage.getItem('Token'));
                 const body ={token}
                 const result = await axios.post(
                     'http://localhost:4000/store/cart',body);
@@ -59,7 +59,7 @@ import { Redirect } from 'react-router-dom';
 
         const placeorder = (event) => {
           const token = JSON.parse(localStorage.getItem('Token'));
-          const body = {listData, user, token}
+          const body = {listData, user, token};
           event.preventDefault();
           axios.post('http://localhost:4000/store/orders',body, {
           })
@@ -82,24 +82,6 @@ import { Redirect } from 'react-router-dom';
       
         return (
             <div className="store">
-            <div className="header">
-              <a href="/store" className="logo">Milk.Lk</a>
-              <div className="menu">
-                <div className="dropdown">
-                  <button className="dropbtn">Category</button>
-                  <div className="dropdown-content">
-                    <a href="/freshmilk">FreshMilk</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
-                  </div>
-                </div>
-                <a href="/login">Contact us</a>
-              </div>
-              <div className="header-right">
-                <a href="/register">SingUp</a>
-                <a href="/login">Login</a>
-              </div>
-            </div>
             <div className="container">    
             <div className="cart">
                    
@@ -111,7 +93,7 @@ import { Redirect } from 'react-router-dom';
             
                              <div className="colm1" ><img key={i} className='product-cart-img' src={`http://localhost:4000/uploads/${current.image}`} alt='' /></div>
             
-            <div className="colm2" ><a >{current.product_name}</a></div>
+            <div className="colm2" ><a>{current.product_name}</a></div>
             <div className="colm3"><div class="form-group mx-sm-4 mb-2">
     
     <select class="form-control " name="quantity" onChange={(ev) => onChangeProductData(ev, i)} value={current.quantity} >

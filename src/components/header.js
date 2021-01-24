@@ -20,7 +20,8 @@ class Header extends Component {
             </div>
             <a href="/login">Contact us</a>
           </div>
-          <div class="header-right"> 
+          <div class="header-right">
+          
             <AuthOptions />
             </div>
             </div>

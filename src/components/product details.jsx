@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext  } from 'react';
+import UserContext from '../userContext';
+import { useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
 
 const DeleteProduct = (props) => {
+  let {userData} = useContext(UserContext );
+  const history = useHistory();
+  const login = () => history.push("/login");
+
     const [data, setData] = useState({
         product_name: "",
         product_brand: "",
@@ -72,7 +78,12 @@ const DeleteProduct = (props) => {
       <option value="5">5</option>
     </select>
   </div>
-      <Button onClick={addtocart} color="primary" className="cartadd" type="submit"> Add to Cart</Button>
+  {userData.user ?(
+    <Button onClick={addtocart} color="primary" className="cartadd" type="submit"> Add to Cart</Button>
+  ) : (
+      <Button onClick={login} color="primary" className="cartadd" type="submit"> Login</Button>
+      )
+      }
       </div>
         
         </div>

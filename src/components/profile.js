@@ -9,12 +9,9 @@ import {
   CardSubtitle,
   CardBody
 } from "reactstrap";
-import PropTypes from "prop-types";
-import { Redirect, useHistory , Link} from 'react-router-dom'
-import { logout} from '../actions/authAction';
-import store from '../store';
-import { isAuth } from '../actions/authAction'
-import AuthService from '../auth';
+
+import { useHistory , Link} from 'react-router-dom'
+
 import {  useContext , useEffect} from 'react';
 import UserContext from '../userContext';
 function Profile(){
@@ -29,10 +26,7 @@ function Profile(){
       }, []);
  
 
-  const onLogout = (e) => {
-    e.preventDefault();
-    this.props.logout();
-  };
+ 
   
   
 

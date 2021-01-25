@@ -31,16 +31,7 @@ const onChangeEmail = (e) => {
     };
   
 
-const onSubmit = (e) => {
-    e.preventDefault();
 
-    const { email, password} = this.state;
-
-    const user = { email, password};
-    
-    this.props.login(user);
-    
-  };
   const submit = async (e) => {
     e.preventDefault();
     try{

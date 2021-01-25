@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { Link ,useHistory} from 'react-router-dom';
 import axios from 'axios';
+import UserContext from '../userContext';
+
 
 import { Table, Badge } from 'reactstrap';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 
 const ListBar = (props) => {
     return (
+        
         <tr>
             <td>{props.product.product_name}</td>
             <td>{props.product.product_brand}</td>
@@ -16,10 +19,13 @@ const ListBar = (props) => {
                 <Link to={"/delete/"+props.product._id}><AiOutlineDelete /></Link>
             </td>
         </tr>
+        
     );
 }
 
-const ListProduct = () => {
+function ListProduct  () {
+    let {userData} = useContext(UserContext );
+    const history = useHistory();
     const [listData, setListData] = useState({ lists: [] });
 
     useEffect(() => {
@@ -33,7 +39,10 @@ const ListProduct = () => {
     }, []);
 
     return (
+        
         <div className="container">
+        { userData.user.email === 'admin@admin.lk' ? (
+            <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <Link to="/" className="navbar-brand">MILK.LK Admin</Link>
           <div className="collapse navbar-collapse">
@@ -64,14 +73,22 @@ const ListProduct = () => {
                     </tr>
                 </thead>
                 <tbody>
+                
                     {listData.lists.map((current, i) => (
                         <ListBar product={current} key={i} />
                     ))}
                 </tbody>
             </Table>
         </div>
-
+        </>
+        ) : (
+            <h1> You are not an Admin!</h1>
+        )}
         </div>
+           
+         
+          
+        
     );
 }
 

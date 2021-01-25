@@ -39,7 +39,9 @@ const onChangeEmail = (e) => {
         const loginResponse = await axios.post("http://localhost:4000/api/login", body);
         setUserData({
             token: loginResponse.data.token,
-            user: loginResponse.data.user
+            user: loginResponse.data.user,
+            role : loginResponse.data.role,
+            
         });
         localStorage.setItem("Token", loginResponse.data.token);
         history.push("/profile");

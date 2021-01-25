@@ -27,7 +27,7 @@ function ListProduct  () {
     let {userData} = useContext(UserContext );
     const history = useHistory();
     const [listData, setListData] = useState({ lists: [] });
-
+    
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
@@ -41,7 +41,7 @@ function ListProduct  () {
     return (
         
         <div className="container">
-        { userData.user.email === 'admin@admin.lk' ? (
+        {userData.role ? (
             <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <Link to="/" className="navbar-brand">MILK.LK Admin</Link>

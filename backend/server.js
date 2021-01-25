@@ -364,6 +364,7 @@ router.post("/tokenIsValid", async (req, res) => {
     res.json({
     email : user.email,
     id: user._id,
+    role : user.role
     });
     });
 
@@ -409,6 +410,7 @@ router.post("/login", async (req, res) => {
       
 
     const user = await User.findOne({ email: email });
+    
     if (!user)
       return res
         .status(400)
@@ -420,10 +422,12 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     
     res.json({
+      role : user.role,
       token,
       user: {
         id: user._id,
         email: user.email,
+        role : user.role
       },
     });
   } catch (err) {

@@ -10,6 +10,9 @@ let User = mongoose.Schema({
         type: String,
         
     },
+    role: {
+        type: String,
+    },
     token:{
         type: String,
         

@@ -26,7 +26,8 @@ import UserContext from './userContext';
 function App ()  {
   const [ userData, setUserData] = useState({
     token:"",
-    user: ""
+    user: "",
+    role: "",
   });
   useEffect(() => {
     const checkLoggedIn = async () => {
@@ -43,6 +44,8 @@ function App ()  {
         setUserData({
           token,
           user: userRes.data,
+          role : userRes.data.role,
+          
         });
       }
     }

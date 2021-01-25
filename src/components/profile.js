@@ -34,9 +34,12 @@ function Profile(){
    
     return (
       <div>
+      
       {userData.user ? (
         <>
           <h1>Welcome {userData.user.email}</h1>
+          
+          
           <br/>
         <Button size="lg" href='/updateuser' color="primary">Change Password</Button>
 

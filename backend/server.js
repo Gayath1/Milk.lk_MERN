@@ -341,7 +341,7 @@ store.route('/admin/orders/delete').post((req, res) => {
 app.use('/store', store);
 
 
-const {  loginUser, logoutUser, authChecker, auth } = require("./controller");
+const {   auth } = require("./controller");
 // Logs In a User, creates session in mongo store
 // and returns a cookie containing sessionID, also called "session-id"
 //router.post("/login", loginUser );
@@ -366,15 +366,8 @@ router.post("/tokenIsValid", async (req, res) => {
     id: user._id,
     });
     });
-// Log out user by deleting session from store
-// and deleting cookie on client side
-// Needs cookie containing sessionID to be attached to request
-router.delete("/logout", logoutUser );
 
 
-// Check if user is Authenticated by reading session data
-// Needs cookie containing sessionID
-router.get("/authchecker", authChecker );
 
 router.route('/user/update').post((req, res) => {
   const { token, password } = req.body;

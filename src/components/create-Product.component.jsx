@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from "axios";
 import { useForm } from 'react-hook-form'
+import UserContext from '../userContext';
 
 const CreateProduct = (props) => {
+    let {userData} = useContext(UserContext );
     const { register, handleSubmit, watch } = useForm()
     
     const [file, setFile] = useState("");
@@ -57,6 +59,8 @@ const CreateProduct = (props) => {
 
     return (
         <div className="container">
+        {userData.role ? (
+            <>
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
           <Link to="/" className="navbar-brand">MILK.LK Admin</Link>
           <div className="collapse navbar-collapse">
@@ -127,6 +131,10 @@ const CreateProduct = (props) => {
                 <Button color="primary"><AiOutlineForward /> Submit</Button>
             </form>
         </div>
+        </>
+        ):(
+            <h1> You are not an Admin!</h1>
+        )}
         </div>
     );
 }

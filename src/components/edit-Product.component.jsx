@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
 import axios from 'axios';
+import UserContext from '../userContext';
 
 const EditProduct = (props) => {
+    let {userData} = useContext(UserContext );
     const [data, setData] = useState({
         product_name: "",
         product_brand: "",
@@ -37,6 +39,8 @@ const EditProduct = (props) => {
 
     return (
         <div style={{ marginTop: 10 }}>
+        {userData.role ? (
+            <>
             <h3><AiOutlineUserAdd /> Edit Product</h3>
             <Form onSubmit={onSubmitProductData}>
                 <FormGroup row>
@@ -85,6 +89,10 @@ const EditProduct = (props) => {
                 </FormGroup>
                 <Button color="primary"><AiOutlineForward /> Update Data</Button>
             </Form>
+            </>
+        ) :(
+            <h1> You are not an Admin!</h1>
+        )}
         </div>
     );
 }

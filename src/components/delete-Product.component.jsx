@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useContext } from 'react';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
+import UserContext from '../userContext';
 
 const DeleteProduct = (props) => {
+    let {userData} = useContext(UserContext );
     const [data, setData] = useState({
         product_name: "",
         product_brand: "",
@@ -29,6 +31,8 @@ const DeleteProduct = (props) => {
 
     return (
         <div style={{ marginTop: 10 }}>
+        {userData.role ? (
+            <>
             <h3>Delete Product</h3>
             <Form onSubmit={onDeleteProductData}>
                 <FormGroup row>
@@ -77,6 +81,10 @@ const DeleteProduct = (props) => {
                 </FormGroup>
                 <Button color="danger"><AiOutlineDelete /> Delete Data</Button>
             </Form>
+            </>
+        ) : (
+            <h1> You are not an Admin!</h1>
+        )}
         </div>
     );
 }

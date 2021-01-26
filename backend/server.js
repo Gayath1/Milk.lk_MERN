@@ -5,47 +5,24 @@ var fileupload = require('express-fileupload');
 app.use(fileupload());
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
-var bodyParser = require('body-parser');
 const PORT = 4000;
 const router = require("express").Router();
 mongoose.set('useCreateIndex', true);
 const saltRounds = 10;
-var authJwt = require("./validate-token");
-const MAX_AGE = 1000 * 60 * 60 * 3; // Three hours
-const session = require("express-session");
 const jwt = require('jsonwebtoken');
 const crudRoutes = express.Router({mergeParams: true});
 const store = express.Router({mergeParams: true});
 const morgan = require("morgan");
-const MongoDBStore = require("connect-mongodb-session")(session);
 var path = require('path');
 const fs = require('fs')
 
 
 
 
-const mongoDBstore = new MongoDBStore({
-  uri: 'mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
-  collection: "mySessions"
-});
+
 app.use(morgan("dev"));
 require("dotenv").config();
 
-app.use(
-  session({
-    name: process.env.COOKIE_NAME, //name to be put in "key" field in postman etc
-    secret: process.env.JWT_SECRET,
-    resave: true,
-    saveUninitialized: false,
-    store: mongoDBstore,
-    unset: 'destroy',   
-    cookie: {
-      maxAge: MAX_AGE,
-      sameSite: false,
-      secure: process.env.NODE_ENV === 'production'
-    }
-  })
-);
 
 
 
@@ -359,7 +336,7 @@ router.post("/tokenIsValid", async (req, res) => {
   }
   });
 
-  router.get("/profile", auth, async (req, res) => {
+router.get("/profile", auth, async (req, res) => {
     const user = await User.findById(req.user);
     res.json({
     email : user.email,

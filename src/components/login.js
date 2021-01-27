@@ -57,8 +57,8 @@ const onChangeEmail = (e) => {
     return (
        <div className="body">
          
-         <h2>Login</h2><br/> 
-         <div class="login"> 
+         <h2 className="logintitle">Login</h2><br/> 
+         <div className="login"> 
        
         <br/>
                 {err ? (

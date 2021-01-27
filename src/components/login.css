@@ -9,20 +9,20 @@ body {
   margin: auto;
   width: 400px;
   overflow: hidden;
-  box-shadow: 0px 4px 4px rgba(165, 52, 52, 0.48);
+  box-shadow: 0px 4px 4px rgba(136, 129, 129, 0.781);
   border-radius: 20px;
   align-items: center;
   padding: 80px;
   background: #ffffff;
 }
-h2 {
-  margin: 5%;
+.logintitle {
+  padding-top: 10%;
   text-align: center;
-  color: #5327e4;
+  color: #2b1edf;
   font-size: 40vm;
   font-family: nexa;
-  padding: 20px;
 }
+
 label {
   color: #4a81c8;
   font-size: 17px;
@@ -42,10 +42,10 @@ label {
   padding-left: 8px;
 }
 .log {
-  width: 245px;
+  width: 240px;
   height: 40px;
   border: none;
-  border-radius: 17px;
+  border-radius: 10px;
   padding-left: 7px;
   color: white;
 }

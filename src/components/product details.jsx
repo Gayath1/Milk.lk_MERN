@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
+import Header from '../components/header';
 
 const DeleteProduct = (props) => {
   let {userData} = useContext(UserContext );
@@ -41,7 +42,7 @@ const DeleteProduct = (props) => {
 
 
     const addtocart = (e) => {
-      const token = JSON.parse(localStorage.getItem('Token'));
+      const token = localStorage.getItem('Token');
       const body ={data,token,quantity}
       e.preventDefault();
       axios.post("/store/addtocart", body)
@@ -57,6 +58,7 @@ const DeleteProduct = (props) => {
 
     return (
         <div className="store">
+        <Header />
         
         <div class="container">    
         <div class="datacard">

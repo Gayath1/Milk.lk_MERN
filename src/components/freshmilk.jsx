@@ -12,7 +12,7 @@ const ListBar = (props) => {
         <div className='product-card container'>
         <img className='product-card-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' />
         <div>
-      <Link to={"/view" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
+      <Link to={"/view/" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
       <p className='product-card label'>{props.product.product_brand}</p>
       <p className='product-card label'>{props.product.product_price}</p>
       </div>

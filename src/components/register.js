@@ -104,10 +104,8 @@ class register extends Component {
       return (
          <div className="body">
            
-                  <h2>Create account</h2>
+           <h2 className="logintitle">Create account</h2>
       
-                
-          
            
           <div class="login">
               

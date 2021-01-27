@@ -32,6 +32,9 @@
   width: 15vw;
   height: 4vw;
 }
+.getstart:focus {
+  outline: 0px;
+}
 .subtitle {
   margin-top: 5vw;
   text-align: center;
@@ -49,4 +52,16 @@
   transform: translate(-50%, 0);
   -ms-transform: translate(-50%, 0);
   -webkit-transform: translate(-50%, 0);
+}
+@media only screen and (max-width: 900px) {
+  .imghome {
+    width: 100%;
+  }
+  .getstart {
+    border-radius: 9px;
+    margin-top: 15vw;
+    width: 20vw;
+    height: 10vw;
+    font-size: 3vw;
+  }
 }

@@ -18,6 +18,8 @@ function Home(){
         <div className="left1">
             <h1 className='title'>MILK.LK</h1>
             <button className="getstart">Get Started</button>
+            <br/>
+            <button className="getstart">Login</button>
             <h3 className='subtitle'>Srilanka’s first Dairy online shop</h3>
         </div>
         <div className="right1">

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Table, Badge } from 'reactstrap';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
+import Header from '../components/header';
 
 const ListBar = (props) => {
     return (
@@ -37,6 +38,7 @@ const Store = () => {
     
     return (
       <div className="store">
+      <Header />
       
       <div class="container">   
         <div class="cards">

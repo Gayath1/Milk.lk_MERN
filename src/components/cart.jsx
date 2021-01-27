@@ -3,7 +3,7 @@ import { Form, FormGroup, Label, Input, Col, Button } from 'reactstrap';
 import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
- 
+import Header from '../components/header';
 
     
     
@@ -82,6 +82,7 @@ import { Redirect } from 'react-router-dom';
       
         return (
             <div className="store">
+            <Header />
             <div className="container">    
             <div className="cart">
                    

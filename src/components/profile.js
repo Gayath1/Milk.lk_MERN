@@ -7,6 +7,7 @@ import {
   CardSubtitle,
   CardBody
 } from "reactstrap";
+import Header from '../components/header';
 
 import { useHistory , Link} from 'react-router-dom'
 
@@ -32,6 +33,7 @@ function Profile(){
    
     return (
       <div>
+      <Header />
       
       {userData.user ? (
         <>

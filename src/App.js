@@ -15,7 +15,7 @@ import profile from './components/profile';
 
 
 import updateuser from './components/userupdate';
-import home from './components/home';
+import Home from './components/Home';
 import mainstore from './components/store';
 import freshmilk from './components/freshmilk';
 import product from './components/product details';
@@ -56,10 +56,11 @@ function App ()  {
   return (
     
     <BrowserRouter>
+    
     <UserContext.Provider value={{ userData, setUserData }}>
-    <Header />
+    
     <Switch>
-        <Route path="/home"  component={home} />
+        <Route exact path="/home"  component={Home} />
         <Route path="/list"  component={ListProduct} />
         <Route path="/store"  component={mainstore} />
         <Route path="/freshmilk"  component={freshmilk} />

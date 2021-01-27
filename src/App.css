@@ -221,15 +221,18 @@
   float: left;
   color: black;
   text-align: center;
-  padding: 12px;
+  margin: 0 auto;
   text-decoration: none;
-  font-size: 18px;
-  line-height: 25px;
+  font-size: 1.5vw;
+
   border-radius: 4px;
 }
-
+.header a.contactus {
+  padding-top: 0.5%;
+  padding-left: 5%;
+}
 .header a.logo {
-  font-size: 25px;
+  font-size: 2vw;
   font-weight: bold;
 }
 
@@ -246,9 +249,25 @@
 .header-right {
   float: right;
 }
+.headbtn {
+  display: inline-block; /* change this from inline-block */
+  margin: 0 auto; /* this will center  it */
+  border: none;
+  font-family: nexa;
+  font-size: 1vw;
+  font-weight: bold;
+  color: #ffffff;
+  background: #295bdf;
+  mix-blend-mode: normal;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 14px;
+  width: 8vw;
+  height: 2.5vw;
+}
 * {
   box-sizing: border-box;
 }
+
 .store {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -260,14 +279,16 @@
 }
 
 .dropdown .dropbtn {
-  font-size: 18px;
+  font-size: 1.5vw;
   border: none;
   outline: none;
-  color: rgb(75, 64, 236);
-  padding: 12px;
+  color: rgb(0, 0, 0);
+  margin: 0 auto;
   background-color: inherit;
+  text-align: center;
   font-family: inherit;
-  margin: 0;
+  padding-top: 10%;
+  padding-left: 40%;
   border-radius: 4px;
 }
 
@@ -312,4 +333,13 @@
   border: none;
   border-radius: 3px;
   padding-left: 8px;
+}
+
+@media only screen and (max-width: 900px) {
+  .header {
+    height: 10vw;
+  }
+  .header a {
+    font-size: 4vw;
+  }
 }

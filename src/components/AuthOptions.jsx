@@ -21,13 +21,13 @@ function AuthOptions () {
     return (
         <nav className="auth-options">
         <button  onClick={cart} style={{border: 'none',outline:'none'}}>
-        <ShoppingCartOutlined style={{ fontSize: '30px', color: '#000000', paddingRight:'30px' }} /></button>
+        <ShoppingCartOutlined style={{ fontSize: '2vw', color: '#000000', paddingRight:'30px' }} /></button>
             {userData.user ? (
-                <button className="btn btn-primary mr-2" onClick={logout}>Logout</button>
+                <button className="headbtn" onClick={logout}>Logout</button>
             ) : (
                 <>
-                <button className="btn btn-primary mr-2" onClick={register}>Sign Up</button>
-                <button className="btn btn-primary mr-2" onClick={login}>Login</button>
+                <button className="headbtn" onClick={register}>Sign Up</button>&nbsp;&nbsp;
+                <button className="headbtn" onClick={login}>Login</button>
                 </>
             )}
         </nav>

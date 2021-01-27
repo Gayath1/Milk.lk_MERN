@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, Label, Input, Col } from 'reactstrap';
+import {Link,useHistory } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -12,14 +13,16 @@ import images from '../images/Family Values Shopping.png';
 
 
 function Home(){
- 
+    const history = useHistory();
+    const register = () => history.push("/register");
+    const login = () => history.push("/login");
     return (
       <div className="containerhome">
         <div className="left1">
             <h1 className='title'>MILK.LK</h1>
-            <button className="getstart">Get Started</button>
+            <button className="getstart" onClick={register}>Get Started</button>
             <br/>
-            <button className="getstart">Login</button>
+            <button className="getstart" onClick={login}>Login</button>
             <h3 className='subtitle'>Srilanka’s first Dairy online shop</h3>
         </div>
         <div className="right1">

@@ -214,7 +214,6 @@
   height: 6vw;
   width: 100%;
   background-color: #f1f1f1;
-  padding: 20px 10px;
 }
 
 .header a {
@@ -228,10 +227,11 @@
   border-radius: 4px;
 }
 .header a.contactus {
-  padding-top: 0.5%;
-  padding-left: 5%;
+  margin-top: 2vw;
+  margin-left: 2vw;
 }
 .header a.logo {
+  margin-top: 1.5vw;
   font-size: 2vw;
   font-weight: bold;
 }
@@ -251,7 +251,9 @@
 }
 .headbtn {
   display: inline-block; /* change this from inline-block */
-  margin: 0 auto; /* this will center  it */
+  margin-top: 2vw;
+  margin-left: 1.5vw;
+  margin-right: 1vw;
   border: none;
   font-family: nexa;
   font-size: 1vw;
@@ -283,12 +285,12 @@
   border: none;
   outline: none;
   color: rgb(0, 0, 0);
-  margin: 0 auto;
+  margin-top: 2vw;
+  margin-left: 2vw;
   background-color: inherit;
   text-align: center;
   font-family: inherit;
-  padding-top: 10%;
-  padding-left: 40%;
+
   border-radius: 4px;
 }
 
@@ -297,6 +299,7 @@
 }
 
 .dropdown-content {
+  margin-left: 2vw;
   display: none;
   position: absolute;
   background-color: #d4d4d4;
@@ -342,4 +345,36 @@
   .header a {
     font-size: 4vw;
   }
+  .header a.contactus {
+    font-size: 3.5vw;
+    margin-left: 1vw;
+    margin-top: 2.5vw;
+  }
+  .header a.logo {
+    margin-top: 2.5vw;
+    font-size: 3.5vw;
+    font-weight: bold;
+  }
+  .headbtn {
+    margin-left: 1vw;
+    font-size: 2vw;
+    margin-top: 3vw;
+    border-radius: 5px;
+    width: 15vw;
+    height: 4vw;
+  }
+  .dropdown .dropbtn {
+    font-size: 3.5vw;
+    margin-top: 2.5vw;
+    padding-left: 3vw;
+    border-radius: 4px;
+  }
+  .carthead {
+    font-size: 10vw;
+  }
+}
+.carthead {
+  font-size: 2vw;
+  color: #000000;
+  padding-right: 1vw;
 }

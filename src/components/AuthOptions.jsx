@@ -21,7 +21,7 @@ function AuthOptions () {
     return (
         <nav className="auth-options">
         <button  onClick={cart} style={{border: 'none',outline:'none'}}>
-        <ShoppingCartOutlined style={{ fontSize: '2vw', color: '#000000', paddingRight:'30px' }} /></button>
+        <ShoppingCartOutlined  className="carthead" /></button>
             {userData.user ? (
                 <button className="headbtn" onClick={logout}>Logout</button>
             ) : (

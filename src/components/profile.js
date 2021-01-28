@@ -49,7 +49,19 @@ function Profile(){
               <h2>You are not logged in</h2>
               <Link to="/login">Login</Link>
           </>
-      )}
+      )}{userData.role ?(
+        <>
+          
+        <Button size="lg" href='/list' color="primary">Admin panel</Button>
+          </>
+
+      ) : (
+        <>
+              
+          </>
+
+      )
+      }
   </div>
        
     )

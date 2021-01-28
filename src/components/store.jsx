@@ -44,7 +44,7 @@ const Store = () => {
     return (
         <div className="store">
         <Header />
-        <div className="container">
+        <div className="container1">
         <div className="imgslide" >
             <img  className="imgslideshow" src={image4}  alt="imageslide"/>
         </div>

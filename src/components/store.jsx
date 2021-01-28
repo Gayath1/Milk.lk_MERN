@@ -48,7 +48,8 @@ const Store = () => {
         <div className="imgslide" >
             <img  className="imgslideshow" src={image4}  alt="imageslide"/>
         </div>
-        <div className="cards">
+        
+        <div className="cards" >
                
                 
                     {listData.lists.map((current, i) => (

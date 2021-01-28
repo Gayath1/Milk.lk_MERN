@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Table, Badge } from 'reactstrap';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import Header from '../components/header';
-import  image3 from '../images/storeslide3.jpg';
+import  image5 from '../images/storeslide5.jpg';
 import  image4 from '../images/storeslide4.png';
 import './store.css';
 
@@ -17,7 +17,7 @@ const ListBar = (props) => {
         <img className='product-card-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' />
         <div>
       <Link to={"/view/" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
-      <p className='product-card label'>{props.product.product_brand}</p>
+      
       <p className='product-card label'>{props.product.product_price}</p>
       </div>
         
@@ -46,7 +46,7 @@ const Store = () => {
         <Header />
         <div className="container1">
         <div className="imgslide" >
-            <img  className="imgslideshow" src={image4}  alt="imageslide"/>
+            <img  className="imgslideshow" src={image5}  alt="imageslide"/>
         </div>
         
         <div className="cards" >

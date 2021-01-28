@@ -167,8 +167,15 @@
   border-radius: 10px;
 }
 .product-card.label {
-  font-size: 1vw;
+  font-size: 1.5vw;
   text-align: center;
+  font-family: nexa;
+  text-decoration: none;
+  color: #0060b6;
+  font-weight: 500;
+}
+.product-card.label:hover {
+  color: #2d0aca;
 }
 .product-cart.label {
   font-size: 1.5vw;
@@ -210,6 +217,18 @@
   row-gap: 0.5em;
   column-gap: 1em;
   background-color: #faf9f9;
+}
+.cards1 {
+  place-items: center;
+  padding-left: 19%;
+  margin-top: 2vw;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 15vw);
+  grid-template-rows: repeat(auto-fill, 21vw);
+  row-gap: 0.5em;
+  column-gap: 1em;
+  background-color: #ffffff;
 }
 
 .cart {

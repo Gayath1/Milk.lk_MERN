@@ -24,7 +24,7 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 3fr);
-    grid-template-rows: repeat(auto-fill, 20vw);
+    grid-template-rows: repeat(auto-fill, 30vw);
     grid-row-gap: 10em;
     grid-column-gap: 5em;
     padding-left: 5vw;

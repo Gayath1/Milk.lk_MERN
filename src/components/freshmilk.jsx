@@ -13,7 +13,7 @@ const ListBar = (props) => {
         <img className='product-card-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' />
         <div>
       <Link to={"/view/" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
-      <p className='product-card label'>{props.product.product_brand}</p>
+      
       <p className='product-card label'>{props.product.product_price}</p>
       </div>
         
@@ -40,8 +40,8 @@ const Store = () => {
       <div className="store">
       <Header />
       
-      <div class="container">   
-        <div class="cards">
+      <div class="container1">   
+        <div class="cards1">
                
                 
                     {listData.lists.map((current, i) => (

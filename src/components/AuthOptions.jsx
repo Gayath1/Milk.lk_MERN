@@ -22,7 +22,7 @@ function AuthOptions () {
 
     return (
         <nav className="auth-options">
-        <button  onClick={cart} style={{border: 'none',outline:'none'}}>
+        <button  onClick={cart} style={{border: 'none',outline:'none' ,backgroundColor:"white"}}>
         <ShoppingCartOutlined  className="carthead" /></button>
             {userData.user ? (
                 <>

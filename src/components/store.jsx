@@ -4,6 +4,11 @@ import axios from 'axios';
 import { Table, Badge } from 'reactstrap';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import Header from '../components/header';
+import  image3 from '../images/storeslide3.jpg';
+import  image4 from '../images/storeslide4.png';
+import './store.css';
+
+
 const ListBar = (props) => {
     return (
         
@@ -24,6 +29,7 @@ const ListBar = (props) => {
 
 const Store = () => {
     const [listData, setListData] = useState({ lists: [] });
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,8 +44,11 @@ const Store = () => {
     return (
         <div className="store">
         <Header />
-        <div class="container">    
-        <div class="cards">
+        <div className="container">
+        <div className="imgslide" >
+            <img  className="imgslideshow" src={image4}  alt="imageslide"/>
+        </div>
+        <div className="cards">
                
                 
                     {listData.lists.map((current, i) => (

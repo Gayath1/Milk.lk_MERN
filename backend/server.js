@@ -197,8 +197,8 @@ router.route('/register').post((req, res) => {
 
 });
 
-store.route('/').get((req, res) => {
-  Crud.find((err, results) => {
+store.route('/').get((req, res) => {  
+  Crud.aggregate([{$sample: {size: 4}}],(err, results) => {
       if (err) console.log(err);
       else res.json(results);
   });

@@ -39,12 +39,13 @@ function ListProduct  () {
     }, []);
 
     return (
+        <div className="store">
         
-        <div className="container">
         {userData.role ? (
             <>
+           
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <Link to="/" className="navbar-brand">MILK.LK Admin</Link>
+          <Link to="/list" className="navbar-brand">MILK.LK Admin</Link>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
@@ -54,13 +55,13 @@ function ListProduct  () {
                 <Link to="/create" className="nav-link">Create Product</Link>
               </li>
               <li className="navbar-item">
-                <Link to="/login" className="nav-link">LogOut</Link>
+                <Link to="/orders" className="nav-link">Orders</Link>
               </li>
             </ul>
           </div>
         </nav>
         
-      
+       
         <div>
             <h3>List Product</h3>
             <Table striped style={{ marginTop: 20 }}>
@@ -85,6 +86,7 @@ function ListProduct  () {
             <h1> You are not an Admin!</h1>
         )}
         </div>
+       
            
          
           

@@ -58,11 +58,12 @@ const CreateProduct = (props) => {
     };
 
     return (
-        <div className="container">
+        <div >
         {userData.role ? (
             <>
+        <div className="store">
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-          <Link to="/" className="navbar-brand">MILK.LK Admin</Link>
+          <Link to="/list" className="navbar-brand">MILK.LK Admin</Link>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
@@ -75,6 +76,8 @@ const CreateProduct = (props) => {
             </ul>
           </div>
         </nav>
+        </div>
+        <div className="container">
         <div style={{ marginTop: 10 }}>
             <h3><AiOutlineUserAdd /> Add Product</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -130,6 +133,7 @@ const CreateProduct = (props) => {
                 </FormGroup>
                 <Button color="primary"><AiOutlineForward /> Submit</Button>
             </form>
+            </div>
         </div>
         </>
         ):(

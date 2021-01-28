@@ -53,24 +53,22 @@ const Store = () => {
    
     return (
         <div className="store">
-        <div className="header">
-          <a href="/store" className="logo">Milk.Lk</a>
-          <div className="menu">
-            <div className="dropdown">
-              <button className="dropbtn">Category</button>
-              <div className="dropdown-content">
-                <a href="/freshmilk">FreshMilk</a>
-                <a href="#">Link 2</a>
-                <a href="#">Link 3</a>
-              </div>
-            </div>
-            <a href="/login">Contact us</a>
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+          <Link to="/list" className="navbar-brand">MILK.LK Admin</Link>
+          <div className="collapse navbar-collapse">
+            <ul className="navbar-nav mr-auto">
+              <li className="navbar-item">
+                <Link to="/list" className="nav-link">List Product</Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/create" className="nav-link">Create Product</Link>
+              </li>
+              <li className="navbar-item">
+                <Link to="/orders" className="nav-link">Orders</Link>
+              </li>
+            </ul>
           </div>
-          <div className="header-right">
-            <a href="/register">SingUp</a>
-            <a href="/login">Login</a>
-          </div>
-        </div>
+        </nav>
         <div className="container">    
         <div className="cards">
                

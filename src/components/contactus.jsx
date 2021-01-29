@@ -102,9 +102,9 @@ const Store = () => {
         <div class="col-lg-4 corps">
         <div className="company">
             <div className="companydetails">
-            <a>📍   No: 310, High Level Road, Nawinna, Maharagama.</a><br/>
-            <a>📞 Phone: 011 43 10 500 </a><br/>
-            <a>📧 Email: info@arpicosupercentre.com</a><br/>
+            <a>📍   No: 194/24, Magalegoda, Veyangoda, Srilanka.</a><br/>
+            <a>📞 Phone: 071 151 27 75 </a><br/>
+            <a>📧 Email: chandulagayan@gmail.com</a><br/>
             <a>🕐 Support 24/7/365</a><br/>
             <img  className="imgcontact" src={image}  alt="imageslide"/>
             </div>

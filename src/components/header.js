@@ -18,7 +18,7 @@ class Header extends Component {
                 <a href="#">Link 3</a>
               </div>
             </div>
-            <a href="#" class="contactus">Contact us</a>
+            <a href="/contact" class="contactus">Contact us</a>
           </div>
           <div class="header-right">
           

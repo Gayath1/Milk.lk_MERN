@@ -26,10 +26,10 @@ const ListBar = (props) => {
       <ul>
       
       <ul>{props.product.orders.map((order, i) => {
-        return <li key={i}>{order.product_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{order.quantity}</li>
+        return <li style={{color: 'red', fontSize:'0.8vw'}} key={i}>{order.product_name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{order.quantity}</li>
         })}</ul>
       </ul>
-      <button onClick={(i)=>onDeleteProductData(props.product._id,i)}><AiOutlineDelete /></button>
+      <button className="orderdelete" style={{border:"none", background:"white", fontSize:"1.5vw", marginLeft:"40%" }} onClick={(i)=>onDeleteProductData(props.product._id,i)}><AiOutlineDelete /></button>
       </div>
         
         </div>
@@ -69,8 +69,8 @@ const Store = () => {
             </ul>
           </div>
         </nav>
-        <div className="container">    
-        <div className="cards">
+          
+        <div className="cardsadmin">
                
         {listData.lists.map((current, i) => (
                         <ListBar product={current} key={i} />
@@ -79,7 +79,7 @@ const Store = () => {
                     
         </div>
         </div>
-        </div>
+        
         
     );
 }

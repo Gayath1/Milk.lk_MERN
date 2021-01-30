@@ -69,7 +69,7 @@ const DeleteProduct = (props) => {
         <div>
       <p className='product-card label'>{data.product_name}</p>
       <p className='product-card label'>{data.product_brand}</p>
-      <p className='product-card label'>{data.product_price}</p>
+      <p className='product-card label'>LKR.{data.product_price}</p>
       <div class="form-group mx-sm-3 mb-2">
     
     <select class="form-control " name="quantity"  onChange={handleSelectChange}>

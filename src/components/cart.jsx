@@ -34,7 +34,8 @@ import { Empty } from 'antd';
         const onDeleteProductData = (_id,e) => {
         
           const body = {_id}
-          axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res => console.log(res.data));
+          axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res =>{ window.location.reload();
+          console.log(res.data)});
     
       }
        
@@ -101,7 +102,7 @@ import { Empty } from 'antd';
             
                              <div className="colm1" ><img key={i} className='product-cart-img' src={`http://localhost:4000/uploads/${current.image}`} alt='' /></div>
             
-            <div className="colm2" ><a>{current.product_name}</a></div>
+            <div className="colm2" ><a className="cartpname">{current.product_name}</a></div>
             <div className="colm3"><div class="form-group mx-sm-4 mb-2">
     
     <select class="form-control  " style={{borderRadius:'10px'}} name="quantity" onChange={(ev) => onChangeProductData(ev, i)} value={current.quantity} >

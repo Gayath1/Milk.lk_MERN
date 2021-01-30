@@ -4,7 +4,7 @@ import { AiOutlineUser, AiOutlineExport, AiOutlineDelete } from 'react-icons/ai'
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/header';
-
+import './cart.css';
     
     
     const Store = () => {
@@ -83,7 +83,10 @@ import Header from '../components/header';
         return (
             <div className="store">
             <Header />
-            <div className="container">    
+            <div class="row" style={{width:'100%'}}>
+
+               
+            <div class="col-lg-7 col-lg-offset-2 gauche">
             <div className="cart">
                    
             {listData.lists.length === 0 && <div>Cart is empty</div>}
@@ -109,16 +112,20 @@ import Header from '../components/header';
           <div className="colm5" style = {{paddingTop:'30px'}} ><Button onClick={onDeleteProductData}>Remove </Button></div>
           </div>
                         ))}
+                        </div>
                     
                 </div>
+                <div class="col-lg-4 corps">
+                <div className="totalprice">
                 <div className="row">
-              <div className="col-2">
+              <div className="col-4">
                 <strong>Total Price</strong>
               </div>
               
-              <div className="col-1 text-right">
-                <strong>${totalPrice}</strong>
+              <div className="col-3 text-right">
+                <strong>LKR.{totalPrice}</strong>
               </div>
+            </div>
             </div>
             <form onSubmit={placeorder}>
             <div class="form-group">
@@ -136,9 +143,11 @@ import Header from '../components/header';
             </div>
             <button type="submit" class="btn btn-primary">place order</button>
           </form>
-
+</div>
             </div>
             </div>
+            
+            
             
         );
                           

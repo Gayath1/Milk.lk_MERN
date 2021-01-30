@@ -127,7 +127,7 @@ import './cart.css';
               </div>
             </div>
             </div>
-            <form onSubmit={placeorder}>
+            <form className="placeorderdetails" onSubmit={placeorder}>
             <div class="form-group">
               <label for="exampleInputEmail1">Name</label>
               <input type="text" class="form-control" name="name" value={user.name} aria-describedby="emailHelp" placeholder="Name" required onChange={handleInputChange}/>

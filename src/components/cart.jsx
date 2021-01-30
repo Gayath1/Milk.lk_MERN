@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/header';
 import './cart.css';
-    
+import { Empty } from 'antd';
     
     const Store = () => {
         const [listData, setListData] = useState({ lists: [] });
@@ -89,7 +89,11 @@ import './cart.css';
             <div class="col-lg-7 col-lg-offset-2 gauche">
             <div className="cart">
                    
-            {listData.lists.length === 0 && <div>Cart is empty</div>}
+            {listData.lists.length === 0 && <div style={{paddingTop:'10vw'}}><Empty description={false}>
+  <a>Empty Cart</a>
+</Empty>
+
+</div>}
                         {listData.lists.map((current, i) => (
                           
                            <div className='product-cart container'>

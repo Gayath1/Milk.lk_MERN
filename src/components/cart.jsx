@@ -104,7 +104,7 @@ import { Empty } from 'antd';
             <div className="colm2" ><a>{current.product_name}</a></div>
             <div className="colm3"><div class="form-group mx-sm-4 mb-2">
     
-    <select class="form-control " name="quantity" onChange={(ev) => onChangeProductData(ev, i)} value={current.quantity} >
+    <select class="form-control  " style={{borderRadius:'10px'}} name="quantity" onChange={(ev) => onChangeProductData(ev, i)} value={current.quantity} >
       <option value='1'>1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -112,8 +112,8 @@ import { Empty } from 'antd';
       <option value="5">5</option>
     </select>
   </div></div>
-            <div className="colm4" style = {{paddingTop:'30px'}} ><p className='product-cart label'>{current.product_price}</p></div>
-          <div className="colm5" style = {{paddingTop:'30px'}} ><Button onClick={onDeleteProductData}>Remove </Button></div>
+            <div className="colm4" ><p className='product-cart label'>{current.product_price}</p></div>
+          <div className="colm5"  ><Button onClick={onDeleteProductData}>Remove </Button></div>
           </div>
                         ))}
                         </div>

@@ -17,7 +17,7 @@ const Store = () => {
       <div class="row" style={{width:'100%'}}>
       
      
-  <div class="col-lg-7 col-lg-offset-2 gauche">
+  <div class="col ">
             <div className="contactform">
             <Form  className="contactform1">
             <FormGroup row>
@@ -99,7 +99,7 @@ const Store = () => {
            
         </div>
         </div>
-        <div class="col-lg-4 corps">
+        <div class="col">
         <div className="company">
             <div className="companydetails">
             <a>📍   No: 194/24, Magalegoda, Veyangoda, Srilanka.</a><br/>

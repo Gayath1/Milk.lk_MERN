@@ -17,7 +17,7 @@ const Store = () => {
       <div class="row" style={{width:'100%'}}>
       
      
-  <div class="col ">
+  <div class="col-7 ">
             <div className="contactform">
             <Form  className="contactform1">
             <FormGroup row>

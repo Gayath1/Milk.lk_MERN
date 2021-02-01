@@ -681,4 +681,9 @@
   .loginprofile {
     font-size: 5vw;
   }
+  .carthead {
+    font-size: 5vw;
+    color: #000000;
+    padding-right: 1vw;
+  }
 }

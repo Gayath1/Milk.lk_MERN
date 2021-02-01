@@ -37,12 +37,13 @@ function Profile(){
       
       {userData.user ? (
         <>
+        <div className="profileframe">
           <h1>Welcome {userData.user.email}</h1>
           
           
           <br/>
         <Button size="lg" href='/updateuser' color="primary">Change Password</Button>
-
+</div>
           </>
       ) : (
           <>
@@ -51,8 +52,9 @@ function Profile(){
           </>
       )}{userData.role ?(
         <>
-          
+        <div className="profileframe1">
         <Button size="lg" href='/list' color="primary">Admin panel</Button>
+        </div>
           </>
 
       ) : (

@@ -515,6 +515,18 @@
   border-radius: 10px;
   font-size: 1.5vw;
 }
+.profileframe2 {
+  text-align: center;
+  margin-left: 39%;
+  margin-top: 2vw;
+  padding: 4vw;
+  width: fit-content;
+  height: fit-content;
+  background-color: #fdfdfd;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  font-size: 1.5vw;
+}
 @media only screen and (max-width: 900px) {
   .header {
     height: 10vw;
@@ -652,5 +664,21 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     font-size: 1.5vw;
+  }
+  .profileframe2 {
+    text-align: center;
+    margin-left: 2%;
+    margin-right: 0%;
+    margin-top: 10vw;
+    padding: 10vw;
+    width: fit-content;
+    height: fit-content;
+    background-color: #fdfdfd;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    font-size: 1.5vw;
+  }
+  .loginprofile {
+    font-size: 5vw;
   }
 }

@@ -47,8 +47,10 @@ function Profile(){
           </>
       ) : (
           <>
+          <div className="profileframe2">
               <h2>You are not logged in</h2>
-              <Link to="/login">Login</Link>
+              <Link to="/login" className="loginprofile">Login</Link>
+              </div>
           </>
       )}{userData.role ?(
         <>

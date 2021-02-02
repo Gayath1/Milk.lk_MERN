@@ -527,6 +527,16 @@
   border-radius: 10px;
   font-size: 1.5vw;
 }
+.changepass {
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+.newpass {
+  padding-left: 3vw;
+  padding-right: 3vw;
+  padding-bottom: 3vw;
+  padding-top: 1vw;
+  font-family: nexa;
+}
 @media only screen and (max-width: 900px) {
   .header {
     height: 10vw;

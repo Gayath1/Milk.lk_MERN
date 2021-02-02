@@ -82,18 +82,18 @@ export class userupdate extends Component {
     return (
        <div className="container">
         
-          <Card>
+          <Card className="changepass">
             <CardBody>
           <CardTitle><h1>{  'Welcome'} <span role="img" aria-label="party-popper">🎉 </span> </h1></CardTitle>
             </CardBody>
           </Card>
         
         <div style={{ marginTop: 10 }}>
-        <Card>
-            <h3> Change password</h3>
-            <Form onSubmit={this.onSubmitProductData}>
+        <Card className="changepass" >
+            <h3 className="newpass"> Change password</h3>
+            <Form className="newpass" onSubmit={this.onSubmitProductData}>
                 <FormGroup row>
-                    <Col>
+                    <Col >
                         <Label>new password </Label>
                         <Input
                             type="password"

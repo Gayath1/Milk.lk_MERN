@@ -84,7 +84,7 @@ export class userupdate extends Component {
         
           <Card className="changepass">
             <CardBody>
-          <CardTitle><h1>{  'Welcome'} <span role="img" aria-label="party-popper">🎉 </span> </h1></CardTitle>
+          <CardTitle><h1 className="newpass1">{  'Welcome'} <span role="img" aria-label="party-popper">🎉 </span> </h1></CardTitle>
             </CardBody>
           </Card>
         

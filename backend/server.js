@@ -41,7 +41,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(cors());
 app.use(cookieParser());
 
-mongoose.connect('mongodb+srv://gayath:admin@cluster0.cxze7.mongodb.net/Products?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGODB_URI,
     { useNewUrlParser: true, useUnifiedTopology: true });
 const connection = mongoose.connection;
 

@@ -1,15 +1,8 @@
-import React, { useState, useEffect , useContext , Component } from 'react';
+import React, { useState, useEffect , useContext  } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Form, FormGroup, Label, Input, Col, Button,  Alert } from 'reactstrap';
-import { AiOutlineUserAdd, AiOutlineUser, AiOutlineExport, AiOutlineForward } from 'react-icons/ai';
-import { connect } from "react-redux"; // API to connect component state to redux store
-import { login } from "../actions/authAction";
-import { isAuth } from '../actions/authAction'
-import store from '../store';
-import {Redirect} from 'react-router-dom'
-import PropTypes from "prop-types";
-import { returnStatus } from "../actions/statusActions";
+
 import './login.css';
 import UserContext from '../userContext';
 

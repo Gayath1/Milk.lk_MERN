@@ -1,4 +1,0 @@
-[[redirects]]
-  from = "/register"
-  to = "/register.js"
-  status = 200

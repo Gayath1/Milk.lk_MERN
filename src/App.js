@@ -60,7 +60,7 @@ function App ()  {
     <UserContext.Provider value={{ userData, setUserData }}>
     
     <Switch>
-        <Route exact path="/home"  component={Home} />
+        <Route  path="/" exact={true}  component={Home} />
         <Route path="/list"  component={ListProduct} />
         <Route path="/store"  component={mainstore} />
         <Route path="/freshmilk"  component={freshmilk} />

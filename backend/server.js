@@ -151,7 +151,7 @@ crudRoutes.route('/delete/:id').delete((req, res) => {
 
 
 app.use('/all_product', crudRoutes);
-app.listen(PORT, () => {
+app.listen(process.env.PORT ||PORT, () => {
     console.log("Server is running on PORT: " + PORT);
 })
 

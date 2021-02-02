@@ -14,7 +14,7 @@ const ListBar = (props) => {
         
         
         <div className='product-card container'>
-        <img className='product-card-img' src={`http://localhost:4000/uploads/${props.product.image}`} alt='' />
+        <img className='product-card-img' src={`https://milklk.herokuapp.com/uploads/${props.product.image}`} alt='' />
         <div>
       <Link to={"/view/" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
       
@@ -34,7 +34,7 @@ const Store = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                'http://localhost:4000/store/'
+                'https://milklk.herokuapp.com/store/'
             );
             setListData({ lists: result.data });
         };

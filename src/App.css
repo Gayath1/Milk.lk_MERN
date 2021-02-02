@@ -536,11 +536,16 @@
   padding-bottom: 3vw;
   padding-top: 1vw;
   font-family: nexa;
-  color: Blue;
+  color: rgb(65, 65, 240);
 }
 .newpass1 {
   padding-left: 2vw;
   font-family: nexa;
+}
+.newpass2 {
+  font-family: nexa;
+  color: rgb(65, 65, 240);
+  font-weight: 700;
 }
 @media only screen and (max-width: 900px) {
   .header {

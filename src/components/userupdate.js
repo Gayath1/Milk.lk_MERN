@@ -94,7 +94,7 @@ export class userupdate extends Component {
             <Form className="newpass" onSubmit={this.onSubmitProductData}>
                 <FormGroup row>
                     <Col >
-                        <Label>new password </Label>
+                        <Label className="newpass2">new password </Label>
                         <Input
                             type="password"
                             name="password"

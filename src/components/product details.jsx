@@ -27,7 +27,7 @@ const DeleteProduct = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                `http://localhost:4000/store/${props.match.params.id}`
+                `https://milklk.herokuapp.com/store/${props.match.params.id}`
             );
             setData({ ...result.data });
         };
@@ -65,7 +65,7 @@ const DeleteProduct = (props) => {
                
                 
         <div className='product-card containerdetails'>
-        <img className='product-card-img' src={`http://localhost:4000/uploads/${data.image}`} alt='' />
+        <img className='product-card-img' src={`https://milklk.herokuapp.com/uploads/${data.image}`} alt='' />
         <div>
       <p className='product-card label'>{data.product_name}</p>
       <p className='product-card label'>{data.product_brand}</p>

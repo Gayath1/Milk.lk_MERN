@@ -23,7 +23,7 @@ class register extends Component {
     }
     onSubmit = (event) => {
       event.preventDefault();
-      fetch('http://localhost:4000/api/register', {
+      fetch('https://milklk.herokuapp.com/api/register', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {

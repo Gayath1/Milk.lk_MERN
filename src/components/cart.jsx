@@ -25,7 +25,7 @@ import { Empty } from 'antd';
                 const token = (localStorage.getItem('Token'));
                 const body ={token}
                 const result = await axios.post(
-                    'http://localhost:4000/store/cart',body);
+                    'https://milklk.herokuapp.com/store/cart',body);
                 setListData({ lists: result.data });
             };
             fetchData();
@@ -34,7 +34,7 @@ import { Empty } from 'antd';
         const onDeleteProductData = (_id,e) => {
         
           const body = {_id}
-          axios.delete(`http://localhost:4000/store/cart/delete`,body).then(res =>{ window.location.reload();
+          axios.delete(`https://milklk.herokuapp.com/store/cart/delete`,body).then(res =>{ window.location.reload();
           console.log(res.data)});
     
       }
@@ -62,7 +62,7 @@ import { Empty } from 'antd';
           const token = JSON.parse(localStorage.getItem('Token'));
           const body = {listData, user, token};
           event.preventDefault();
-          axios.post('http://localhost:4000/store/orders',body, {
+          axios.post('https://milklk.herokuapp.com/store/orders',body, {
           })
           .then(res => {
             if (res.status === 200) {

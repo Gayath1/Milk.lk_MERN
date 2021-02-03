@@ -16,7 +16,7 @@ const DeleteProduct = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                `http://localhost:4000/all_product/${props.match.params.id}`
+                `https://milklk.herokuapp.com/all_product/${props.match.params.id}`
             );
             setData({ ...result.data });
         };
@@ -25,7 +25,7 @@ const DeleteProduct = (props) => {
 
     const onDeleteProductData = (e) => {
         e.preventDefault();
-        axios.delete(`http://localhost:4000/all_product/delete/${props.match.params.id}`, data).then(res => console.log(res.data));
+        axios.delete(`https://milklk.herokuapp.com/all_product/delete/${props.match.params.id}`, data).then(res => console.log(res.data));
         props.history.push('/list');
     }
 

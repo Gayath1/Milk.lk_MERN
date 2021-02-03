@@ -31,7 +31,7 @@ function ListProduct  () {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                'http://localhost:4000/all_product/'
+                'https://milklk.herokuapp.com/all_product/'
             );
             setListData({ lists: result.data });
         };

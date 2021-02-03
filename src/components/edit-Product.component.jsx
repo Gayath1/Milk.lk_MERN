@@ -16,7 +16,7 @@ const EditProduct = (props) => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                `http://localhost:4000/all_product/${props.match.params.id}`
+                `https://milklk.herokuapp.com/all_product/${props.match.params.id}`
             );
             setData({ ...result.data });
         };
@@ -33,7 +33,7 @@ const EditProduct = (props) => {
 
     const onSubmitProductData = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:4000/all_product/update/${props.match.params.id}`, data).then(res => console.log(res.data));
+        axios.post(`https://milklk.herokuapp.com/all_product/update/${props.match.params.id}`, data).then(res => console.log(res.data));
         props.history.push('/list');
     }
 

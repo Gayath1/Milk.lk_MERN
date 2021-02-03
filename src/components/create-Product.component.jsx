@@ -38,7 +38,7 @@ const CreateProduct = (props) => {
         formData.append("product_category", product_category);
         formData.append("product_price", product_price);
 
-    axios.defaults.baseURL = "http://localhost:4000";
+    axios.defaults.baseURL = "https://milklk.herokuapp.com";
 
     const headers = {
         headers: {

@@ -11,7 +11,7 @@ const ListBar = (props) => {
     const body = {i};
     
     
-    axios.post(`http://localhost:4000/store/admin/orders/delete/`,body,{}).then(res => console.log(res.data));
+    axios.post(`https://milklk.herokuapp.com/store/admin/orders/delete/`,body,{}).then(res => console.log(res.data));
 
 }
     return (
@@ -44,7 +44,7 @@ const Store = () => {
     useEffect(() => {
         const fetchData = async () => {
             const result = await axios(
-                'http://localhost:4000/store/admin/orders'
+                'https://milklk.herokuapp.com/store/admin/orders'
             );
             setListData({ lists: result.data });
         };

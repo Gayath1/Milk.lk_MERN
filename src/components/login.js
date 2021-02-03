@@ -29,7 +29,7 @@ const onChangeEmail = (e) => {
     e.preventDefault();
     try{
       const body = {email, password};
-        const loginResponse = await axios.post("http://localhost:4000/api/login", body);
+        const loginResponse = await axios.post("https://milklk.herokuapp.com/api/login", body);
         setUserData({
             token: loginResponse.data.token,
             user: loginResponse.data.user,

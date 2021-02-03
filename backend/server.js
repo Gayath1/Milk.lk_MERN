@@ -21,7 +21,7 @@ const fs = require('fs')
 
 
 app.use(morgan("dev"));
-require("dotenv").config();
+//require("dotenv").config();
 
 
 
@@ -50,7 +50,9 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
 
-
+app.get('/', (req, res) => {
+  res.send('hello from deploy');
+});
 
 
 

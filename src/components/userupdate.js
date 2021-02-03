@@ -51,7 +51,7 @@ export class userupdate extends Component {
       const body = ({token, password});
       
       axios
-      .post("/api/user/update",body,{
+      .post("https://milklk.herokuapp.com/api/user/update",body,{
           headers: {
             "Content-Type":'application/json'
           },

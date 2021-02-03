@@ -36,9 +36,9 @@ function App ()  {
         localStorage.setItem("Token", "");
         token = "";
       }
-      const tokenResponse = await axios.post('http://localhost:4000/api/tokenIsValid', null, {headers: {"x-auth-token": token}});
+      const tokenResponse = await axios.post('https://milklk.herokuapp.com/api/tokenIsValid', null, {headers: {"x-auth-token": token}});
       if (tokenResponse.data) {
-        const userRes = await axios.get("http://localhost:4000/api/profile", {
+        const userRes = await axios.get("https://milklk.herokuapp.com/api/profile", {
           headers: { "x-auth-token": token },
         });
         setUserData({

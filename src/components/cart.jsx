@@ -100,7 +100,7 @@ import { Empty } from 'antd';
                            <div className='product-cart container'>
             
             
-                             <div className="colm1" ><img key={i} className='product-cart-img' src={`http://localhost:4000/uploads/${current.image}`} alt='' /></div>
+                             <div className="colm1" ><img key={i} className='product-cart-img' src={`https://milklk.herokuapp.com/uploads/${current.image}`} alt='' /></div>
             
             <div className="colm2" ><a className="cartpname">{current.product_name}</a></div>
             <div className="colm3"><div class="form-group mx-sm-4 mb-2">

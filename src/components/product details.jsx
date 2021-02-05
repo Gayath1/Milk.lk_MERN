@@ -45,7 +45,7 @@ const DeleteProduct = (props) => {
       const token = localStorage.getItem('Token');
       const body ={data,token,quantity}
       e.preventDefault();
-      axios.post("/store/addtocart", body)
+      axios.post("https://milklk.herokuapp.com/store/addtocart", body)
       .then((res) => {
           if (res.status === 200) {
               alert('Product added success');

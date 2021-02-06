@@ -1,3 +1,3 @@
 # Mern Stack Web Application For Milk.lk
 
-![](images/milk.lk Home.png)
+![](https://github.com/Gayath1/milk.lk_MERN/blob/master/images/milk.lk%20Home.png)

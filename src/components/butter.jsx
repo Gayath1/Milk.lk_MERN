@@ -10,7 +10,7 @@ const ListBar = (props) => {
         
         
         <div className='product-card container'>
-        <img className='product-card-img' src={`https://milklk.herokuapp.com/uploads/${props.product.image}`} alt='' />
+        <img className='product-card-img' src={`/uploads/${props.product.image}`} alt='' />
         <div>
       <Link to={"/view/" + props.product._id}><p className='product-card label'>{props.product.product_name}</p></Link>
       

@@ -12,7 +12,7 @@ import CreateProduct from './components/create-Product.component';
 import DeleteProduct from './components/delete-Product.component';
 import order from './components/admin-order';
 import profile from './components/profile';
-
+import butter from './components/butter';
 import contact from './components/contactus';
 import updateuser from './components/userupdate';
 import Home from './components/Home';
@@ -64,6 +64,7 @@ function App ()  {
         <Route path="/list"  component={ListProduct} />
         <Route path="/store"  component={mainstore} />
         <Route path="/freshmilk"  component={freshmilk} />
+        <Route path="/butter"  component={butter} />
         <Route path="/view/:id"  component={product} />
         <Route path="/contact"  component={contact} />
         <Route path="/cart"  component={cart} />

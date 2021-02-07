@@ -14,7 +14,7 @@ class Header extends Component {
               <button class="dropbtn">Category</button>
               <div class="dropdown-content">
                 <a href="/freshmilk">FreshMilk</a>
-                <a href="#">Link 2</a>
+                <a href="/butter">Butter</a>
                 <a href="#">Link 3</a>
               </div>
             </div>

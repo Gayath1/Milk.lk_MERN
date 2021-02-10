@@ -16,6 +16,7 @@ function Home(){
     const history = useHistory();
     const register = () => history.push("/register");
     const login = () => history.push("/login");
+    const store = () => history.push("/store");
     return (
       <div className="containerhome">
         <div className="left1">
@@ -23,6 +24,8 @@ function Home(){
             <button className="getstart" onClick={register}>Get Started</button>
             <br/>
             <button className="getstart" onClick={login}>Login</button>
+            <br/>
+            <button className="getstart" onClick={store}>Store</button>
             <h3 className='subtitle'>Srilanka’s first Dairy online shop</h3>
         </div>
         <div className="right1">
